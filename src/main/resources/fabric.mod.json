@@ -20,7 +20,9 @@
       "mod.crend.dynamiccrosshair.compat.DynamicCrosshairCompat"
     ],
     "dynamiccrosshair": [
-      "mod.crend.dynamiccrosshair.compat.arcanus.ApiImplArcanus"
+      "mod.crend.dynamiccrosshair.compat.arcanus.ApiImplArcanus",
+      "mod.crend.dynamiccrosshair.compat.betternether.ApiImplBetterNether",
+      "mod.crend.dynamiccrosshair.compat.betterend.ApiImplBetterEnd"
     ]
   },
   "mixins": [

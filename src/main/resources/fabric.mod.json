@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "dynamiccrosshaircompat",
+  "version": "${version}",
+
+  "name": "Dynamic Crosshair Compat",
+  "description": "Mod compatibility support for Dynamic Crosshair",
+  "authors": [
+    "Crendgrim"
+  ],
+  "contact": {
+  },
+
+  "license": "LGPL-3.0",
+  "icon": "assets/dynamiccrosshaircompat/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "mod.crend.dynamiccrosshair.compat.DynamicCrosshairCompat"
+    ],
+    "dynamiccrosshair": [
+      "mod.crend.dynamiccrosshair.compat.arcanus.ApiImplArcanus"
+    ]
+  },
+  "mixins": [
+    "dynamiccrosshaircompat.mixins.json"
+  ],
+
+  "depends": {
+    "dynamiccrosshair": "${supported_dynamiccrosshair_pattern}",
+    "fabricloader": "*",
+    "minecraft": "${supported_version_pattern}",
+    "java": "*"
+  },
+  "suggests": {
+  }
+}

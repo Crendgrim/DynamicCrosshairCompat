@@ -89,7 +89,7 @@ modrinth {
 	gameVersions = List.of(project.supported_versions.split(';'))
 	loaders = ['fabric']
 	dependencies {
-		required.project 'EwPIWPJ9' // Dynamic Crosshair
+		required.version project.dynamiccrosshair_version_modrinth // Dynamic Crosshair
 	}
 }
 

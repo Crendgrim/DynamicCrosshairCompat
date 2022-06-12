@@ -46,6 +46,7 @@ dependencies {
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	/* Supported Mods */
+	modCompileOnly("curse.maven:adapaxels-${project.adapaxels_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:arcanus:${project.arcanus_version}") { transitive = false }
 	modCompileOnly("curse.maven:bclib-${project.bclib_version}") { transitive = false }
 	modCompileOnly("curse.maven:betternether-${project.betternether_version}") { transitive = false }

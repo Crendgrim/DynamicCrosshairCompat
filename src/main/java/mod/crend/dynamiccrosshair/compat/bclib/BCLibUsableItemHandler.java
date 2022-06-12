@@ -14,16 +14,6 @@ import ru.bclib.blocks.StripableBarkBlock;
 
 public class BCLibUsableItemHandler implements IUsableItemHandler {
 	@Override
-	public boolean isUsableItem(ItemStack itemStack) {
-		return false;
-	}
-
-	@Override
-	public Crosshair checkUsableItem(ClientPlayerEntity clientPlayerEntity, ItemStack itemStack) {
-		return null;
-	}
-
-	@Override
 	public Crosshair checkUsableItemOnBlock(ClientPlayerEntity clientPlayerEntity, ItemStack itemStack, BlockPos blockPos, BlockState blockState) {
 		Item handItem = itemStack.getItem();
 		Block block = blockState.getBlock();
@@ -32,11 +22,6 @@ public class BCLibUsableItemHandler implements IUsableItemHandler {
 				return Crosshair.USE_ITEM;
 			}
 		}
-		return null;
-	}
-
-	@Override
-	public Crosshair checkUsableItemOnMiss(ClientPlayerEntity clientPlayerEntity, ItemStack itemStack) {
 		return null;
 	}
 }

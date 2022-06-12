@@ -52,6 +52,7 @@ dependencies {
 	modCompileOnly("curse.maven:bclib-${project.bclib_version}") { transitive = false }
 	modCompileOnly("curse.maven:betternether-${project.betternether_version}") { transitive = false }
 	modCompileOnly("curse.maven:betterend-${project.betterend_version}") { transitive = false }
+	modCompileOnly("maven.modrinth:botania:${project.botania_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:chalk:${project.chalk_version}") { transitive = false }
 }
 

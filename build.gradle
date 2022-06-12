@@ -35,11 +35,11 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
 
-	modImplementation include(fabricApi.module("fabric-api-base", project.fabric_api_version))
-	modImplementation include(fabricApi.module("fabric-key-binding-api-v1", project.fabric_api_version))
+	modCompileOnly include(fabricApi.module("fabric-api-base", project.fabric_api_version))
+	modCompileOnly include(fabricApi.module("fabric-key-binding-api-v1", project.fabric_api_version))
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
-	modImplementation("maven.modrinth:dynamiccrosshair:${project.dynamiccrosshair_version}")
+	modImplementation("maven.modrinth:dynamiccrosshair:${project.dynamiccrosshair_version}") { transitive = false }
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.clothconfig_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
@@ -85,9 +85,7 @@ modrinth {
 	gameVersions = List.of(project.supported_versions.split(';'))
 	loaders = ['fabric']
 	dependencies {
-		required.project 'P7dR8mSH' // Fabric API
-		required.project '9s6osm5g' // Cloth Config
-		optional.project 'mOgUt4GM' // Mod Menu
+		required.project 'EwPIWPJ9' // Dynamic Crosshair
 	}
 }
 
@@ -105,9 +103,7 @@ curseforge {
 		mainArtifact(remapJar) {
 			displayName = "${project.mod_name} ${project.version}"
 			relations {
-				requiredDependency "fabric-api"
-				requiredDependency "cloth-config"
-				optionalDependency "modmenu"
+				requiredDependency "dynamic-crosshair"
 			}
 		}
 	}

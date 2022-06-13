@@ -27,11 +27,14 @@
       "mod.crend.dynamiccrosshair.compat.betterend.ApiImplBetterEnd",
       "mod.crend.dynamiccrosshair.compat.botania.ApiImplBotania",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
+      "mod.crend.dynamiccrosshair.compat.enderchests.ApiImplEnderChests",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsBridges",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsDoors",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsLights",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsRoofs",
-      "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsWindows"
+      "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsWindows",
+      "mod.crend.dynamiccrosshair.compat.multibeds.ApiImplMultiBeds",
+      "mod.crend.dynamiccrosshair.compat.platforms.ApiImplPlatforms"
     ]
   },
   "mixins": [

@@ -54,11 +54,14 @@ dependencies {
 	modCompileOnly("curse.maven:betterend-${project.betterend_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:botania:${project.botania_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:chalk:${project.chalk_version}") { transitive = false }
+	modCompileOnly("curse.maven:enderchests-fabric-${project.enderchests_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-bridges-${project.macaws_bridges_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-doors-${project.macaws_doors_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-lights-${project.macaws_lights_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-roofs-${project.macaws_roofs_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-windows-${project.macaws_windows_version}") { transitive = false }
+	modCompileOnly("curse.maven:platforms-fabric-${project.platforms_version}") { transitive = false }
+	modCompileOnly("curse.maven:multibeds-fabric-${project.multibeds_version}") { transitive = false }
 }
 
 processResources {

@@ -53,6 +53,7 @@ dependencies {
 	modCompileOnly("curse.maven:betternether-${project.betternether_version}") { transitive = false }
 	modCompileOnly("curse.maven:betterend-${project.betterend_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:botania:${project.botania_version}") { transitive = false }
+	modCompileOnly("curse.maven:cammies-wearable-backpacks-${project.camsbackpacks_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:chalk:${project.chalk_version}") { transitive = false }
 	modCompileOnly("curse.maven:enderchests-fabric-${project.enderchests_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-bridges-${project.macaws_bridges_version}") { transitive = false }

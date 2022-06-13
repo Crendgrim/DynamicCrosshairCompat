@@ -27,6 +27,7 @@
       "mod.crend.dynamiccrosshair.compat.betterend.ApiImplBetterEnd",
       "mod.crend.dynamiccrosshair.compat.botania.ApiImplBotania",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
+      "mod.crend.dynamiccrosshair.compat.camsbackpacks.ApiImplCamsBackpacks",
       "mod.crend.dynamiccrosshair.compat.enderchests.ApiImplEnderChests",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsBridges",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsDoors",

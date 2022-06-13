@@ -61,8 +61,9 @@ dependencies {
 	modCompileOnly("curse.maven:macaws-lights-${project.macaws_lights_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-roofs-${project.macaws_roofs_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-windows-${project.macaws_windows_version}") { transitive = false }
-	modCompileOnly("curse.maven:platforms-fabric-${project.platforms_version}") { transitive = false }
 	modCompileOnly("curse.maven:multibeds-fabric-${project.multibeds_version}") { transitive = false }
+	modCompileOnly("curse.maven:pick-your-poison-${project.pick_your_poison_version}") { transitive = false }
+	modCompileOnly("curse.maven:platforms-fabric-${project.platforms_version}") { transitive = false }
 }
 
 processResources {

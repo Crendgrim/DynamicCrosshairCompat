@@ -3,7 +3,9 @@
   "package": "mod.crend.dynamiccrosshair.compat.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "adorn.ISeatBlockMixin"
+    "adorn.ISeatBlockMixin",
+    "mcwroofs.IGutterTallMixin",
+    "mcwroofs.IRainGutterMixin"
   ],
   "plugin": "mod.crend.dynamiccrosshair.DynamicCrosshairMixinPlugin"
 }

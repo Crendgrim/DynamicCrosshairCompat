@@ -5,14 +5,11 @@ import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.*;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
 import net.thenotfish.alkimicraft.AlkimiCraft;
 import net.thenotfish.alkimicraft.blocks.*;
 import net.thenotfish.alkimicraft.blocks.entities.TipiFireEntity;
@@ -31,17 +28,20 @@ public class ApiImplAlkimiCraft implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
+		return context -> {
+			ItemStack itemStack = context.getItemStack();
 			Item handItem = itemStack.getItem();
+			BlockState blockState = context.getBlockState();
 			Block block = blockState.getBlock();
 
 			if (block instanceof TipiFire) {
 				if (itemStack.isIn(ItemTagsInit.BURNABLE_ITEMS)) {
 					return Crosshair.INTERACTABLE;
 				}
-				TipiFireEntity blockEntity = (TipiFireEntity) MinecraftClient.getInstance().world.getBlockEntity(blockPos);
-				if (blockEntity.getRecipeFor(itemStack).isPresent()) {
-					return Crosshair.INTERACTABLE;
+				if (context.getBlockEntity() instanceof TipiFireEntity blockEntity) {
+					if (blockEntity.getRecipeFor(itemStack).isPresent()) {
+						return Crosshair.INTERACTABLE;
+					}
 				}
 			}
 			if (block instanceof Microscope) {
@@ -53,7 +53,7 @@ public class ApiImplAlkimiCraft implements DynamicCrosshairApi {
 					return Crosshair.INTERACTABLE;
 				}
 			}
-			if (block instanceof AbstractWoodenBarrel barrel && !player.shouldCancelInteraction()) {
+			if (block instanceof AbstractWoodenBarrel barrel && context.shouldInteract()) {
 				if (handItem == Items.WATER_BUCKET || handItem == ItemInit.WATER_WOODEN_BUCKET) {
 					if (block instanceof WoodenBarrel) {
 						return Crosshair.USE_ITEM.withFlag(Crosshair.Flag.FixedAll);
@@ -83,25 +83,21 @@ public class ApiImplAlkimiCraft implements DynamicCrosshairApi {
 		};
 	}
 
-	IUsableItemHandler usableItemHandler = new AlkimiCraftUsableItemHandler();
+	@Override
+	public boolean isUsableItem(ItemStack itemStack) {
+		Item handItem = itemStack.getItem();
+		return (handItem instanceof CreatureInBag
+				|| handItem instanceof GrassSeeds
+				|| handItem instanceof FirePlough);
+	}
 
 	@Override
 	public IUsableItemHandler getUsableItemHandler() {
-		return usableItemHandler;
-	}
+		return context -> {
+			if (!context.isWithBlock()) return null;
 
-	private static class AlkimiCraftUsableItemHandler implements IUsableItemHandler {
-		@Override
-		public boolean isUsableItem(ItemStack itemStack) {
-			Item handItem = itemStack.getItem();
-			return (handItem instanceof CreatureInBag
-					|| handItem instanceof GrassSeeds
-					|| handItem instanceof FirePlough);
-		}
-
-		@Override
-		public Crosshair checkUsableItemOnBlock(ClientPlayerEntity player, ItemStack itemStack, BlockPos blockPos, BlockState blockState) {
-			Item handItem = itemStack.getItem();
+			Item handItem = context.getItem();
+			BlockState blockState = context.getBlockState();
 			Block block = blockState.getBlock();
 
 			if (handItem instanceof CreatureInBag) {
@@ -116,18 +112,18 @@ public class ApiImplAlkimiCraft implements DynamicCrosshairApi {
 				if (CampfireBlock.canBeLit(blockState) || CandleBlock.canBeLit(blockState) || CandleCakeBlock.canBeLit(blockState)) {
 					return Crosshair.USE_ITEM;
 				} else {
-					BlockHitResult hitResult = (BlockHitResult) MinecraftClient.getInstance().crosshairTarget;
-					if (AbstractFireBlock.canPlaceAt(MinecraftClient.getInstance().world, blockPos.offset(hitResult.getSide()), hitResult.getSide())) {
+					BlockHitResult hitResult = (BlockHitResult) context.hitResult;
+					if (AbstractFireBlock.canPlaceAt(context.world, context.getBlockPos().offset(hitResult.getSide()), hitResult.getSide())) {
 						return Crosshair.USE_ITEM;
 					}
 				}
 			}
 
-			if (block instanceof BlockIronCobblestone && itemStack.isIn(ItemTags.CLUSTER_MAX_HARVESTABLES)) {
+			if (block instanceof BlockIronCobblestone && context.getItemStack().isIn(ItemTags.CLUSTER_MAX_HARVESTABLES)) {
 				return Crosshair.USE_ITEM;
 			}
 
 			return null;
-		}
+		};
 	}
 }

@@ -4,6 +4,7 @@ import io.github.orlouge.amphitritecoffer.AmphitriteCofferBlock;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 
 public class ApiImplAmphitriteCoffer implements DynamicCrosshairApi {
@@ -14,7 +15,8 @@ public class ApiImplAmphitriteCoffer implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
+		return context -> {
+			BlockState blockState = context.getBlockState();
 			if (blockState.getBlock() instanceof AmphitriteCofferBlock) {
 				if (blockState.get(Properties.WATERLOGGED) || blockState.get(AmphitriteCofferBlock.CHARGED)) {
 					return Crosshair.INTERACTABLE;

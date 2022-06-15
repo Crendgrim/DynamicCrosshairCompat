@@ -7,11 +7,8 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 
 public class ApiImplCamsBackpacks implements DynamicCrosshairApi {
 	@Override
@@ -26,8 +23,8 @@ public class ApiImplCamsBackpacks implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (clientPlayerEntity, itemStack, blockPos, blockState) -> {
-			if (blockState.getBlock() instanceof BackpackBlock) {
+		return context -> {
+			if (context.getBlock() instanceof BackpackBlock) {
 				return Crosshair.INTERACTABLE;
 			}
 
@@ -35,24 +32,17 @@ public class ApiImplCamsBackpacks implements DynamicCrosshairApi {
 		};
 	}
 
-	IUsableItemHandler usableItemHandler = new CamsBackpacksUsableItemHandler();
-
 	@Override
 	public IUsableItemHandler getUsableItemHandler() {
-		return usableItemHandler;
-	}
-
-	private static class CamsBackpacksUsableItemHandler implements IUsableItemHandler {
-		@Override
-		public Crosshair checkUsableItemOnBlock(ClientPlayerEntity player, ItemStack itemStack, BlockPos blockPos, BlockState blockState) {
-			if (player.shouldCancelInteraction()) {
-				ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
+		return context -> {
+			if (context.player.shouldCancelInteraction() && context.isEmptyHanded()) {
+				ItemStack chest = context.player.getEquippedStack(EquipmentSlot.CHEST);
 				if (!chest.isEmpty() && chest.getItem() instanceof BackpackItem) {
 					return Crosshair.HOLDING_BLOCK;
 				}
 			}
 
 			return null;
-		}
+		};
 	}
 }

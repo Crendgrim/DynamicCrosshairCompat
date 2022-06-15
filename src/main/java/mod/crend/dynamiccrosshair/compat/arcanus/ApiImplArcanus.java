@@ -12,8 +12,7 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.component.ModifierUse;
 import mod.crend.dynamiccrosshair.component.Style;
 import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 
 public class ApiImplArcanus implements DynamicCrosshairApi {
@@ -25,22 +24,23 @@ public class ApiImplArcanus implements DynamicCrosshairApi {
 
     @Override
     public IBlockInteractHandler getBlockInteractHandler() {
-        return (player, itemStack, blockPos, blockState) -> {
+        return context -> {
+            BlockState blockState = context.getBlockState();
             Block block = blockState.getBlock();
             if (block instanceof DisplayCaseBlock) {
                 if (blockState.get(DisplayCaseBlock.OPEN)) {
-                    if (player.isSneaking()) {
+                    if (context.player.isSneaking()) {
                         return Crosshair.INTERACTABLE;
                     }
-                    BlockEntity blockEntity = MinecraftClient.getInstance().world.getBlockEntity(blockPos);
-                    if (((DisplayCaseBlockEntity) blockEntity).isEmpty()) {
-                        if (itemStack.isEmpty()) {
+                    if (context.getBlockEntity() instanceof DisplayCaseBlockEntity blockEntity) {
+                        if (blockEntity.isEmpty() && context.getItemStack().isEmpty()) {
                             return Crosshair.NONE.withFlag(Crosshair.Flag.FixedModifierUse);
+
                         }
                     }
                     return Crosshair.USE_ITEM;
                 }
-                if (player.isSneaking()) {
+                if (context.player.isSneaking()) {
                     return Crosshair.INTERACTABLE;
                 }
                 return Crosshair.NONE.withFlag(Crosshair.Flag.FixedModifierUse);
@@ -55,8 +55,8 @@ public class ApiImplArcanus implements DynamicCrosshairApi {
 
     @Override
     public IToolItemHandler getToolItemHandler() {
-        return (player, itemStack) -> {
-            Item item = itemStack.getItem();
+        return context -> {
+            Item item = context.getItem();
             if (item instanceof WandItem) {
                 return new Crosshair(Style.HoldingTool, ModifierUse.USE_ITEM);
             }

@@ -1,17 +1,15 @@
 package mod.crend.dynamiccrosshair.compat.botania;
 
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockAltar;
@@ -30,11 +28,12 @@ import vazkii.botania.common.item.lens.ItemLens;
 class BotaniaBlockInteractHandler implements IBlockInteractHandler {
 
 	@Override
-	public Crosshair checkBlockInteractable(ClientPlayerEntity player, ItemStack itemStack, BlockPos blockPos, BlockState blockState) {
+	public Crosshair checkBlockInteractable(CrosshairContext context) {
+		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
+		ItemStack itemStack = context.getItemStack();
 
-		if (block instanceof BlockAltar) {
-			IPetalApothecary blockEntity = (IPetalApothecary) MinecraftClient.getInstance().world.getBlockEntity(blockPos);
+		if (block instanceof BlockAltar && context.getBlockEntity() instanceof IPetalApothecary blockEntity) {
 			if (blockEntity.getFluid() == IPetalApothecary.State.EMPTY) {
 				if (itemStack.isOf(Items.WATER_BUCKET) || itemStack.isOf(Items.LAVA_BUCKET)) {
 					return Crosshair.USE_ITEM;
@@ -48,8 +47,7 @@ class BotaniaBlockInteractHandler implements IBlockInteractHandler {
 
 		if (block instanceof BlockPool) {
 			Item item = itemStack.getItem();
-			if (item instanceof DyeItem de) {
-				TilePool pool = (TilePool) MinecraftClient.getInstance().world.getBlockEntity(blockPos);
+			if (item instanceof DyeItem de && context.getBlockEntity() instanceof TilePool pool) {
 				if (de.getColor() != pool.getColor()) {
 					return Crosshair.USE_ITEM;
 				}
@@ -58,8 +56,7 @@ class BotaniaBlockInteractHandler implements IBlockInteractHandler {
 				return Crosshair.HOLDING_BLOCK;
 			}
 		}
-		if (block instanceof BlockSpreader) {
-			TileSpreader blockEntity = (TileSpreader) MinecraftClient.getInstance().world.getBlockEntity(blockPos);
+		if (block instanceof BlockSpreader && context.getBlockEntity() instanceof TileSpreader blockEntity) {
 			Item item = itemStack.getItem();
 			if (item instanceof ItemLens) {
 				// lens installed?
@@ -75,7 +72,7 @@ class BotaniaBlockInteractHandler implements IBlockInteractHandler {
 					return Crosshair.USE_ITEM;
 				}
 			}
-			if (blockState.get(BotaniaStateProps.HAS_SCAFFOLDING) && player.shouldCancelInteraction()) {
+			if (blockState.get(BotaniaStateProps.HAS_SCAFFOLDING) && context.player.shouldCancelInteraction()) {
 				return Crosshair.INTERACTABLE;
 			}
 			if (ColorHelper.isWool(block) || !blockEntity.getItemHandler().getStack(0).isEmpty()) {
@@ -83,8 +80,7 @@ class BotaniaBlockInteractHandler implements IBlockInteractHandler {
 			}
 		}
 
-		if (block instanceof BlockHourglass) {
-			TileHourglass hourglass = (TileHourglass) MinecraftClient.getInstance().world.getBlockEntity(blockPos);
+		if (block instanceof BlockHourglass && context.getBlockEntity() instanceof TileHourglass hourglass) {
 			if (hourglass.isEmpty()) {
 				if (itemStack.isOf(Items.SAND) || itemStack.isOf(Items.RED_SAND)) {
 					return Crosshair.USE_ITEM;
@@ -94,9 +90,8 @@ class BotaniaBlockInteractHandler implements IBlockInteractHandler {
 			}
 		}
 
-		if (block instanceof BlockBrewery) {
-			TileBrewery brewery = (TileBrewery) MinecraftClient.getInstance().world.getBlockEntity(blockPos);
-			if (player.isSneaking()) {
+		if (block instanceof BlockBrewery && context.getBlockEntity() instanceof TileBrewery brewery) {
+			if (context.player.shouldCancelInteraction()) {
 				if (brewery.recipe == null && !blockState.get(Properties.POWERED)) {
 					return Crosshair.INTERACTABLE;
 				}

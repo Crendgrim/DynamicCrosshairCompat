@@ -8,10 +8,8 @@ import mod.crend.dynamiccrosshair.api.IEntityHandler;
 import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.Hand;
 
 public class ApiImplCarrier implements DynamicCrosshairApi {
 	@Override
@@ -21,11 +19,9 @@ public class ApiImplCarrier implements DynamicCrosshairApi {
 
 	@Override
 	public IEntityHandler getEntityHandler() {
-		return (player, itemStack, entity) -> {
-
-			// FIXME apply only on main hand interaction
-			if (itemStack.getItem() instanceof GloveItem) {
-				if (CarriableRegistry.INSTANCE.contains(entity.getType())) {
+		return context -> {
+			if (context.getHand() == Hand.MAIN_HAND && context.getItem() instanceof GloveItem) {
+				if (CarriableRegistry.INSTANCE.contains(context.getEntity().getType())) {
 					return Crosshair.USE_ITEM;
 				}
 			}
@@ -34,29 +30,24 @@ public class ApiImplCarrier implements DynamicCrosshairApi {
 		};
 	}
 
-	IUsableItemHandler usableItemHandler = new CarrierUsableItemHandler();
+	@Override
+	public boolean isUsableItem(ItemStack itemStack) {
+		return itemStack.getItem() instanceof GloveItem;
+	}
 
 	@Override
 	public IUsableItemHandler getUsableItemHandler() {
-		return usableItemHandler;
-	}
-
-	private static class CarrierUsableItemHandler implements IUsableItemHandler {
-		@Override
-		public boolean isUsableItem(ItemStack itemStack) {
-			return itemStack.getItem() instanceof GloveItem;
-		}
-
-		@Override
-		public Crosshair checkUsableItemOnBlock(ClientPlayerEntity player, ItemStack itemStack, BlockPos blockPos, BlockState blockState) {
-			// FIXME apply only on main hand interaction
-			if (itemStack.getItem() instanceof GloveItem) {
-				if (CarriableRegistry.INSTANCE.contains(blockState.getBlock()) && blockState.getHardness(MinecraftClient.getInstance().world, blockPos) > -1.0F) {
-					return Crosshair.USE_ITEM;
+		return context -> {
+			if (context.isWithBlock() && context.getHand() == Hand.MAIN_HAND) {
+				if (context.getItem() instanceof GloveItem) {
+					BlockState blockState = context.getBlockState();
+					if (CarriableRegistry.INSTANCE.contains(blockState.getBlock()) && blockState.getHardness(context.world, context.getBlockPos()) > -1.0F) {
+						return Crosshair.USE_ITEM;
+					}
 				}
 			}
 
 			return null;
-		}
+		};
 	}
 }

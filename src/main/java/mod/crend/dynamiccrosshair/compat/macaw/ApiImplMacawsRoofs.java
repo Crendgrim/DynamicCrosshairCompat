@@ -13,6 +13,8 @@ import net.kikoz.mcwroofs.objects.roofs.BaseRoof;
 import net.kikoz.mcwroofs.objects.roofs.RoofGlass;
 import net.kikoz.mcwroofs.objects.roofs.RoofTopNew;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.property.BooleanProperty;
 
@@ -24,8 +26,10 @@ public class ApiImplMacawsRoofs implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
+		return context -> {
+			BlockState blockState = context.getBlockState();
 			Block block = blockState.getBlock();
+			ItemStack itemStack = context.getItemStack();
 
 			if (block instanceof BaseRoof || block instanceof RoofGlass || block instanceof RoofTopNew || block instanceof RainGutter) {
 				if (itemStack.getItem() instanceof Hammer) {

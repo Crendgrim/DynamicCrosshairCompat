@@ -5,6 +5,7 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.api.IEntityHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 public class ApiImplMinecartTweaks implements DynamicCrosshairApi {
@@ -20,10 +21,11 @@ public class ApiImplMinecartTweaks implements DynamicCrosshairApi {
 
 	@Override
 	public IEntityHandler getEntityHandler() {
-		return (player, itemStack, entity) -> {
-			if (entity instanceof AbstractMinecartEntity minecart) {
+		return context -> {
+			if (context.getEntity() instanceof AbstractMinecartEntity minecart) {
+				ItemStack itemStack = context.getItemStack();
 				if (MinecartTweaks.getConfig().serverTweaks.canLinkMinecarts) {
-					if (player.isSneaking() && itemStack.isOf(Items.CHAIN)) {
+					if (context.player.isSneaking() && itemStack.isOf(Items.CHAIN)) {
 						return Crosshair.USE_ITEM;
 					}
 				}

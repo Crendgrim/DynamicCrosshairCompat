@@ -2,9 +2,7 @@ package mod.crend.dynamiccrosshair.compat.multibeds;
 
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
-import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import shetiphian.multibeds.MultiBeds;
@@ -22,9 +20,9 @@ public class ApiImplMultiBeds implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			Item item = itemStack.getItem();
-			if (blockState.getBlock() instanceof BlockMultiBedBase) {
+		return context -> {
+			Item item = context.getItem();
+			if (context.getBlock() instanceof BlockMultiBedBase) {
 				if (item instanceof ItemBedCustomization || item instanceof ItemBeddingPackage) {
 					return Crosshair.USE_ITEM;
 				}
@@ -36,21 +34,7 @@ public class ApiImplMultiBeds implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public IUsableItemHandler getUsableItemHandler() {
-		return new IUsableItemHandler() {
-			@Override
-			public boolean isUsableItem(ItemStack itemStack) {
-				return itemStack.getItem() instanceof ItemEmbroideryThread || itemStack.getItem() instanceof ItemBuilderKit;
-			}
-
-			@Override
-			public Crosshair checkUsableItem(ClientPlayerEntity player, ItemStack itemStack) {
-				if (isUsableItem(itemStack)) {
-					return Crosshair.USE_ITEM;
-				}
-
-				return null;
-			}
-		};
+	public boolean isAlwaysUsableItem(ItemStack itemStack) {
+		return itemStack.getItem() instanceof ItemEmbroideryThread || itemStack.getItem() instanceof ItemBuilderKit;
 	}
 }

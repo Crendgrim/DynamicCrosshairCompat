@@ -15,9 +15,9 @@ public class ApiImplBlossom implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			if (blockState.getBlock() instanceof FloweringLeavesBlock) {
-				if (itemStack.getItem() instanceof ShearsItem && blockState.get(FloweringLeavesBlock.AGE) == 7) {
+		return context -> {
+			if (context.getBlock() instanceof FloweringLeavesBlock) {
+				if (context.getItem() instanceof ShearsItem && context.getBlockState().get(FloweringLeavesBlock.AGE) == 7) {
 					return Crosshair.USE_ITEM;
 				}
 			}

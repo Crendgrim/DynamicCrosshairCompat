@@ -10,10 +10,7 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.component.ModifierUse;
 import mod.crend.dynamiccrosshair.component.Style;
 import mod.crend.dynamiccrosshair.config.BlockCrosshairPolicy;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 
 public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
 	@Override
@@ -23,9 +20,9 @@ public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
 
 	@Override
 	public IEntityHandler getEntityHandler() {
-		return (player, itemStack, entity) -> {
+		return context -> {
 
-			if (entity instanceof IBucketable) {
+			if (context.getEntity() instanceof IBucketable) {
 				return Crosshair.USE_ITEM;
 			}
 
@@ -35,8 +32,8 @@ public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
 
 	@Override
 	public IThrowableItemHandler getThrowableItemHandler() {
-		return (player, itemStack) -> {
-			if (itemStack.getItem() instanceof ItemThrowableCustomEgg<?>) {
+		return context -> {
+			if (context.getItem() instanceof ItemThrowableCustomEgg<?>) {
 				return Crosshair.THROWABLE;
 			}
 
@@ -46,9 +43,9 @@ public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			if (blockState.getBlock() instanceof BlockTurkey) {
-				if (player.canConsume(false)) {
+		return context -> {
+			if (context.getBlock() instanceof BlockTurkey) {
+				if (context.player.canConsume(false)) {
 					return Crosshair.USE_ITEM;
 				}
 			}
@@ -57,37 +54,29 @@ public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
 		};
 	}
 
-	IUsableItemHandler usableItemHandler = new AnimalsPlusUsableItemHandler();
+	@Override
+	public boolean isUsableItem(ItemStack itemStack) {
+		return itemStack.getItem() instanceof ItemModFishBucket<?>;
+	}
 
 	@Override
 	public IUsableItemHandler getUsableItemHandler() {
-		return usableItemHandler;
-	}
-
-	private static class AnimalsPlusUsableItemHandler implements IUsableItemHandler {
-		@Override
-		public Crosshair checkUsableItemOnBlock(ClientPlayerEntity player, ItemStack itemStack, BlockPos blockPos, BlockState blockState) {
-
-			if (itemStack.getItem() instanceof ItemModFishBucket<?>) {
-				if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() != BlockCrosshairPolicy.Disabled) {
-					return new Crosshair(Style.HoldingBlock, ModifierUse.USE_ITEM);
+		return context -> {
+			if (context.isWithBlock()) {
+				if (context.getItem() instanceof ItemModFishBucket<?>) {
+					if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() != BlockCrosshairPolicy.Disabled) {
+						return new Crosshair(Style.HoldingBlock, ModifierUse.USE_ITEM);
+					}
+					return Crosshair.USE_ITEM;
 				}
-				return Crosshair.USE_ITEM;
-			}
-
-			return null;
-		}
-
-		@Override
-		public Crosshair checkUsableItemOnMiss(ClientPlayerEntity player, ItemStack itemStack) {
-
-			if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() == BlockCrosshairPolicy.Always) {
-				if (itemStack.getItem() instanceof ItemModFishBucket<?>) {
-					return new Crosshair(Style.HoldingBlock, ModifierUse.USE_ITEM);
+			} else if (!context.isTargeting()) {
+				if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() == BlockCrosshairPolicy.Always) {
+					if (context.getItem() instanceof ItemModFishBucket<?>) {
+						return new Crosshair(Style.HoldingBlock, ModifierUse.USE_ITEM);
+					}
 				}
 			}
-
 			return null;
-		}
+		};
 	}
 }

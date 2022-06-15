@@ -1,11 +1,11 @@
 package mod.crend.dynamiccrosshair.compat.botania;
 
 import mod.crend.dynamiccrosshair.DynamicCrosshair;
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.IRangedWeaponHandler;
 import mod.crend.dynamiccrosshair.api.IThrowableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.config.RangedCrosshairPolicy;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,8 +18,8 @@ import vazkii.botania.common.item.rod.ItemMissileRod;
 class BotaniaItemHandler implements IThrowableItemHandler, IRangedWeaponHandler {
 
 	@Override
-	public Crosshair checkThrowable(ClientPlayerEntity player, ItemStack itemStack) {
-		Item item = itemStack.getItem();
+	public Crosshair checkThrowable(CrosshairContext context) {
+		Item item = context.getItem();
 		if (item instanceof ItemEnderAir || item instanceof ItemThornChakram) {
 			return Crosshair.THROWABLE;
 		}
@@ -28,7 +28,8 @@ class BotaniaItemHandler implements IThrowableItemHandler, IRangedWeaponHandler 
 	}
 
 	@Override
-	public Crosshair checkRangedWeapon(ClientPlayerEntity player, ItemStack itemStack) {
+	public Crosshair checkRangedWeapon(CrosshairContext context) {
+		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 		if (item instanceof ItemMissileRod) {
 			return Crosshair.RANGED_WEAPON;
@@ -46,8 +47,8 @@ class BotaniaItemHandler implements IThrowableItemHandler, IRangedWeaponHandler 
 			return Crosshair.RANGED_WEAPON;
 		}
 		if (item instanceof ItemSlingshot) {
-			if (player.getActiveItem().equals(itemStack)) {
-				float progress = BowItem.getPullProgress(item.getMaxUseTime(itemStack) - player.getItemUseTimeLeft());
+			if (context.isActiveItem()) {
+				float progress = BowItem.getPullProgress(item.getMaxUseTime(itemStack) - context.player.getItemUseTimeLeft());
 				if (progress == 1.0f) {
 					return Crosshair.RANGED_WEAPON;
 				}

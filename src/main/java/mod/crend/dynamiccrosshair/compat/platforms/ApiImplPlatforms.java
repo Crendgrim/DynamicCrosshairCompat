@@ -3,6 +3,7 @@ package mod.crend.dynamiccrosshair.compat.platforms;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import shetiphian.platforms.Platforms;
@@ -20,8 +21,9 @@ public class ApiImplPlatforms implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			Item item = itemStack.getItem();
+		return context -> {
+			Item item = context.getItem();
+			BlockState blockState = context.getBlockState();
 
 			if (blockState.getBlock() instanceof BlockPlatformBase) {
 				if (item instanceof ItemWrench) {

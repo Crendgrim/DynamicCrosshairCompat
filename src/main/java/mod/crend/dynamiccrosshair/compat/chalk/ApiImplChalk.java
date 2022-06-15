@@ -9,10 +9,7 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
@@ -24,23 +21,18 @@ public class ApiImplChalk implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockItemHandler getBlockItemHandler() {
-		return (clientPlayerEntity, itemStack) -> {
-			if (itemStack.getItem() instanceof ChalkItem) {
-				HitResult hitResult = MinecraftClient.getInstance().crosshairTarget;
-				if (hitResult.getType() == HitResult.Type.BLOCK) {
-					ClientWorld world = MinecraftClient.getInstance().world;
-					BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
-					BlockState blockState = world.getBlockState(blockPos);
-					Block block = blockState.getBlock();
-					if (block instanceof ChalkMarkBlock) {
+		return context -> {
+			if (context.isWithBlock() && context.getItem() instanceof ChalkItem) {
+				if (context.getBlock() instanceof ChalkMarkBlock) {
+					return Crosshair.HOLDING_BLOCK;
+				}
+				Direction clickedFace = ((BlockHitResult) context.hitResult).getSide();
+				BlockPos blockPos = context.getBlockPos();
+				BlockState blockState = context.getBlockState();
+				if (Block.isFaceFullSquare(blockState.getCollisionShape(context.world, blockPos, ShapeContext.of(context.player)), clickedFace)) {
+					BlockPos chalkPos = blockPos.offset(clickedFace);
+					if (context.world.getBlockState(chalkPos).getMaterial().isReplaceable()) {
 						return Crosshair.HOLDING_BLOCK;
-					}
-					Direction clickedFace = ((BlockHitResult) hitResult).getSide();
-					if (Block.isFaceFullSquare(blockState.getCollisionShape(world, blockPos, ShapeContext.of(clientPlayerEntity)), clickedFace)) {
-						BlockPos chalkPos = blockPos.offset(clickedFace);
-						if (world.getBlockState(chalkPos).getMaterial().isReplaceable()) {
-							return Crosshair.HOLDING_BLOCK;
-						}
 					}
 				}
 			}

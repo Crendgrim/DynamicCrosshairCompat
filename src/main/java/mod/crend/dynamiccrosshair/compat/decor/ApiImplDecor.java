@@ -15,13 +15,14 @@ public class ApiImplDecor implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			Block block = blockState.getBlock();
+		return context -> {
+			Block block = context.getBlock();
 			if (block instanceof workBench) {
 				return Crosshair.INTERACTABLE;
 			}
-			if (!player.shouldCancelInteraction()) {
-				if (itemStack.isEmpty() && (block instanceof logBench
+			if (!context.player.shouldCancelInteraction()) {
+				if (context.getItemStack().isEmpty() && (
+						   block instanceof logBench
 						|| block instanceof logBench2
 						|| block instanceof logBench3
 						|| block instanceof logSmallStool

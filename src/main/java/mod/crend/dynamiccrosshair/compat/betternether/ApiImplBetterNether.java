@@ -17,8 +17,8 @@ public class ApiImplBetterNether implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (clientPlayerEntity, itemStack, blockPos, blockState) -> {
-			Block block = blockState.getBlock();
+		return context -> {
+			Block block = context.getBlock();
 			if (block instanceof BNChair) {
 				return Crosshair.INTERACTABLE;
 			}

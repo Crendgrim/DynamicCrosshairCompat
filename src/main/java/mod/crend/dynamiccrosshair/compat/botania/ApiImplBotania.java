@@ -1,6 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.botania;
 
 import mod.crend.dynamiccrosshair.api.*;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 
 public class ApiImplBotania implements DynamicCrosshairApi {
@@ -17,7 +18,7 @@ public class ApiImplBotania implements DynamicCrosshairApi {
 	BotaniaItemHandler itemHandler = new BotaniaItemHandler();
 	BotaniaEntityHandler entityHandler = new BotaniaEntityHandler();
 	IBlockInteractHandler blockInteractHandler = new BotaniaBlockInteractHandler();
-	IUsableItemHandler usableItemHandler = new BotaniaUsableItemHandler();
+	BotaniaUsableItemHandler usableItemHandler = new BotaniaUsableItemHandler();
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
@@ -32,6 +33,16 @@ public class ApiImplBotania implements DynamicCrosshairApi {
 	@Override
 	public IRangedWeaponHandler getRangedWeaponHandler() {
 		return itemHandler;
+	}
+
+	@Override
+	public boolean isAlwaysUsableItem(ItemStack itemStack) {
+		return usableItemHandler.isAlwaysUsableItem(itemStack);
+	}
+
+	@Override
+	public boolean isUsableItem(ItemStack itemStack) {
+		return usableItemHandler.isUsableItem(itemStack);
 	}
 
 	@Override

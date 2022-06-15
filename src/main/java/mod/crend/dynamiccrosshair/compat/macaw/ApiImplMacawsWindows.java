@@ -18,18 +18,18 @@ public class ApiImplMacawsWindows implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			Block block = blockState.getBlock();
+		return context -> {
+			Block block = context.getBlock();
 			if (block instanceof Window || block instanceof GothicWindow) {
-				if (itemStack.getItem() instanceof Hammer) {
+				if (context.getItem() instanceof Hammer) {
 					return Crosshair.USE_ITEM;
 				}
-				if (itemStack.getItem() != block.asItem()) {
+				if (context.getItem() != block.asItem()) {
 					return Crosshair.INTERACTABLE;
 				}
 			}
 			if (block instanceof Blinds) {
-				if (itemStack.getItem() != block.asItem()) {
+				if (context.getItem() != block.asItem()) {
 					return Crosshair.INTERACTABLE;
 				}
 			}

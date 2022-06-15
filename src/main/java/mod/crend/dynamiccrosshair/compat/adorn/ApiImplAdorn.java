@@ -18,9 +18,9 @@ public class ApiImplAdorn implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			Block block = blockState.getBlock();
-			Item handItem = itemStack.getItem();
+		return context -> {
+			Block block = context.getBlock();
+			Item handItem = context.getItem();
 
 			if (block instanceof SeatBlock seatBlock && ((ISeatBlockMixin) seatBlock).invokeIsSittingEnabled()) {
 				return Crosshair.INTERACTABLE;
@@ -30,7 +30,7 @@ public class ApiImplAdorn implements DynamicCrosshairApi {
 			}
 
 			if (block instanceof KitchenSinkBlock) {
-				if (itemStack.isOf(Items.SPONGE) || handItem instanceof BucketItem) {
+				if (context.getItemStack().isOf(Items.SPONGE) || handItem instanceof BucketItem) {
 					return Crosshair.USE_ITEM;
 				}
 			}

@@ -14,8 +14,8 @@ public class ApiImplChipped implements DynamicCrosshairApi {
 
 	@Override
 	public IBlockInteractHandler getBlockInteractHandler() {
-		return (player, itemStack, blockPos, blockState) -> {
-			if (blockState.getBlock() instanceof ChippedWorkbench) {
+		return context -> {
+			if (context.getBlock() instanceof ChippedWorkbench) {
 				return Crosshair.INTERACTABLE;
 			}
 

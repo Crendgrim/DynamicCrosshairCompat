@@ -1,9 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.enderchests;
 
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
-import mod.crend.dynamiccrosshair.component.Crosshair;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.ItemStack;
 import shetiphian.enderchests.EnderChests;
 import shetiphian.enderchests.common.item.ItemEnderBag;
@@ -15,26 +12,8 @@ public class ApiImplEnderChests implements DynamicCrosshairApi {
 		return EnderChests.MOD_ID;
 	}
 
-	IUsableItemHandler usableItemHandler = new EnderChestsUsableItemHandler();
-
 	@Override
-	public IUsableItemHandler getUsableItemHandler() {
-		return usableItemHandler;
-	}
-
-	private static class EnderChestsUsableItemHandler implements IUsableItemHandler {
-		@Override
-		public boolean isUsableItem(ItemStack itemStack) {
-			return (itemStack.getItem() instanceof ItemEnderPouch || itemStack.getItem() instanceof ItemEnderBag);
-		}
-
-		@Override
-		public Crosshair checkUsableItem(ClientPlayerEntity player, ItemStack itemStack) {
-			if (isUsableItem(itemStack)) {
-				return Crosshair.USE_ITEM;
-			}
-
-			return null;
-		}
+	public boolean isAlwaysUsableItem(ItemStack itemStack) {
+		return (itemStack.getItem() instanceof ItemEnderPouch || itemStack.getItem() instanceof ItemEnderBag);
 	}
 }

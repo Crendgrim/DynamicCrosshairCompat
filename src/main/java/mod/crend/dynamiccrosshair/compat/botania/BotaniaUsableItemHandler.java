@@ -1,18 +1,16 @@
 package mod.crend.dynamiccrosshair.compat.botania;
 
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SpawnerBlock;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.GlassBottleItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.mana.IManaCollector;
@@ -27,7 +25,8 @@ import vazkii.botania.common.item.rod.*;
 import vazkii.botania.xplat.IXplatAbstractions;
 
 class BotaniaUsableItemHandler implements IUsableItemHandler {
-	public boolean isAlwaysUsableItem(Item item) {
+	public boolean isAlwaysUsableItem(ItemStack itemStack) {
+		Item item = itemStack.getItem();
 		return (   item instanceof ItemWorldSeed
 				|| item instanceof ItemLexicon
 				|| item instanceof ItemTwigWand
@@ -47,11 +46,9 @@ class BotaniaUsableItemHandler implements IUsableItemHandler {
 				|| item instanceof ItemGravityRod
 		);
 	}
-	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return (isAlwaysUsableItem(item)
-				|| item instanceof ItemGrassSeeds
+		return (   item instanceof ItemGrassSeeds
 				|| item instanceof ItemOvergrowthSeed
 				|| item instanceof ItemSpawnerMover
 				|| item instanceof ItemBlackHoleTalisman
@@ -67,11 +64,9 @@ class BotaniaUsableItemHandler implements IUsableItemHandler {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(ClientPlayerEntity player, ItemStack itemStack) {
+	public Crosshair checkUsableItem(CrosshairContext context) {
+		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
-		if (isAlwaysUsableItem(item)) {
-			return Crosshair.USE_ITEM;
-		}
 
 		if (item instanceof ItemTornadoRod) {
 			if (!item.isItemBarVisible(itemStack)) {
@@ -83,17 +78,26 @@ class BotaniaUsableItemHandler implements IUsableItemHandler {
 			if (MinecraftClient.getInstance().world.getRegistryKey() == World.END) {
 				return Crosshair.USE_ITEM;
 			}
-			if (ItemEnderAir.pickupFromEntity(MinecraftClient.getInstance().world, player.getBoundingBox().expand(1.0))) {
+			if (ItemEnderAir.pickupFromEntity(MinecraftClient.getInstance().world, context.player.getBoundingBox().expand(1.0))) {
 				return Crosshair.USE_ITEM;
 			}
+		}
+
+		if (context.isWithBlock()) {
+			return checkUsableItemOnBlock(context);
+		}
+
+		if (!context.isTargeting()) {
+			return checkUsableItemOnMiss(context);
 		}
 
 		return null;
 	}
 
-	@Override
-	public Crosshair checkUsableItemOnBlock(ClientPlayerEntity player, ItemStack itemStack, BlockPos blockPos, BlockState blockState) {
+	public Crosshair checkUsableItemOnBlock(CrosshairContext context) {
+		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
+		BlockState blockState = context.getBlockState();
 		if (item instanceof ItemBlackHoleTalisman
 				|| item instanceof ItemFireRod
 				|| item instanceof ItemExchangeRod
@@ -101,8 +105,8 @@ class BotaniaUsableItemHandler implements IUsableItemHandler {
 			return Crosshair.USE_ITEM;
 		}
 		if (item instanceof ItemObedienceStick) {
-			ClientWorld world = MinecraftClient.getInstance().world;
-			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(world, blockPos, blockState, world.getBlockEntity(blockPos), (Direction)null);
+			BlockPos blockPos = context.getBlockPos();
+			IManaReceiver receiver = IXplatAbstractions.INSTANCE.findManaReceiver(context.world, blockPos, blockState, context.world.getBlockEntity(blockPos), null);
 			if (receiver instanceof IManaPool || receiver instanceof IManaCollector) {
 				return Crosshair.USE_ITEM;
 			}
@@ -143,12 +147,11 @@ class BotaniaUsableItemHandler implements IUsableItemHandler {
 		return null;
 	}
 
-	@Override
-	public Crosshair checkUsableItemOnMiss(ClientPlayerEntity player, ItemStack itemStack) {
-		Item item = itemStack.getItem();
+	public Crosshair checkUsableItemOnMiss(CrosshairContext context) {
+		Item item = context.getItem();
 
 		if (item instanceof ItemBlackHoleTalisman) {
-			if (player.shouldCancelInteraction()) {
+			if (context.player.shouldCancelInteraction()) {
 				return Crosshair.USE_ITEM;
 			}
 		}

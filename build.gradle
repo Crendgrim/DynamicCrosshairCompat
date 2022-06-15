@@ -49,13 +49,25 @@ dependencies {
 	modCompileOnly("curse.maven:adapaxels-${project.adapaxels_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:adorn:${project.adorn_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:arcanus:${project.arcanus_version}") { transitive = false }
+	modCompileOnly("curse.maven:akashic-tome-of-tools-fabric-${project.akashic_tome_of_tools_version}") { transitive = false }
+	modCompileOnly("curse.maven:alaska-native-craft-unofficial-port-${project.alaska_native_craft_version}") { transitive = false }
+	modCompileOnly("curse.maven:alkimicraft-${project.alkimicraft_version}") { transitive = false }
+	modCompileOnly("curse.maven:amphitrite-coffer-${project.amphitrite_coffer_version}") { transitive = false }
 	modCompileOnly("curse.maven:bclib-${project.bclib_version}") { transitive = false }
 	modCompileOnly("curse.maven:betteranimalsplus-${project.betteranimalsplus_version}") { transitive = false }
 	modCompileOnly("curse.maven:betternether-${project.betternether_version}") { transitive = false }
 	modCompileOnly("curse.maven:betterend-${project.betterend_version}") { transitive = false }
+	modCompileOnly("curse.maven:birds-nests-fabric-${project.birds_nests_version}") { transitive = false }
+	modCompileOnly("maven.modrinth:blossom:${project.blossom_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:botania:${project.botania_version}") { transitive = false }
+	modCompileOnly("maven.modrinth:cammies-minecart-tweaks:${project.camsminecart_tweaks_version}") { transitive = false }
 	modCompileOnly("curse.maven:cammies-wearable-backpacks-${project.camsbackpacks_version}") { transitive = false }
+	modCompileOnly("curse.maven:carrier-${project.carrier_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:chalk:${project.chalk_version}") { transitive = false }
+	modCompileOnly("curse.maven:chipped-${project.chipped_version}") { transitive = false }
+	modCompileOnly("curse.maven:croptosis-${project.croptosis_version}") { transitive = false }
+	modCompileOnly("curse.maven:decor4fabric-${project.decor_version}") { transitive = false }
+	modCompileOnly("curse.maven:early-game-buckets-${project.earlygamebuckets_version}") { transitive = false }
 	modCompileOnly("curse.maven:enderchests-fabric-${project.enderchests_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-bridges-${project.macaws_bridges_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-doors-${project.macaws_doors_version}") { transitive = false }
@@ -63,6 +75,7 @@ dependencies {
 	modCompileOnly("curse.maven:macaws-roofs-${project.macaws_roofs_version}") { transitive = false }
 	modCompileOnly("curse.maven:macaws-windows-${project.macaws_windows_version}") { transitive = false }
 	modCompileOnly("curse.maven:multibeds-fabric-${project.multibeds_version}") { transitive = false }
+	modCompileOnly("maven.modrinth:patchouli:${project.patchouli_version}") { transitive = false }
 	modCompileOnly("curse.maven:pick-your-poison-${project.pick_your_poison_version}") { transitive = false }
 	modCompileOnly("curse.maven:platforms-fabric-${project.platforms_version}") { transitive = false }
 }

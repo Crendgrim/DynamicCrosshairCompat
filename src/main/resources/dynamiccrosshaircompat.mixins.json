@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "adorn.ISeatBlockMixin",
+    "early_buckets.ICustomPowderSnowBucketItemMixin",
     "mcwroofs.IGutterTallMixin",
     "mcwroofs.IRainGutterMixin"
   ],

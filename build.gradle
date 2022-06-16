@@ -66,6 +66,9 @@ dependencies {
 	modCompileOnly("maven.modrinth:chalk:${project.chalk_version}") { transitive = false }
 	modCompileOnly("curse.maven:chipped-${project.chipped_version}") { transitive = false }
 	modCompileOnly("curse.maven:croptosis-${project.croptosis_version}") { transitive = false }
+	modCompileOnly("curse.maven:dehydration-${project.dehydration_version}") { transitive = false }
+	modCompileOnly("curse.maven:disenchanter-${project.disenchanter_version}") { transitive = false }
+	modCompileOnly("curse.maven:dismount-entity-${project.dismount_entity_version}") { transitive = false }
 	modCompileOnly("curse.maven:decor4fabric-${project.decor_version}") { transitive = false }
 	modCompileOnly("curse.maven:early-game-buckets-${project.earlygamebuckets_version}") { transitive = false }
 	modCompileOnly("curse.maven:enderchests-fabric-${project.enderchests_version}") { transitive = false }

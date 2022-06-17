@@ -1,7 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.botania;
 
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
-import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,10 +24,9 @@ import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.ItemManaSpark;
 import vazkii.botania.common.item.lens.ItemLens;
 
-class BotaniaBlockInteractHandler implements IBlockInteractHandler {
+class BotaniaBlockInteractHandler {
 
-	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public static Crosshair checkBlockInteractable(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		ItemStack itemStack = context.getItemStack();

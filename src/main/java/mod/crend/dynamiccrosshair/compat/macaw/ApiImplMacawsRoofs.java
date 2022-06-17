@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.macaw;
 
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.compat.mixin.mcwroofs.IGutterTallMixin;
 import mod.crend.dynamiccrosshair.compat.mixin.mcwroofs.IRainGutterMixin;
 import mod.crend.dynamiccrosshair.component.Crosshair;
@@ -25,41 +25,39 @@ public class ApiImplMacawsRoofs implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public IBlockInteractHandler getBlockInteractHandler() {
-		return context -> {
-			BlockState blockState = context.getBlockState();
-			Block block = blockState.getBlock();
-			ItemStack itemStack = context.getItemStack();
+	public Crosshair checkBlockInteractable(CrosshairContext context) {
+		BlockState blockState = context.getBlockState();
+		Block block = blockState.getBlock();
+		ItemStack itemStack = context.getItemStack();
 
-			if (block instanceof BaseRoof || block instanceof RoofGlass || block instanceof RoofTopNew || block instanceof RainGutter) {
-				if (itemStack.getItem() instanceof Hammer) {
-					return Crosshair.USE_ITEM;
-				}
+		if (block instanceof BaseRoof || block instanceof RoofGlass || block instanceof RoofTopNew || block instanceof RainGutter) {
+			if (itemStack.getItem() instanceof Hammer) {
+				return Crosshair.USE_ITEM;
 			}
+		}
 
-			if (block instanceof RoofGlass) {
-				if (itemStack.getItem() != block.asItem()) {
-					return Crosshair.INTERACTABLE;
-				}
+		if (block instanceof RoofGlass) {
+			if (itemStack.getItem() != block.asItem()) {
+				return Crosshair.INTERACTABLE;
 			}
+		}
 
-			if (block instanceof RainGutter || block instanceof GutterTall) {
-				BooleanProperty water;
-				if (block instanceof RainGutter) {
-					water = IRainGutterMixin.getWATER();
-				} else {
-					water = IGutterTallMixin.getWATER();
-				}
-				boolean hasWater = blockState.get(water);
-				if (!hasWater && itemStack.isOf(Items.WATER_BUCKET)) {
-					return Crosshair.USE_ITEM;
-				}
-				if (hasWater && (itemStack.isOf(Items.GLASS_BOTTLE) || itemStack.isOf(Items.BUCKET))) {
-					return Crosshair.USE_ITEM;
-				}
+		if (block instanceof RainGutter || block instanceof GutterTall) {
+			BooleanProperty water;
+			if (block instanceof RainGutter) {
+				water = IRainGutterMixin.getWATER();
+			} else {
+				water = IGutterTallMixin.getWATER();
 			}
+			boolean hasWater = blockState.get(water);
+			if (!hasWater && itemStack.isOf(Items.WATER_BUCKET)) {
+				return Crosshair.USE_ITEM;
+			}
+			if (hasWater && (itemStack.isOf(Items.GLASS_BOTTLE) || itemStack.isOf(Items.BUCKET))) {
+				return Crosshair.USE_ITEM;
+			}
+		}
 
-			return null;
-		};
+		return null;
 	}
 }

@@ -33,6 +33,7 @@
       "mod.crend.dynamiccrosshair.compat.birdsnests.ApiImplBirdsNests",
       "mod.crend.dynamiccrosshair.compat.blossom.ApiImplBlossom",
       "mod.crend.dynamiccrosshair.compat.botania.ApiImplBotania",
+      "mod.crend.dynamiccrosshair.compat.botania.ApiImplBotaniaForced",
       "mod.crend.dynamiccrosshair.compat.carrier.ApiImplCarrier",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
       "mod.crend.dynamiccrosshair.compat.chipped.ApiImplChipped",
@@ -44,6 +45,11 @@
       "mod.crend.dynamiccrosshair.compat.dismountentity.ApiImplDismountEntity",
       "mod.crend.dynamiccrosshair.compat.early_buckets.ApiImplEarlyGameBuckets",
       "mod.crend.dynamiccrosshair.compat.enderchests.ApiImplEnderChests",
+      "mod.crend.dynamiccrosshair.compat.extractpoison.ApiImplExtractPoison",
+      "mod.crend.dynamiccrosshair.compat.gofish.ApiImplGoFish",
+      "mod.crend.dynamiccrosshair.compat.halfdoors.ApiImplHalfDoors",
+      "mod.crend.dynamiccrosshair.compat.interactic.ApiImplInteractic",
+      "mod.crend.dynamiccrosshair.compat.kelpfertilizer.ApiImplKelpFertilizer",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsBridges",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsDoors",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsLights",
@@ -53,7 +59,12 @@
       "mod.crend.dynamiccrosshair.compat.multibeds.ApiImplMultiBeds",
       "mod.crend.dynamiccrosshair.compat.patchouli.ApiImplPatchouli",
       "mod.crend.dynamiccrosshair.compat.pickyourpoison.ApiImplPickYourPoison",
-      "mod.crend.dynamiccrosshair.compat.platforms.ApiImplPlatforms"
+      "mod.crend.dynamiccrosshair.compat.platforms.ApiImplPlatforms",
+      "mod.crend.dynamiccrosshair.compat.things.ApiImplThings",
+      "mod.crend.dynamiccrosshair.compat.throwabletorch.ApiImplThrowableTorch",
+      "mod.crend.dynamiccrosshair.compat.travelersbackpack.ApiImplTravelersBackpack",
+      "mod.crend.dynamiccrosshair.compat.trinkets.ApiImplTrinkets",
+      "mod.crend.dynamiccrosshair.compat.vanillatweaks.ApiImplVanillaTweaks"
     ]
   },
   "mixins": [

@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.platforms;
 
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
@@ -20,37 +20,35 @@ public class ApiImplPlatforms implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public IBlockInteractHandler getBlockInteractHandler() {
-		return context -> {
-			Item item = context.getItem();
-			BlockState blockState = context.getBlockState();
+	public Crosshair checkBlockInteractable(CrosshairContext context) {
+		Item item = context.getItem();
+		BlockState blockState = context.getBlockState();
 
-			if (blockState.getBlock() instanceof BlockPlatformBase) {
-				if (item instanceof ItemWrench) {
+		if (blockState.getBlock() instanceof BlockPlatformBase) {
+			if (item instanceof ItemWrench) {
+				return Crosshair.USE_ITEM;
+			}
+		}
+		if (blockState.getBlock() instanceof BlockPlatformFrame) {
+			EnumTorchType torch = TileHelper.getTorch(blockState);
+			if (item == Items.GLOWSTONE_DUST) {
+				if (torch != null) {
+					switch (torch) {
+						case REDSTONE_OFF:
+						case REDSTONE_ON:
+						case LIGHT:
+						case SOUL:
+							return Crosshair.USE_ITEM;
+					}
+				}
+			} else if (torch == null) {
+				if (item == Items.REDSTONE_TORCH || item == Items.TORCH || item == Items.SOUL_TORCH) {
 					return Crosshair.USE_ITEM;
 				}
-			}
-			if (blockState.getBlock() instanceof BlockPlatformFrame) {
-				EnumTorchType torch = TileHelper.getTorch(blockState);
-				if (item == Items.GLOWSTONE_DUST) {
-					if (torch != null) {
-						switch (torch) {
-							case REDSTONE_OFF:
-							case REDSTONE_ON:
-							case LIGHT:
-							case SOUL:
-								return Crosshair.USE_ITEM;
-						}
-					}
-				} else if (torch == null) {
-					if (item == Items.REDSTONE_TORCH || item == Items.TORCH || item == Items.SOUL_TORCH) {
-						return Crosshair.USE_ITEM;
-					}
 
-				}
 			}
+		}
 
-			return null;
-		};
+		return null;
 	}
 }

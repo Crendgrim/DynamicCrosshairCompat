@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.croptosis;
 
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -26,30 +26,28 @@ public class ApiImplCroptosis implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public IUsableItemHandler getUsableItemHandler() {
-		return context -> {
-			ItemStack itemStack = context.getItemStack();
-			Item item = itemStack.getItem();
+	public Crosshair checkUsableItem(CrosshairContext context) {
+		ItemStack itemStack = context.getItemStack();
+		Item item = itemStack.getItem();
 
-			if (item instanceof WateringCanItem) {
-				if (WateringCanItem.isFilled(itemStack)) {
-					return Crosshair.USE_ITEM;
-				}
-
-				BlockHitResult blockHitResult = context.raycastWithFluid();
-				if (context.world.getFluidState(blockHitResult.getBlockPos()).isIn(FluidTags.WATER)) {
-					return Crosshair.USE_ITEM;
-				}
+		if (item instanceof WateringCanItem) {
+			if (WateringCanItem.isFilled(itemStack)) {
+				return Crosshair.USE_ITEM;
 			}
 
-			if (context.isWithBlock() && item instanceof FertilizerItem) {
-				BlockState blockState = context.getBlockState();
-				if (blockState.isOf(Blocks.DIRT) || blockState.isOf(Blocks.SAND) || blockState.isOf(Blocks.FARMLAND)) {
-					return Crosshair.USE_ITEM;
-				}
+			BlockHitResult blockHitResult = context.raycastWithFluid();
+			if (context.world.getFluidState(blockHitResult.getBlockPos()).isIn(FluidTags.WATER)) {
+				return Crosshair.USE_ITEM;
 			}
+		}
 
-			return null;
-		};
+		if (context.isWithBlock() && item instanceof FertilizerItem) {
+			BlockState blockState = context.getBlockState();
+			if (blockState.isOf(Blocks.DIRT) || blockState.isOf(Blocks.SAND) || blockState.isOf(Blocks.FARMLAND)) {
+				return Crosshair.USE_ITEM;
+			}
+		}
+
+		return null;
 	}
 }

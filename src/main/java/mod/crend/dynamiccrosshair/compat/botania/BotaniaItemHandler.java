@@ -2,8 +2,6 @@ package mod.crend.dynamiccrosshair.compat.botania;
 
 import mod.crend.dynamiccrosshair.DynamicCrosshair;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
-import mod.crend.dynamiccrosshair.api.IRangedWeaponHandler;
-import mod.crend.dynamiccrosshair.api.IThrowableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.config.RangedCrosshairPolicy;
 import net.minecraft.item.BowItem;
@@ -15,10 +13,9 @@ import vazkii.botania.common.item.ItemThornChakram;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.rod.ItemMissileRod;
 
-class BotaniaItemHandler implements IThrowableItemHandler, IRangedWeaponHandler {
+class BotaniaItemHandler {
 
-	@Override
-	public Crosshair checkThrowable(CrosshairContext context) {
+	public static Crosshair checkThrowable(CrosshairContext context) {
 		Item item = context.getItem();
 		if (item instanceof ItemEnderAir || item instanceof ItemThornChakram) {
 			return Crosshair.THROWABLE;
@@ -27,8 +24,7 @@ class BotaniaItemHandler implements IThrowableItemHandler, IRangedWeaponHandler 
 		return null;
 	}
 
-	@Override
-	public Crosshair checkRangedWeapon(CrosshairContext context) {
+	public static Crosshair checkRangedWeapon(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 		if (item instanceof ItemMissileRod) {

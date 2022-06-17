@@ -1,6 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.botania;
 
 import mod.crend.dynamiccrosshair.api.*;
+import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 
@@ -15,43 +16,38 @@ public class ApiImplBotania implements DynamicCrosshairApi {
 		return true;
 	}
 
-	BotaniaItemHandler itemHandler = new BotaniaItemHandler();
-	BotaniaEntityHandler entityHandler = new BotaniaEntityHandler();
-	IBlockInteractHandler blockInteractHandler = new BotaniaBlockInteractHandler();
-	BotaniaUsableItemHandler usableItemHandler = new BotaniaUsableItemHandler();
-
 	@Override
-	public IBlockInteractHandler getBlockInteractHandler() {
-		return blockInteractHandler;
+	public Crosshair checkBlockInteractable(CrosshairContext context) {
+		return BotaniaBlockInteractHandler.checkBlockInteractable(context);
 	}
 
 	@Override
-	public IThrowableItemHandler getThrowableItemHandler() {
-		return itemHandler;
+	public Crosshair checkThrowable(CrosshairContext context) {
+		return BotaniaItemHandler.checkThrowable(context);
 	}
 
 	@Override
-	public IRangedWeaponHandler getRangedWeaponHandler() {
-		return itemHandler;
+	public Crosshair checkRangedWeapon(CrosshairContext context) {
+		return BotaniaItemHandler.checkRangedWeapon(context);
 	}
 
 	@Override
 	public boolean isAlwaysUsableItem(ItemStack itemStack) {
-		return usableItemHandler.isAlwaysUsableItem(itemStack);
+		return BotaniaUsableItemHandler.isAlwaysUsableItem(itemStack);
 	}
 
 	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
-		return usableItemHandler.isUsableItem(itemStack);
+		return BotaniaUsableItemHandler.isUsableItem(itemStack);
 	}
 
 	@Override
-	public IUsableItemHandler getUsableItemHandler() {
-		return usableItemHandler;
+	public Crosshair checkUsableItem(CrosshairContext context) {
+		return BotaniaUsableItemHandler.checkUsableItem(context);
 	}
 
 	@Override
-	public IEntityHandler getEntityHandler() {
-		return entityHandler;
+	public Crosshair checkEntity(CrosshairContext context) {
+		return BotaniaEntityHandler.checkEntity(context);
 	}
 }

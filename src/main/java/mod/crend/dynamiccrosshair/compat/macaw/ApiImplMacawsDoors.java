@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.macaw;
 
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.api.IUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.kikoz.mcwdoors.MacawsDoors;
 import net.kikoz.mcwdoors.objects.GarageDoor;
@@ -15,16 +15,14 @@ public class ApiImplMacawsDoors implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public IUsableItemHandler getUsableItemHandler() {
-		return context -> {
-			if (context.isWithBlock() && context.getItem() instanceof GarageRemote) {
-				if (context.getBlock() instanceof GarageDoor && !context.player.shouldCancelInteraction()) {
-					return Crosshair.USE_ITEM;
-				}
+	public Crosshair checkUsableItem(CrosshairContext context) {
+		if (context.isWithBlock() && context.getItem() instanceof GarageRemote) {
+			if (context.getBlock() instanceof GarageDoor && !context.player.shouldCancelInteraction()) {
+				return Crosshair.USE_ITEM;
 			}
+		}
 
-			return null;
-		};
+		return null;
 	}
 
 	@Override

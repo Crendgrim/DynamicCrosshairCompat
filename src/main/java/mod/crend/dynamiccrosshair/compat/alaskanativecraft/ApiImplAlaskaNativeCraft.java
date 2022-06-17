@@ -7,10 +7,8 @@ import com.github.platymemo.alaskanativecraft.entity.DogsledEntity;
 import com.github.platymemo.alaskanativecraft.item.DogsledItem;
 import com.github.platymemo.alaskanativecraft.recipe.DryingRecipe;
 import mod.crend.dynamiccrosshair.DynamicCrosshair;
+import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.api.IBlockInteractHandler;
-import mod.crend.dynamiccrosshair.api.IBlockItemHandler;
-import mod.crend.dynamiccrosshair.api.IEntityHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.config.BlockCrosshairPolicy;
 
@@ -23,46 +21,39 @@ public class ApiImplAlaskaNativeCraft implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public IEntityHandler getEntityHandler() {
-		return context -> {
+	public Crosshair checkEntity(CrosshairContext context) {
+		if (context.getEntity() instanceof DogsledEntity && !context.player.isSneaking()) {
+			return Crosshair.INTERACTABLE;
+		}
 
-			if (context.getEntity() instanceof DogsledEntity && !context.player.isSneaking()) {
+		return null;
+	}
+
+	@Override
+	public Crosshair checkBlockInteractable(CrosshairContext context) {
+		if (context.getBlock() instanceof DryingRackBlock && context.getBlockEntity() instanceof DryingRackBlockEntity blockEntity) {
+			Optional<DryingRecipe> optional = blockEntity.getRecipeFor(context.getItemStack());
+			if (optional.isPresent()) {
+				return Crosshair.USE_ITEM;
+			}
+			if (blockEntity.getItemsBeingDried().size() > 0) {
 				return Crosshair.INTERACTABLE;
 			}
+		}
 
-			return null;
-		};
+		return null;
 	}
 
 	@Override
-	public IBlockInteractHandler getBlockInteractHandler() {
-		return context -> {
-			if (context.getBlock() instanceof DryingRackBlock && context.getBlockEntity() instanceof DryingRackBlockEntity blockEntity) {
-				Optional<DryingRecipe> optional = blockEntity.getRecipeFor(context.getItemStack());
-				if (optional.isPresent()) {
-					return Crosshair.USE_ITEM;
+	public Crosshair checkBlockItem(CrosshairContext context) {
+		if (context.getItem() instanceof DogsledItem) {
+			if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() == BlockCrosshairPolicy.IfInteractable) {
+				if (context.isWithBlock()) {
+					return Crosshair.HOLDING_BLOCK;
 				}
-				if (blockEntity.getItemsBeingDried().size() > 0) {
-					return Crosshair.INTERACTABLE;
-				}
-			}
+			} else return Crosshair.HOLDING_BLOCK;
+		}
 
-			return null;
-		};
-	}
-
-	@Override
-	public IBlockItemHandler getBlockItemHandler() {
-		return context -> {
-			if (context.getItem() instanceof DogsledItem) {
-				if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() == BlockCrosshairPolicy.IfInteractable) {
-					if (context.isWithBlock()) {
-						return Crosshair.HOLDING_BLOCK;
-					}
-				} else return Crosshair.HOLDING_BLOCK;
-			}
-
-			return null;
-		};
+		return null;
 	}
 }

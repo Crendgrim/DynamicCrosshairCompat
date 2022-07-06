@@ -52,6 +52,7 @@
       "mod.crend.dynamiccrosshair.compat.extractpoison.ApiImplExtractPoison",
       "mod.crend.dynamiccrosshair.compat.gofish.ApiImplGoFish",
       "mod.crend.dynamiccrosshair.compat.halfdoors.ApiImplHalfDoors",
+      "mod.crend.dynamiccrosshair.compat.hookshot.ApiImplHookshot",
       "mod.crend.dynamiccrosshair.compat.interactic.ApiImplInteractic",
       "mod.crend.dynamiccrosshair.compat.kelpfertilizer.ApiImplKelpFertilizer",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsBridges",

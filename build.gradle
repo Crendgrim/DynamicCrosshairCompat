@@ -67,6 +67,7 @@ dependencies {
 	modCompileOnly("maven.modrinth:botania:${project.botania_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:cammies-minecart-tweaks:${project.camsminecart_tweaks_version}") { transitive = false }
 	modCompileOnly("curse.maven:cammies-wearable-backpacks-${project.camsbackpacks_version}") { transitive = false }
+	modCompileOnly("maven.modrinth:campanion:${project.campanion_version}") { transitive = false }
 	modCompileOnly("curse.maven:carrier-${project.carrier_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:chalk:${project.chalk_version}") { transitive = false }
 	modCompileOnly("curse.maven:chipped-${project.chipped_version}") { transitive = false }

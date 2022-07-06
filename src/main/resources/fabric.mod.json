@@ -36,6 +36,7 @@
       "mod.crend.dynamiccrosshair.compat.botania.ApiImplBotania",
       "mod.crend.dynamiccrosshair.compat.botania.ApiImplBotaniaForced",
       "mod.crend.dynamiccrosshair.compat.carrier.ApiImplCarrier",
+      "mod.crend.dynamiccrosshair.compat.campanion.ApiImplCampanion",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
       "mod.crend.dynamiccrosshair.compat.chipped.ApiImplChipped",
       "mod.crend.dynamiccrosshair.compat.croptosis.ApiImplCroptosis",

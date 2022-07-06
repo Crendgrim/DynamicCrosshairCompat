@@ -81,6 +81,7 @@ dependencies {
 	modCompileOnly("curse.maven:elytraboosters-${project.elytraboosters_version}") { transitive = false }
 	modCompileOnly("curse.maven:enderchests-fabric-${project.enderchests_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:enderscape:${project.enderscape_version}") { transitive = false }
+	modCompileOnly("curse.maven:extendeddrawers-${project.extendeddrawers_version}") { transitive = false }
 	modCompileOnly("curse.maven:gofish-${project.gofish_version}") { transitive = false }
 	modCompileOnly("curse.maven:halfdoors-${project.halfdoors_version}") { transitive = false }
 	modCompileOnly("curse.maven:hookshot-${project.hookshot_version}") { transitive = false }

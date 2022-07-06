@@ -53,6 +53,7 @@ dependencies {
 	modCompileOnly("curse.maven:adapaxels-${project.adapaxels_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:addadd:${project.addadd_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:adorn:${project.adorn_version}") { transitive = false }
+	modCompileOnly("curse.maven:adventurez-${project.adventurez_version}") { transitive = false }
 	modCompileOnly("maven.modrinth:arcanus:${project.arcanus_version}") { transitive = false }
 	modCompileOnly("curse.maven:akashic-tome-of-tools-fabric-${project.akashic_tome_of_tools_version}") { transitive = false }
 	modCompileOnly("curse.maven:alaska-native-craft-unofficial-port-${project.alaska_native_craft_version}") { transitive = false }
@@ -99,6 +100,7 @@ dependencies {
 	modCompileOnly("curse.maven:travelers-backpack-fabric-${project.travelers_backpack_version}") { transitive = false }
 	modCompileOnly "dev.emi:trinkets:${project.trinkets_version}"
 	modCompileOnly("curse.maven:vanillatweaks-${project.vanillatweaks_version}") { transitive = false }
+	modCompileOnly("curse.maven:voidz-${project.voidz_version}") { transitive = false }
 }
 
 processResources {

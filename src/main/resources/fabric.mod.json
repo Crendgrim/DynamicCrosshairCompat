@@ -46,6 +46,7 @@
       "mod.crend.dynamiccrosshair.compat.disenchanter.ApiImplDisenchanter",
       "mod.crend.dynamiccrosshair.compat.dismountentity.ApiImplDismountEntity",
       "mod.crend.dynamiccrosshair.compat.early_buckets.ApiImplEarlyGameBuckets",
+      "mod.crend.dynamiccrosshair.compat.elytraboosters.ApiImplElytraBoosters",
       "mod.crend.dynamiccrosshair.compat.enderchests.ApiImplEnderChests",
       "mod.crend.dynamiccrosshair.compat.extractpoison.ApiImplExtractPoison",
       "mod.crend.dynamiccrosshair.compat.gofish.ApiImplGoFish",

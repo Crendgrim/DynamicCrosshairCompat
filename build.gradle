@@ -77,6 +77,7 @@ dependencies {
 	modCompileOnly("curse.maven:dismount-entity-${project.dismount_entity_version}") { transitive = false }
 	modCompileOnly("curse.maven:decor4fabric-${project.decor_version}") { transitive = false }
 	modCompileOnly("curse.maven:early-game-buckets-${project.earlygamebuckets_version}") { transitive = false }
+	modCompileOnly("curse.maven:elytraboosters-${project.elytraboosters_version}") { transitive = false }
 	modCompileOnly("curse.maven:enderchests-fabric-${project.enderchests_version}") { transitive = false }
 	modCompileOnly("curse.maven:gofish-${project.gofish_version}") { transitive = false }
 	modCompileOnly("curse.maven:halfdoors-${project.halfdoors_version}") { transitive = false }

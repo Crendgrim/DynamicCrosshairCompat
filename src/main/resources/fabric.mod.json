@@ -21,6 +21,7 @@
     ],
     "dynamiccrosshair": [
       "mod.crend.dynamiccrosshair.compat.adapaxels.ApiImplAdaPaxels",
+      "mod.crend.dynamiccrosshair.compat.additionaladditions.ApiImplAdditionalAdditions",
       "mod.crend.dynamiccrosshair.compat.adorn.ApiImplAdorn",
       "mod.crend.dynamiccrosshair.compat.akashictomeoftools.ApiImplAkashicTomeOfTools",
       "mod.crend.dynamiccrosshair.compat.alaskanativecraft.ApiImplAlaskaNativeCraft",

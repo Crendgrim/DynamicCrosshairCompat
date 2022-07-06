@@ -32,22 +32,21 @@ public class ApiImplEnderscape implements DynamicCrosshairApi {
 	}
 
 	@Override
+	public boolean isAlwaysUsableItem(ItemStack itemStack) {
+		Item item = itemStack.getItem();
+		return item instanceof HealingItem;
+	}
+
+	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return item instanceof HealingItem
-				|| item instanceof MirrorItem;
+		return item instanceof MirrorItem;
 	}
 
 	@Override
 	public Crosshair checkUsableItem(CrosshairContext context) {
 		ItemStack handItemStack = context.getItemStack();
 		Item item = handItemStack.getItem();
-
-		if (item instanceof HealingItem) {
-			if (!context.player.getItemCooldownManager().isCoolingDown(item)) {
-				return Crosshair.USE_ITEM;
-			}
-		}
 
 		if (item instanceof MirrorItem) {
 			if (MirrorUtil.isLinked(handItemStack) && MirrorUtil.isSameDimension(handItemStack, context.player) && MirrorUtil.hasEnoughEnergy(handItemStack, context.player)) {

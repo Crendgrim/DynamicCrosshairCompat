@@ -43,15 +43,15 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 	@Override
 	public boolean isAlwaysUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return item instanceof SourceStoneItem
-				|| item instanceof HandbookItem;
+		return item instanceof EnderFluteItem
+				|| item instanceof HandbookItem
+				|| item instanceof SourceStoneItem;
 	}
 
 	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return item instanceof EnderFluteItem
-				|| item instanceof StoneGolemHeartItem;
+		return item instanceof StoneGolemHeartItem;
 	}
 
 	@Override
@@ -59,11 +59,6 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 		ItemStack handItemStack = context.getItemStack();
 		Item item = handItemStack.getItem();
 
-		if (item instanceof EnderFluteItem) {
-			if (!context.player.getItemCooldownManager().isCoolingDown(item)) {
-				return Crosshair.USE_ITEM;
-			}
-		}
 		if (item instanceof StoneGolemHeartItem) {
 			if (context.player.isSneaking()) {
 				return Crosshair.USE_ITEM;
@@ -83,7 +78,7 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 			}
 		}
 		if (item instanceof PrimeEyeItem) {
-			if (handItemStack.getDamage() <= handItemStack.getMaxDamage() - 1 && !context.player.getItemCooldownManager().isCoolingDown(item)) {
+			if (handItemStack.getDamage() <= handItemStack.getMaxDamage() - 1) {
 				return Crosshair.THROWABLE;
 			}
 		}

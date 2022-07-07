@@ -31,6 +31,9 @@ repositories {
 			includeGroup "curse.maven"
 		}
 	}
+	flatDir {
+		dir "lib"
+	}
 }
 
 dependencies {
@@ -41,67 +44,32 @@ dependencies {
 
 	modCompileOnly include(fabricApi.module("fabric-api-base", project.fabric_api_version))
 	modCompileOnly include(fabricApi.module("fabric-key-binding-api-v1", project.fabric_api_version))
+	modCompileOnly include(fabricApi.module("fabric-transfer-api-v1", project.fabric_api_version))
+	modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
-	modImplementation("maven.modrinth:dynamiccrosshair:${project.dynamiccrosshair_version}") { transitive = false }
+	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {
+		modImplementation include(name: "dynamiccrosshair")
+	} else {
+		modImplementation("maven.modrinth:dynamiccrosshair:${project.dynamiccrosshair_version}")
+	}
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.clothconfig_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	/* Supported Mods */
-	modCompileOnly("curse.maven:adapaxels-${project.adapaxels_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:addadd:${project.addadd_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:adorn:${project.adorn_version}") { transitive = false }
-	modCompileOnly("curse.maven:adventurez-${project.adventurez_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:arcanus:${project.arcanus_version}") { transitive = false }
-	modCompileOnly("curse.maven:akashic-tome-of-tools-fabric-${project.akashic_tome_of_tools_version}") { transitive = false }
-	modCompileOnly("curse.maven:alaska-native-craft-unofficial-port-${project.alaska_native_craft_version}") { transitive = false }
-	modCompileOnly("curse.maven:alkimicraft-${project.alkimicraft_version}") { transitive = false }
-	modCompileOnly("curse.maven:amphitrite-coffer-${project.amphitrite_coffer_version}") { transitive = false }
-	modCompileOnly("curse.maven:bclib-${project.bclib_version}") { transitive = false }
-	modCompileOnly("curse.maven:betteranimalsplus-${project.betteranimalsplus_version}") { transitive = false }
-	modCompileOnly("curse.maven:betternether-${project.betternether_version}") { transitive = false }
-	modCompileOnly("curse.maven:betterend-${project.betterend_version}") { transitive = false }
-	modCompileOnly("curse.maven:birds-nests-fabric-${project.birds_nests_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:blossom:${project.blossom_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:botania:${project.botania_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:cammies-minecart-tweaks:${project.camsminecart_tweaks_version}") { transitive = false }
-	modCompileOnly("curse.maven:cammies-wearable-backpacks-${project.camsbackpacks_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:campanion:${project.campanion_version}") { transitive = false }
-	modCompileOnly("curse.maven:carrier-${project.carrier_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:chalk:${project.chalk_version}") { transitive = false }
-	modCompileOnly("curse.maven:chipped-${project.chipped_version}") { transitive = false }
-	modCompileOnly("curse.maven:croptosis-${project.croptosis_version}") { transitive = false }
-	modCompileOnly("curse.maven:dehydration-${project.dehydration_version}") { transitive = false }
-	modCompileOnly("curse.maven:disenchanter-${project.disenchanter_version}") { transitive = false }
-	modCompileOnly("curse.maven:dismount-entity-${project.dismount_entity_version}") { transitive = false }
-	modCompileOnly("curse.maven:decor4fabric-${project.decor_version}") { transitive = false }
-	modCompileOnly("curse.maven:early-game-buckets-${project.earlygamebuckets_version}") { transitive = false }
-	modCompileOnly("curse.maven:elytraboosters-${project.elytraboosters_version}") { transitive = false }
-	modCompileOnly("curse.maven:enderchests-fabric-${project.enderchests_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:enderscape:${project.enderscape_version}") { transitive = false }
-	modCompileOnly("curse.maven:extendeddrawers-${project.extendeddrawers_version}") { transitive = false }
-	modCompileOnly("curse.maven:gofish-${project.gofish_version}") { transitive = false }
-	modCompileOnly("curse.maven:halfdoors-${project.halfdoors_version}") { transitive = false }
-	modCompileOnly("curse.maven:hookshot-${project.hookshot_version}") { transitive = false }
-	modCompileOnly("curse.maven:inmis-${project.inmis_version}") { transitive = false }
-	modCompileOnly("curse.maven:interactic-${project.interactic_version}") { transitive = false }
-	modCompileOnly("curse.maven:macaws-bridges-${project.macaws_bridges_version}") { transitive = false }
-	modCompileOnly("curse.maven:macaws-doors-${project.macaws_doors_version}") { transitive = false }
-	modCompileOnly("curse.maven:macaws-lights-${project.macaws_lights_version}") { transitive = false }
-	modCompileOnly("curse.maven:macaws-roofs-${project.macaws_roofs_version}") { transitive = false }
-	modCompileOnly("curse.maven:macaws-windows-${project.macaws_windows_version}") { transitive = false }
-	modCompileOnly("curse.maven:multibeds-fabric-${project.multibeds_version}") { transitive = false }
-	modCompileOnly("maven.modrinth:patchouli:${project.patchouli_version}") { transitive = false }
-	modCompileOnly("curse.maven:pick-your-poison-${project.pick_your_poison_version}") { transitive = false }
-	modCompileOnly("curse.maven:platforms-fabric-${project.platforms_version}") { transitive = false }
-	modCompileOnly("curse.maven:things-fabric-${project.things_version}") { transitive = false }
-	modCompileOnly("curse.maven:throwabletorch-fabric-${project.throwabletorch_version}") { transitive = false }
-	modCompileOnly("curse.maven:travelers-backpack-fabric-${project.travelers_backpack_version}") { transitive = false }
-	modCompileOnly "dev.emi:trinkets:${project.trinkets_version}"
-	modCompileOnly("curse.maven:vanillatweaks-${project.vanillatweaks_version}") { transitive = false }
-	modCompileOnly("curse.maven:voidz-${project.voidz_version}") { transitive = false }
+	def modFile=file("supported_mods.csv")
+	modFile.splitEachLine(",") { fields ->
+		switch (fields[1]) {
+			case "curse":
+				modCompileOnly("curse.maven:${fields[0]}-${fields[2]}") { transitive = false }
+				break;
+			case "modrinth":
+				modCompileOnly("maven.modrinth:${fields[0]}:${fields[2]}") { transitive = false }
+				break;
+		}
+	}
 }
 
 processResources {

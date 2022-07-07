@@ -20,12 +20,10 @@
       "mod.crend.dynamiccrosshair.compat.DynamicCrosshairCompat"
     ],
     "dynamiccrosshair": [
-      "mod.crend.dynamiccrosshair.compat.adapaxels.ApiImplAdaPaxels",
       "mod.crend.dynamiccrosshair.compat.additionaladditions.ApiImplAdditionalAdditions",
       "mod.crend.dynamiccrosshair.compat.adorn.ApiImplAdorn",
       "mod.crend.dynamiccrosshair.compat.adventurez.ApiImplAdventureZ",
       "mod.crend.dynamiccrosshair.compat.akashictomeoftools.ApiImplAkashicTomeOfTools",
-      "mod.crend.dynamiccrosshair.compat.alaskanativecraft.ApiImplAlaskaNativeCraft",
       "mod.crend.dynamiccrosshair.compat.amphitritecoffer.ApiImplAmphitriteCoffer",
       "mod.crend.dynamiccrosshair.compat.betteranimalsplus.ApiImplBetterAnimalsPlus",
       "mod.crend.dynamiccrosshair.compat.betternether.ApiImplBetterNether",

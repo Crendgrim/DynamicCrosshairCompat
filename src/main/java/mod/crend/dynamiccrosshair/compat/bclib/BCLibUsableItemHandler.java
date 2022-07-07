@@ -5,8 +5,8 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
-import ru.bclib.blocks.BaseStripableLogBlock;
-import ru.bclib.blocks.StripableBarkBlock;
+import org.betterx.bclib.blocks.BaseStripableLogBlock;
+import org.betterx.bclib.blocks.StripableBarkBlock;
 
 public class BCLibUsableItemHandler {
 	public static Crosshair checkUsableItem(CrosshairContext context) {

@@ -5,8 +5,8 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.bclib.BCLibUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
-import paulevs.betternether.BetterNether;
-import paulevs.betternether.blocks.BNChair;
+import org.betterx.betternether.BetterNether;
+import org.betterx.betternether.blocks.BNChair;
 
 public class ApiImplBetterNether implements DynamicCrosshairApi {
 	@Override

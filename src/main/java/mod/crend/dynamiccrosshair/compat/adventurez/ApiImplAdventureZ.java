@@ -7,13 +7,18 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.config.RangedCrosshairPolicy;
 import net.adventurez.block.StoneHolderBlock;
 import net.adventurez.block.entity.StoneHolderEntity;
+import net.adventurez.entity.EnderWhaleEntity;
 import net.adventurez.init.ConfigInit;
 import net.adventurez.init.TagInit;
 import net.adventurez.item.*;
+import net.adventurez.mixin.accessor.EntityAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.ActionResult;
 
 public class ApiImplAdventureZ implements DynamicCrosshairApi {
 	@Override
@@ -108,4 +113,21 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 		return null;
 	}
 
+	@Override
+	public Crosshair checkEntity(CrosshairContext context) {
+		Entity entity = context.getEntity();
+
+		if (entity instanceof EnderWhaleEntity enderWhale && !context.player.shouldCancelInteraction()) {
+			Item item = context.getItem();
+			if ((item == Items.CHORUS_FRUIT || item == Items.POPPED_CHORUS_FRUIT) && enderWhale.getMaxHealth() - enderWhale.getHealth() > 0.1F){
+				return Crosshair.USE_ITEM;
+			}
+
+			if (!enderWhale.hasPassengers() || enderWhale.getPassengerList().size() < 2) {
+				return Crosshair.INTERACTABLE;
+			}
+		}
+
+		return null;
+	}
 }

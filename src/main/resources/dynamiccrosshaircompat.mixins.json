@@ -5,7 +5,6 @@
   "client": [
     "additionaladditions.ICopperPatinaBlockMixin",
     "adorn.ISeatBlockMixin",
-    "early_buckets.ICustomPowderSnowBucketItemMixin",
     "extended_drawers.IDrawerBlockMixin",
     "mcwroofs.IGutterTallMixin",
     "mcwroofs.IRainGutterMixin"

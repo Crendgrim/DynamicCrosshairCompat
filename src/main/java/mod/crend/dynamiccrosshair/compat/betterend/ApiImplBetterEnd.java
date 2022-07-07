@@ -4,7 +4,7 @@ import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.bclib.BCLibUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import ru.betterend.BetterEnd;
+import org.betterx.betterend.BetterEnd;
 
 public class ApiImplBetterEnd implements DynamicCrosshairApi {
 	@Override

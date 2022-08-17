@@ -5,8 +5,7 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.kikoz.mcwdoors.MacawsDoors;
 import net.kikoz.mcwdoors.objects.GarageDoor;
-import net.kikoz.mcwdoors.objects.GarageRemote;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.Block;
 
 public class ApiImplMacawsDoors implements DynamicCrosshairApi {
 	@Override
@@ -15,18 +14,12 @@ public class ApiImplMacawsDoors implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock() && context.getItem() instanceof GarageRemote) {
-			if (context.getBlock() instanceof GarageDoor && !context.player.shouldCancelInteraction()) {
-				return Crosshair.USE_ITEM;
-			}
+	public Crosshair checkBlockInteractable(CrosshairContext context) {
+		Block block = context.getBlock();
+		if (block instanceof GarageDoor && block.asItem() != context.getItem()) {
+			return Crosshair.USE_ITEM;
 		}
 
 		return null;
 	}
-
-	@Override
-	public boolean isUsableItem(ItemStack itemStack) {
-			return (itemStack.getItem() instanceof GarageRemote);
-		}
 }

@@ -6,6 +6,7 @@
     "additionaladditions.ICopperPatinaBlockMixin",
     "adorn.ISeatBlockMixin",
     "extended_drawers.IDrawerBlockMixin",
+    "farmersdelight.ICuttingBoardBlockEntityMixin",
     "mcwroofs.IGutterTallMixin",
     "mcwroofs.IRainGutterMixin"
   ],

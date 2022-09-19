@@ -39,7 +39,7 @@ public class ApiImplDehydration implements DynamicCrosshairApi {
 			HitResult hitResult = context.player.raycast(1.5, 0.0F, true);
 			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
 			if (context.world.getFluidState(blockPos).isIn(FluidTags.WATER) && (context.world.getFluidState(blockPos).isStill() || ConfigInit.CONFIG.allow_non_flowing_water_sip)) {
-				ThirstManager thirstManager = ((ThirstManagerAccess) context.player).getThirstManager(context.player);
+				ThirstManager thirstManager = ((ThirstManagerAccess) context.player).getThirstManager();
 				if (thirstManager.isNotFull()) {
 					return Crosshair.INTERACTABLE;
 				}

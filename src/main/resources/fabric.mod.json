@@ -20,6 +20,7 @@
       "mod.crend.dynamiccrosshair.compat.DynamicCrosshairCompat"
     ],
     "dynamiccrosshair": [
+      "mod.crend.dynamiccrosshair.compat.adapaxels.ApiImplAdaPaxels",
       "mod.crend.dynamiccrosshair.compat.additionaladditions.ApiImplAdditionalAdditions",
       "mod.crend.dynamiccrosshair.compat.adorn.ApiImplAdorn",
       "mod.crend.dynamiccrosshair.compat.adventurez.ApiImplAdventureZ",
@@ -37,6 +38,7 @@
       "mod.crend.dynamiccrosshair.compat.croptosis.ApiImplCroptosis",
       "mod.crend.dynamiccrosshair.compat.camsbackpacks.ApiImplCamsBackpacks",
       "mod.crend.dynamiccrosshair.compat.dehydration.ApiImplDehydration",
+      "mod.crend.dynamiccrosshair.compat.decorative_blocks.ApiImplDecorativeBlocks",
       "mod.crend.dynamiccrosshair.compat.disenchanter.ApiImplDisenchanter",
       "mod.crend.dynamiccrosshair.compat.dismountentity.ApiImplDismountEntity",
       "mod.crend.dynamiccrosshair.compat.elytraboosters.ApiImplElytraBoosters",
@@ -46,6 +48,8 @@
       "mod.crend.dynamiccrosshair.compat.extended_drawers.ApiImplExtendedDrawers",
       "mod.crend.dynamiccrosshair.compat.extractpoison.ApiImplExtractPoison",
       "mod.crend.dynamiccrosshair.compat.farmersdelight.ApiImplFarmersDelight",
+      "mod.crend.dynamiccrosshair.compat.gofish.ApiImplGoFish",
+      "mod.crend.dynamiccrosshair.compat.halfdoors.ApiImplHalfDoors",
       "mod.crend.dynamiccrosshair.compat.hookshot.ApiImplHookshot",
       "mod.crend.dynamiccrosshair.compat.inmis.ApiImplInmis",
       "mod.crend.dynamiccrosshair.compat.interactic.ApiImplInteractic",

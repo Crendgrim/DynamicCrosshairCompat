@@ -10,6 +10,8 @@ import net.bettercombat.api.WeaponAttributes;
 import net.bettercombat.logic.WeaponRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Direction;
 
 public class ApiImplBetterCombat implements DynamicCrosshairApi {
@@ -21,6 +23,22 @@ public class ApiImplBetterCombat implements DynamicCrosshairApi {
 	@Override
 	public boolean forceCheck() {
 		return true;
+	}
+
+	@Override
+	public HitResult overrideHitResult(CrosshairContext context, HitResult hitResult) {
+		if (hitResult.getType() == HitResult.Type.MISS) {
+			WeaponAttributes attributes = WeaponRegistry.getAttributes(context.getItemStack());
+			if (attributes != null && attributes.attackRange() > 3) {
+				// Vanilla attack range missed. Try to find an entity within attacking range.
+				EntityHitResult entityHitResult = context.raycastForEntity(attributes.attackRange());
+				if (entityHitResult != null) {
+					return entityHitResult;
+				}
+			}
+		}
+
+		return hitResult;
 	}
 
 	@Override

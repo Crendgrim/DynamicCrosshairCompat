@@ -62,6 +62,7 @@
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsRoofs",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsWindows",
       "mod.crend.dynamiccrosshair.compat.mobcatcher.ApiImplMobCatcher",
+      "mod.crend.dynamiccrosshair.compat.morebannerfeatures.ApiImplMoreBannerFeatures",
       "mod.crend.dynamiccrosshair.compat.multibeds.ApiImplMultiBeds",
       "mod.crend.dynamiccrosshair.compat.minecarttweaks.ApiImplMinecartTweaks",
       "mod.crend.dynamiccrosshair.compat.patchouli.ApiImplPatchouli",

@@ -5,6 +5,8 @@
   "client": [
     "additionaladditions.ICopperPatinaBlockMixin",
     "adorn.ISeatBlockMixin",
+    "boatcontainer.IBoatWithBlockEntityMixin",
+    "boatcontainer.IFurnaceBoatEntityMixin",
     "decorative_blocks.ISeatBlockMixin",
     "extended_drawers.IDrawerBlockMixin",
     "farmersdelight.ICuttingBoardBlockEntityMixin",

@@ -32,6 +32,7 @@
       "mod.crend.dynamiccrosshair.compat.betterend.ApiImplBetterEnd",
       "mod.crend.dynamiccrosshair.compat.birdsnests.ApiImplBirdsNests",
       "mod.crend.dynamiccrosshair.compat.blossom.ApiImplBlossom",
+      "mod.crend.dynamiccrosshair.compat.boatcontainer.ApiImplBoatContainer",
       "mod.crend.dynamiccrosshair.compat.carrier.ApiImplCarrier",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
       "mod.crend.dynamiccrosshair.compat.clickthrough.ApiImplClickThrough",

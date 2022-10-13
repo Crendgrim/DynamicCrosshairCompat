@@ -34,6 +34,7 @@ repositories {
 	maven {
 		url = "https://minecraft.guntram.de/maven/"
 	}
+	maven { url 'https://maven.wispforest.io' }
 	flatDir {
 		dir "lib"
 	}
@@ -51,6 +52,7 @@ dependencies {
 	modCompileOnly include(fabricApi.module("fabric-screen-handler-api-v1", project.fabric_api_version))
 	modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
 	modCompileOnly("de.guntram.mcmod:GBfabrictools:${project.gbfabrictools_version}")
+	modCompileOnly("io.wispforest:owo-lib:${project.owo_version}")
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
 	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {

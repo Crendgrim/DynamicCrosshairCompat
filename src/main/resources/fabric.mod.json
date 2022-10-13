@@ -72,6 +72,7 @@
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfAttraction",
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfEnderchest",
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfTeleport",
+      "mod.crend.dynamiccrosshair.compat.storagemod.ApiImplStorageMod",
       "mod.crend.dynamiccrosshair.compat.things.ApiImplThings",
       "mod.crend.dynamiccrosshair.compat.throwabletorch.ApiImplThrowableTorch",
       "mod.crend.dynamiccrosshair.compat.travelersbackpack.ApiImplTravelersBackpack",

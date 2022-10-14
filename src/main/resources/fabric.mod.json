@@ -47,6 +47,7 @@
       "mod.crend.dynamiccrosshair.compat.decorative_blocks.ApiImplDecorativeBlocks",
       "mod.crend.dynamiccrosshair.compat.disenchanter.ApiImplDisenchanter",
       "mod.crend.dynamiccrosshair.compat.dismountentity.ApiImplDismountEntity",
+      "mod.crend.dynamiccrosshair.compat.edenring.ApiImplEdenRing",
       "mod.crend.dynamiccrosshair.compat.editsign.ApiImplEditSign",
       "mod.crend.dynamiccrosshair.compat.elytraboosters.ApiImplElytraBoosters",
       "mod.crend.dynamiccrosshair.compat.enderscape.ApiImplEnderscape",

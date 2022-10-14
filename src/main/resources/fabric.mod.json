@@ -83,7 +83,8 @@
       "mod.crend.dynamiccrosshair.compat.travelersbackpack.ApiImplTravelersBackpack",
       "mod.crend.dynamiccrosshair.compat.trinkets.ApiImplTrinkets",
       "mod.crend.dynamiccrosshair.compat.vanillatweaks.ApiImplVanillaTweaks",
-      "mod.crend.dynamiccrosshair.compat.voidz.ApiImplVoidZ"
+      "mod.crend.dynamiccrosshair.compat.voidz.ApiImplVoidZ",
+      "mod.crend.dynamiccrosshair.compat.yigd.ApiImplYoureInGraveDanger"
     ]
   },
   "mixins": [

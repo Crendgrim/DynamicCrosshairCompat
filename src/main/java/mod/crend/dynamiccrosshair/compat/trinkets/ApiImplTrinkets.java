@@ -26,24 +26,29 @@ public class ApiImplTrinkets implements DynamicCrosshairApi {
 
 	@Override
 	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.getItem() instanceof TrinketItem) {
-			var optional = TrinketsApi.getTrinketComponent(context.player);
-			if (optional.isPresent()) {
-				TrinketComponent comp = optional.get();
-				for (var group : comp.getInventory().values()) {
-					for (TrinketInventory inv : group.values()) {
-						for (int i = 0; i < inv.size(); i++) {
-							if (inv.getStack(i).isEmpty()) {
-								SlotReference ref = new SlotReference(inv, i);
-								if (TrinketSlot.canInsert(context.getItemStack(), ref, context.player)) {
-									return Crosshair.USE_ITEM;
-								}
+		if (context.getItem() instanceof TrinketItem && canEquipTrinket(context)) {
+			return Crosshair.USE_ITEM;
+		}
+		return null;
+	}
+
+	public static boolean canEquipTrinket(CrosshairContext context) {
+		var optional = TrinketsApi.getTrinketComponent(context.player);
+		if (optional.isPresent()) {
+			TrinketComponent comp = optional.get();
+			for (var group : comp.getInventory().values()) {
+				for (TrinketInventory inv : group.values()) {
+					for (int i = 0; i < inv.size(); i++) {
+						if (inv.getStack(i).isEmpty()) {
+							SlotReference ref = new SlotReference(inv, i);
+							if (TrinketSlot.canInsert(context.getItemStack(), ref, context.player)) {
+								return true;
 							}
 						}
 					}
 				}
 			}
 		}
-		return null;
+		return false;
 	}
 }

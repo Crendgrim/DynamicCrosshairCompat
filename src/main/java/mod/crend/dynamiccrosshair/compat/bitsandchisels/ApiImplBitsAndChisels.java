@@ -1,6 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.bitsandchisels;
 
-import io.github.coolmineman.bitsandchisels.BitsAndChisels;
+import io.github.coolmineman.bitsandchisels.BitsBlock;
 import io.github.coolmineman.bitsandchisels.BitsBlockEntity;
 import io.github.coolmineman.bitsandchisels.api.BitUtils;
 import io.github.coolmineman.bitsandchisels.blueprints.Blueprint;
@@ -21,7 +21,7 @@ import net.minecraft.util.math.Direction;
 public class ApiImplBitsAndChisels implements DynamicCrosshairApi {
 	@Override
 	public String getNamespace() {
-		return BitsAndChisels.MODID;
+		return "bitsandchisels";
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class ApiImplBitsAndChisels implements DynamicCrosshairApi {
 		}
 		if (item instanceof WrenchItem) {
 			if (context.isWithBlock()) {
-				if (context.getBlockState().isOf(BitsAndChisels.BITS_BLOCK)) {
+				if (context.getBlock() instanceof BitsBlock) {
 					return new Crosshair(CrosshairVariant.HoldingTool, ModifierUse.USE_ITEM);
 				}
 				return Crosshair.INCORRECT_TOOL;

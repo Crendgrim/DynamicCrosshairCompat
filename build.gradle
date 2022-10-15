@@ -35,6 +35,7 @@ repositories {
 		url = "https://minecraft.guntram.de/maven/"
 	}
 	maven { url 'https://maven.wispforest.io' }
+	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 	flatDir {
 		dir "lib"
 	}
@@ -53,6 +54,7 @@ dependencies {
 	modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
 	modCompileOnly("de.guntram.mcmod:GBfabrictools:${project.gbfabrictools_version}")
 	modCompileOnly("io.wispforest:owo-lib:${project.owo_version}")
+	modCompileOnly("software.bernie.geckolib:geckolib-fabric-${project.gecko_version}")
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
 	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {

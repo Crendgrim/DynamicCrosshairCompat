@@ -69,6 +69,7 @@
       "mod.crend.dynamiccrosshair.compat.interactic.ApiImplInteractic",
       "mod.crend.dynamiccrosshair.compat.ironchests.ApiImplIronChestsRestocked",
       "mod.crend.dynamiccrosshair.compat.kelpfertilizer.ApiImplKelpFertilizer",
+      "mod.crend.dynamiccrosshair.compat.kibe.ApiImplKibe",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsBridges",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsDoors",
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsLights",

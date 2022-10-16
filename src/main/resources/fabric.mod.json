@@ -42,6 +42,7 @@
       "mod.crend.dynamiccrosshair.compat.bomd.ApiImplBossesOfMassDestruction",
       "mod.crend.dynamiccrosshair.compat.bushierflowers.ApiImplBushierFlowers",
       "mod.crend.dynamiccrosshair.compat.carrier.ApiImplCarrier",
+      "mod.crend.dynamiccrosshair.compat.ccrestitched.ApiImplCCRestitched",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
       "mod.crend.dynamiccrosshair.compat.clickthrough.ApiImplClickThrough",
       "mod.crend.dynamiccrosshair.compat.conjuring.ApiImplConjuring",

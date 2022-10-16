@@ -58,7 +58,7 @@ dependencies {
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
 	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {
-		modImplementation include(name: "dynamiccrosshair")
+		modImplementation(name: "dynamiccrosshair")
 	} else {
 		modImplementation("maven.modrinth:dynamiccrosshair:${project.dynamiccrosshair_version}")
 	}

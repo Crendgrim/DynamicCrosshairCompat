@@ -87,6 +87,7 @@
       "mod.crend.dynamiccrosshair.compat.minecarttweaks.ApiImplMinecartTweaks",
       "mod.crend.dynamiccrosshair.compat.numismaticoverhaul.ApiImplNumismaticOverhaul",
       "mod.crend.dynamiccrosshair.compat.omnihopper.ApiImplOmniHopper",
+      "mod.crend.dynamiccrosshair.compat.paladinsfurniture.ApiImplPaladinsFurniture",
       "mod.crend.dynamiccrosshair.compat.patchouli.ApiImplPatchouli",
       "mod.crend.dynamiccrosshair.compat.pickyourpoison.ApiImplPickYourPoison",
       "mod.crend.dynamiccrosshair.compat.platforms.ApiImplPlatforms",

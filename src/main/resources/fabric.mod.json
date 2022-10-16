@@ -72,6 +72,7 @@
       "mod.crend.dynamiccrosshair.compat.halfdoors.ApiImplHalfDoors",
       "mod.crend.dynamiccrosshair.compat.hookshot.ApiImplHookshot",
       "mod.crend.dynamiccrosshair.compat.inmis.ApiImplInmis",
+      "mod.crend.dynamiccrosshair.compat.indrev.ApiImplIndustrialRevolution",
       "mod.crend.dynamiccrosshair.compat.interactic.ApiImplInteractic",
       "mod.crend.dynamiccrosshair.compat.ironchests.ApiImplIronChestsRestocked",
       "mod.crend.dynamiccrosshair.compat.kelpfertilizer.ApiImplKelpFertilizer",

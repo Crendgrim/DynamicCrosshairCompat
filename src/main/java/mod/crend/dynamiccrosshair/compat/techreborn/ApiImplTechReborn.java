@@ -187,7 +187,7 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 		if (block instanceof BlockRubberLog) {
 			Item item = itemStack.getItem();
 			if ((item instanceof ElectricTreetapItem && getStoredEnergy(itemStack) > 20L) || item instanceof TreeTapItem) {
-				if (blockState.get(BlockRubberLog.HAS_SAP) && blockState.get(BlockRubberLog.SAP_SIDE) == ((BlockHitResult) context.hitResult).getSide()) {
+				if (blockState.get(BlockRubberLog.HAS_SAP) && blockState.get(BlockRubberLog.SAP_SIDE) == context.getBlockHitSide()) {
 					return Crosshair.USE_ITEM;
 				}
 			}

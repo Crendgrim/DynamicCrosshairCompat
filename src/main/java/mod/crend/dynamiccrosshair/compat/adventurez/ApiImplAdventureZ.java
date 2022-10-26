@@ -101,11 +101,8 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 				return Crosshair.RANGED_WEAPON;
 			}
 
-			if (context.isActiveItem()) {
-				int stoneCounter = item.getMaxUseTime(handItemStack) - context.player.getItemUseTimeLeft();
-				if (stoneCounter >= 30) {
-					return Crosshair.RANGED_WEAPON;
-				}
+			if (context.isRangedWeaponCharged(30)) {
+				return Crosshair.RANGED_WEAPON;
 			}
 			return Crosshair.REGULAR;
 		}

@@ -30,7 +30,7 @@ public class ApiImplBedrockIfy implements DynamicCrosshairApi {
 
 	@Override
 	public boolean forceInvalidate(CrosshairContext context) {
-		return (!context.isWithBlock() && !context.isWithEntity()
+		return (!context.isTargeting()
 				&& context.getItem() instanceof BlockItem
 				&& BedrockifyClient.getInstance().settings.isReacharoundEnabled()
 				&& (MinecraftClient.getInstance().isInSingleplayer() || BedrockifyClient.getInstance().settings.isReacharoundMultiplayerEnabled())
@@ -73,7 +73,7 @@ public class ApiImplBedrockIfy implements DynamicCrosshairApi {
 					return Crosshair.USE_ITEM;
 				}
 				if (block instanceof CandleCakeBlock
-						&& isHittingCandleOnCake((BlockHitResult) context.hitResult)
+						&& isHittingCandleOnCake(context.getBlockHitResult())
 						&& !CandleCakeBlock.isLitCandle(blockState)
 						&& CandleCakeBlock.canBeLit(blockState)) {
 					return Crosshair.USE_ITEM;
@@ -86,7 +86,7 @@ public class ApiImplBedrockIfy implements DynamicCrosshairApi {
 
 	@Override
 	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (!context.isWithBlock() && !context.isWithEntity()
+		if (!context.isTargeting()
 				&& context.getItem() instanceof BlockItem
 				&& BedrockifyClient.getInstance().settings.isReacharoundEnabled()
 				&& (MinecraftClient.getInstance().isInSingleplayer() || BedrockifyClient.getInstance().settings.isReacharoundMultiplayerEnabled())

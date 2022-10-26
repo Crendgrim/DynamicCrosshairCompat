@@ -112,14 +112,14 @@ public class AE2Handler {
 			}
 		}
 		if (item instanceof FacadeItem facadeItem && context.isWithBlock()) {
-			FacadePart facade = facadeItem.createPartFromItemStack(itemStack, ((BlockHitResult) context.hitResult).getSide());
+			FacadePart facade = facadeItem.createPartFromItemStack(itemStack, context.getBlockHitSide());
 			IPartHost host = PartHelper.getPartHost(context.world, context.getBlockPos());
 			if (facade != null && host != null && FacadeItem.canPlaceFacade(host, facade)) {
 				return Crosshair.HOLDING_BLOCK;
 			}
 		}
 		if (item instanceof PartItem<?> && context.isWithBlock()) {
-			if (PartPlacement.canPlacePartOnBlock(context.player, context.world, itemStack, context.getBlockPos(), ((BlockHitResult) context.hitResult).getSide())) {
+			if (PartPlacement.canPlacePartOnBlock(context.player, context.world, itemStack, context.getBlockPos(), context.getBlockHitSide())) {
 				return Crosshair.HOLDING_BLOCK;
 			}
 		}

@@ -68,12 +68,12 @@ public class ApiImplClickThrough implements DynamicCrosshairApi {
 			}
 
 			if (!(context.getItem() instanceof DyeItem) || ConfigurationHandler.getSneakToDyeSigns()) {
-				throw new CrosshairContextChange(new BlockHitResult(context.hitResult.getPos(), ((BlockHitResult) context.hitResult).getSide(), attachedPos, false));
+				throw new CrosshairContextChange(new BlockHitResult(context.hitResult.getPos(), context.getBlockHitSide(), attachedPos, false));
 			}
 		} else if (block instanceof WallBannerBlock) {
 			BlockPos attachedPos = blockPos.offset(blockState.get(WallBannerBlock.FACING).getOpposite());
 			if (isClickableBlockAt(context, attachedPos)) {
-				throw new CrosshairContextChange(new BlockHitResult(context.hitResult.getPos(), ((BlockHitResult) context.hitResult).getSide(), attachedPos, false));
+				throw new CrosshairContextChange(new BlockHitResult(context.hitResult.getPos(), context.getBlockHitSide(), attachedPos, false));
 			}
 		}
 

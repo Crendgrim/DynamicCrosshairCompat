@@ -39,7 +39,6 @@ public class ApiImplCCRestitched implements DynamicCrosshairApi {
 	@Override
 	public Crosshair checkUsableItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
-		Item item = itemStack.getItem();
 
 		if (context.isWithBlock()) {
 			Block block = context.getBlock();

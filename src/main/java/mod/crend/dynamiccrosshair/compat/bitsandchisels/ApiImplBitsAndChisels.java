@@ -29,7 +29,7 @@ public class ApiImplBitsAndChisels implements DynamicCrosshairApi {
 		Item item = context.getItem();
 		if (item instanceof IronChisel || item instanceof DiamondChisel || item instanceof SmartChisel) {
 			if (context.isWithBlock()) {
-				BlockHitResult hit = (BlockHitResult) context.hitResult;
+				BlockHitResult hit = context.getBlockHitResult();
 				Direction side = hit.getSide();
 				int x = (int) Math.floor((hit.getPos().getX() - (double) context.getBlockPos().getX()) * 16.0 + (double) side.getOffsetX() * -0.5);
 				int y = (int) Math.floor((hit.getPos().getY() - (double) context.getBlockPos().getY()) * 16.0 + (double) side.getOffsetY() * -0.5);

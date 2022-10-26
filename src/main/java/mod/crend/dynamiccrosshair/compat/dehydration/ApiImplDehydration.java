@@ -35,7 +35,7 @@ public class ApiImplDehydration implements DynamicCrosshairApi {
 
 	@Override
 	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		if (context.player.isSneaking() && context.getHand() == Hand.MAIN_HAND && context.getItemStack().isEmpty()) {
+		if (context.player.isSneaking() && context.isMainHand() && context.getItemStack().isEmpty()) {
 			HitResult hitResult = context.player.raycast(1.5, 0.0F, true);
 			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
 			if (context.world.getFluidState(blockPos).isIn(FluidTags.WATER) && (context.world.getFluidState(blockPos).isStill() || ConfigInit.CONFIG.allow_non_flowing_water_sip)) {

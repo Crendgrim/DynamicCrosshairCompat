@@ -27,7 +27,7 @@ public class ApiImplStorageMod implements DynamicCrosshairApi {
 
 	@Override
 	public boolean forceInvalidate(CrosshairContext context) {
-		return !context.isWithBlock() && !context.isWithEntity() && context.getItem() instanceof WirelessTerminalItem;
+		return !context.isTargeting() && context.getItem() instanceof WirelessTerminalItem;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class ApiImplStorageMod implements DynamicCrosshairApi {
 			return Crosshair.INTERACTABLE;
 		}
 		if (block instanceof InventoryProxyBlock) {
-			if (context.getItemStack().isOf(Items.DIAMOND) && blockState.get(InventoryProxyBlock.FACING) != ((BlockHitResult) context.hitResult).getSide()) {
+			if (context.getItemStack().isOf(Items.DIAMOND) && blockState.get(InventoryProxyBlock.FACING) != context.getBlockHitSide()) {
 				if (blockState.get(InventoryProxyBlock.FILTER_FACING) == InventoryProxyBlock.DirectionWithNull.NULL) {
 					return Crosshair.USE_ITEM;
 				}

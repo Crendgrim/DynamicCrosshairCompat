@@ -28,7 +28,7 @@ public class ApiImplEdenRing implements DynamicCrosshairApi {
 	@Override
 	public Crosshair checkBlockItem(CrosshairContext context) {
 		if (context.getItem() instanceof EdenPaintingItem) {
-			Direction side = ((BlockHitResult) context.hitResult).getSide();
+			Direction side = context.getBlockHitSide();
 			if (!side.getAxis().isVertical() && context.player.canPlaceOn(context.getBlockPos(), side, context.getItemStack())) {
 				return Crosshair.HOLDING_BLOCK;
 			}

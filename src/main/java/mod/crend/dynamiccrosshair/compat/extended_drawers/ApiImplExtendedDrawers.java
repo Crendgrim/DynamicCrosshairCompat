@@ -34,23 +34,16 @@ public class ApiImplExtendedDrawers implements DynamicCrosshairApi {
 
 	@Override
 	public boolean forceInvalidate(CrosshairContext context) {
-		if (context.isWithBlock()) {
-			Block block = context.getBlock();
-			return (block instanceof DrawerBlock);
-		}
-		return false;
+		return (context.isWithBlock() && context.getBlock() instanceof DrawerBlock);
 	}
 
 	private boolean clickedFace(CrosshairContext context) {
-		BlockState blockState = context.getBlockState();
-		Direction clicked = ((BlockHitResult) context.hitResult).getSide();
-		Direction facing = blockState.get(FACING);
-		return (clicked == facing);
+		return (context.getBlockHitSide() == context.getBlockState().get(FACING));
 	}
 
 	private DrawerSlot clickedSlot(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
-		BlockHitResult hit = (BlockHitResult) context.hitResult;
+		BlockHitResult hit = context.getBlockHitResult();
 		Vec2f internalPos = DrawerRaycastUtil.calculateFaceLocation(context.getBlockPos(), hit.getPos(), hit.getSide(), blockState.get(FACING));
 		int slot = ((IDrawerBlockMixin) blockState.getBlock()).invokeGetSlot(internalPos);
 		DrawerBlockEntity drawer = (DrawerBlockEntity) context.getBlockEntity();

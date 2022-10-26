@@ -25,7 +25,7 @@ public class ApiImplChalk implements DynamicCrosshairApi {
 			if (context.getBlock() instanceof ChalkMarkBlock) {
 				return Crosshair.HOLDING_BLOCK;
 			}
-			Direction clickedFace = ((BlockHitResult) context.hitResult).getSide();
+			Direction clickedFace = context.getBlockHitSide();
 			BlockPos blockPos = context.getBlockPos();
 			BlockState blockState = context.getBlockState();
 			if (Block.isFaceFullSquare(blockState.getCollisionShape(context.world, blockPos, ShapeContext.of(context.player)), clickedFace)) {

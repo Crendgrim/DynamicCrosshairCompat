@@ -153,8 +153,7 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 			return Crosshair.INTERACTABLE;
 		}
 		if (block instanceof TankBlock) {
-			BlockHitResult blockHitResult = (BlockHitResult) context.hitResult;
-			if (context.canInteractWithFluidStorage(FluidutilsKt.fluidStorageOf(context.world, context.getBlockPos(), blockHitResult.getSide()))) {
+			if (context.canInteractWithFluidStorage(FluidutilsKt.fluidStorageOf(context.world, context.getBlockPos(), context.getBlockHitSide()))) {
 				return Crosshair.USE_ITEM;
 			}
 		}

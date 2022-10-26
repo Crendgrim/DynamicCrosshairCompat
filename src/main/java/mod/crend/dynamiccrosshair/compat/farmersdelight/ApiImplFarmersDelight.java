@@ -115,10 +115,9 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 		}
 
 		if (block instanceof RichSoilBlock) {
-			BlockHitResult hit = (BlockHitResult) context.hitResult;
 			if (context.getItem() instanceof HoeItem
 					&& context.getBlock() == BlocksRegistry.RICH_SOIL.get()
-					&& hit.getSide() != Direction.DOWN
+					&& context.getBlockHitSide() != Direction.DOWN
 					&& context.world.getBlockState(context.getBlockPos().up()).isAir()) {
 				return Crosshair.USE_ITEM;
 			}

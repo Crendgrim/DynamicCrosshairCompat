@@ -205,7 +205,7 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 					BlockPos pos = context.getBlockPos();
 					if (blockState.isSolidBlock(context.world, context.getBlockPos())) {
 						BlockPos torchPos;
-						switch (((BlockHitResult) context.hitResult).getSide()) {
+						switch (context.getBlockHitSide()) {
 							case UP:
 								torchPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
 								break;

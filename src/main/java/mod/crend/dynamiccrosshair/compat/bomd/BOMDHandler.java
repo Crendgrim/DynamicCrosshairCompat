@@ -26,7 +26,7 @@ public class BOMDHandler {
 		Item item = itemStack.getItem();
 
 		if (item instanceof EarthdiveSpear) {
-			if (context.isActiveItem() && (item.getMaxUseTime(itemStack) - context.player.getItemUseTimeLeft() > 10)) {
+			if (context.isRangedWeaponCharged(10)) {
 				return Crosshair.RANGED_WEAPON;
 			}
 			return Crosshair.MELEE_WEAPON;

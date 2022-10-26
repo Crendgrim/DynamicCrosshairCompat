@@ -33,7 +33,7 @@ public class ApiImplDecorativeBlocks implements DynamicCrosshairApi {
 				&& context.getItem() instanceof BlockItem blockItem
 				&& blockItem.getBlock() instanceof LanternBlock
 				&& context.getBlock() instanceof SeatBlock
-				&& ((BlockHitResult) context.hitResult).getSide() == Direction.DOWN
+				&& context.getBlockHitSide() == Direction.DOWN
 				&& context.world.getBlockState(context.getBlockPos().down()).isAir()
 		) {
 			return Crosshair.HOLDING_BLOCK;
@@ -49,7 +49,7 @@ public class ApiImplDecorativeBlocks implements DynamicCrosshairApi {
 
 		// sit on seat
 		if (block instanceof SeatBlock
-				&& ((BlockHitResult) context.hitResult).getSide() == Direction.UP
+				&& context.getBlockHitSide() == Direction.UP
 				&& !state.get(SeatBlock.OCCUPIED)
 				&& !state.get(SeatBlock.POST)
 				&& heldItem.isEmpty()

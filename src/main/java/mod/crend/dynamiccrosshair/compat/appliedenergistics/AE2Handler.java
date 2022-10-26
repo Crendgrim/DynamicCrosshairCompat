@@ -21,6 +21,7 @@ import appeng.block.spatial.SpatialIOPortBlock;
 import appeng.block.storage.*;
 import appeng.blockentity.crafting.CraftingBlockEntity;
 import appeng.blockentity.networking.CableBusBlockEntity;
+import appeng.blockentity.storage.SkyStoneTankBlockEntity;
 import appeng.core.AEConfig;
 import appeng.core.AppEng;
 import appeng.facade.FacadePart;
@@ -44,6 +45,13 @@ import appeng.util.InteractionUtil;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -187,9 +195,13 @@ public class AE2Handler {
 		if (block instanceof TinyTNTBlock && context.getItemStack().isOf(Items.FLINT_AND_STEEL)) {
 			return Crosshair.USE_ITEM;
 		}
+		if (block instanceof SkyStoneTankBlock && context.getBlockEntity() instanceof SkyStoneTankBlockEntity blockEntity) {
+			if (context.canInteractWithFluidStorage(blockEntity.getStorage())) {
+				return Crosshair.USE_ITEM;
+			}
+		}
 		if (block instanceof ControllerBlock
 				|| block instanceof SkyChestBlock
-				|| block instanceof SkyStoneTankBlock // TODO fluid handling
 		) {
 			return Crosshair.INTERACTABLE;
 		}

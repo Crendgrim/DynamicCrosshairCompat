@@ -1,7 +1,9 @@
 package mod.crend.dynamiccrosshair.compat.indrev;
 
 import me.steven.indrev.IndustrialRevolution;
+import me.steven.indrev.blockentities.MachineBlockEntity;
 import me.steven.indrev.blockentities.cables.BasePipeBlockEntity;
+import me.steven.indrev.blockentities.farms.BiomassComposterBlockEntity;
 import me.steven.indrev.blockentities.laser.CapsuleBlockEntity;
 import me.steven.indrev.blockentities.storage.ChargePadBlockEntity;
 import me.steven.indrev.blocks.machine.CapsuleBlock;
@@ -22,7 +24,7 @@ import me.steven.indrev.items.misc.IRMachineUpgradeItem;
 import me.steven.indrev.items.misc.IRServoItem;
 import me.steven.indrev.registry.IRBlockRegistry;
 import me.steven.indrev.tools.modular.DrillModule;
-import me.steven.indrev.utils.EnergyutilsKt;
+import me.steven.indrev.utils.FluidutilsKt;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
@@ -33,6 +35,7 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Direction;
 
 public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
@@ -146,11 +149,21 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 		}
 		if (block instanceof DrillBlock
 				|| block instanceof CabinetBlock
-				|| block instanceof TankBlock // TODO fluid handling
 		) {
 			return Crosshair.INTERACTABLE;
 		}
-		if (block instanceof MachineBlock) { // TODO fluid handling
+		if (block instanceof TankBlock) {
+			BlockHitResult blockHitResult = (BlockHitResult) context.hitResult;
+			if (context.canInteractWithFluidStorage(FluidutilsKt.fluidStorageOf(context.world, context.getBlockPos(), blockHitResult.getSide()))) {
+				return Crosshair.USE_ITEM;
+			}
+		}
+		if (block instanceof MachineBlock && context.getBlockEntity() instanceof MachineBlockEntity<?> blockEntity) {
+			if (blockEntity.getFluidComponent() != null) {
+				if (context.canInteractWithFluidStorage(blockEntity.getFluidComponent())) {
+					return Crosshair.USE_ITEM;
+				}
+			}
 			if (!(item instanceof IRMachineUpgradeItem)) {
 				if (itemStack.isIn(IndustrialRevolution.INSTANCE.getWRENCH_TAG())
 						|| itemStack.isIn(IndustrialRevolution.INSTANCE.getSCREWDRIVER_TAG())) {
@@ -159,7 +172,10 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 				return Crosshair.INTERACTABLE;
 			}
 		}
-		if (block instanceof BiomassComposterBlock) { // TODO fluid handling
+		if (block instanceof BiomassComposterBlock && context.getBlockEntity() instanceof BiomassComposterBlockEntity blockEntity) {
+			if (context.canInteractWithFluidStorage(blockEntity.getFluidInv())) {
+				return Crosshair.USE_ITEM;
+			}
 			if (ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(item) || itemStack.isEmpty()) {
 				return Crosshair.USE_ITEM;
 			} else if (blockState.get(BiomassComposterBlock.Companion.getCLOSED())) {

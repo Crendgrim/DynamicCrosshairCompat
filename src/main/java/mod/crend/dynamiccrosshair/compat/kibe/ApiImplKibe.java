@@ -8,6 +8,7 @@ import io.github.lucaargolo.kibe.blocks.cooler.Cooler;
 import io.github.lucaargolo.kibe.blocks.drawbridge.Drawbridge;
 import io.github.lucaargolo.kibe.blocks.entangledchest.EntangledChest;
 import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTank;
+import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTankEntity;
 import io.github.lucaargolo.kibe.blocks.miscellaneous.BlockGenerator;
 import io.github.lucaargolo.kibe.blocks.miscellaneous.CursedDirt;
 import io.github.lucaargolo.kibe.blocks.miscellaneous.FluidHopper;
@@ -25,16 +26,25 @@ import io.github.lucaargolo.kibe.items.trashcan.PocketTrashCan;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.RaycastContext;
 
 public class ApiImplKibe implements DynamicCrosshairApi {
@@ -76,9 +86,8 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 				if (EntangledChest.Companion.canOpen(context.world, context.getBlockPos())) {
 					return Crosshair.INTERACTABLE;
 				}
-			} else {
-				// TODO fabric fluid API interactions
-				return Crosshair.INTERACTABLE;
+			} else if (context.getBlockEntity() instanceof EntangledTankEntity blockEntity && context.canInteractWithFluidStorage(blockEntity.getTank())){
+				return Crosshair.USE_ITEM;
 			}
 		}
 		if (block instanceof CursedDirt) {
@@ -125,8 +134,52 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 			}
 		}
 		if (item instanceof EntangledBucket) {
-			// TODO proper fluid handling
-			return Crosshair.USE_ITEM;
+			if (context.isWithBlock() && context.player.isSneaking() && context.getBlock() instanceof EntangledTank) {
+				return Crosshair.USE_ITEM;
+			}
+
+			NbtCompound tag = EntangledBucket.Companion.getTag(itemStack);
+			StringBuilder colorCode = new StringBuilder();
+			for (int i = 1; i <= 8; i++) {
+				DyeColor dc = DyeColor.byName(tag.getString("rune" + i), DyeColor.WHITE);
+				colorCode.append(Integer.toHexString(dc.getId()));
+			}
+			tag.putString("colorCode", colorCode.toString());
+			SingleVariantStorage<FluidVariant> fluidInv = EntangledBucket.Companion.getFluidInv(context.world, tag);
+			Fluid fluid;
+			if (fluidInv.isResourceBlank()) {
+				fluid = Fluids.EMPTY;
+			} else {
+				fluid = fluidInv.getResource().getFluid();
+			}
+			boolean hasSpace = (fluidInv.getAmount() + FluidConstants.BUCKET) <= fluidInv.getCapacity();
+			boolean hasBucket = fluidInv.getAmount() >= FluidConstants.BUCKET;
+
+			BlockHitResult hitResult = context.raycastWithFluid(hasSpace ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
+			if (hitResult != null) {
+				boolean isBucket = (context.player.isSneaking() || fluid.getBucketItem() == Items.BUCKET);
+				if (isBucket && hasSpace) {
+					return Crosshair.USE_ITEM;
+				}
+				Direction dir = hitResult.getSide();
+				BlockPos pos = hitResult.getBlockPos();
+				BlockPos offsetPos = pos.offset(dir);
+				if (context.player.canPlaceOn(offsetPos, dir, itemStack)) {
+					BlockState blockState = context.world.getBlockState(pos);
+					if (blockState.getBlock() instanceof FluidDrainable) {
+						if (hasSpace) {
+							return Crosshair.USE_ITEM;
+						}
+					} else if (hasBucket) {
+						BlockPos interactablePos = (blockState.getBlock() instanceof FluidFillable && fluid == Fluids.WATER) ? pos : offsetPos;
+						BlockState interactableBlockState = context.world.getBlockState(interactablePos);
+						if (!(interactableBlockState.getBlock() instanceof FluidDrainable)
+								|| (interactableBlockState.contains(Properties.LEVEL_15) && interactableBlockState.get(Properties.LEVEL_15) != 0)) {
+							return Crosshair.HOLDING_BLOCK;
+						}
+					}
+				}
+			}
 		}
 		if (item instanceof BooleanItem) {
 			if (context.player.isSneaking()) {

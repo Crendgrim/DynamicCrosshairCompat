@@ -20,8 +20,8 @@ public class RebornCoreHandler {
 		BlockEntity blockEntity = context.getBlockEntity();
 		if (block instanceof BlockMachineBase machine && blockEntity != null) {
 			if (blockEntity instanceof MachineBaseBlockEntity machineEntity) {
-				if (machineEntity.getTank() != null) { // TODO fluid handling
-					return Crosshair.INTERACTABLE;
+				if (machineEntity.getTank() != null && context.canInteractWithFluidStorage(machineEntity.getTank())) {
+					return Crosshair.USE_ITEM;
 				}
 			}
 			ItemStack itemStack = context.getItemStack();

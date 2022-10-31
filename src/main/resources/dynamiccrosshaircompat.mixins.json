@@ -11,6 +11,7 @@
     "decorative_blocks.ISeatBlockMixin",
     "extended_drawers.IDrawerBlockMixin",
     "farmersdelight.ICuttingBoardBlockEntityMixin",
+    "ironchests.IUpgradeItemMixin",
     "mcwroofs.IGutterTallMixin",
     "mcwroofs.IRainGutterMixin"
   ],

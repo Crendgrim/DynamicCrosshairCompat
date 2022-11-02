@@ -94,6 +94,7 @@
       "mod.crend.dynamiccrosshair.compat.patchouli.ApiImplPatchouli",
       "mod.crend.dynamiccrosshair.compat.pickyourpoison.ApiImplPickYourPoison",
       "mod.crend.dynamiccrosshair.compat.platforms.ApiImplPlatforms",
+      "mod.crend.dynamiccrosshair.compat.ratsmischief.ApiImplRatsMischief",
       "mod.crend.dynamiccrosshair.compat.rightclickharvest.ApiImplRightClickHarvest",
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfAttraction",
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfEnderchest",

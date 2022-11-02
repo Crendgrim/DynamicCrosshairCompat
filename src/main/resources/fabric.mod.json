@@ -32,6 +32,7 @@
       "mod.crend.dynamiccrosshair.compat.appliedenergistics.ApiImplAppliedEnergistics2",
       "mod.crend.dynamiccrosshair.compat.appliedenergistics.ApiImplAE2WTlib",
       "mod.crend.dynamiccrosshair.compat.artifacts.ApiImplArtifacts",
+      "mod.crend.dynamiccrosshair.compat.autoworkstations.ApiImplAutoWorkstations",
       "mod.crend.dynamiccrosshair.compat.bedrockify.ApiImplBedrockIfy",
       "mod.crend.dynamiccrosshair.compat.betteranimalsplus.ApiImplBetterAnimalsPlus",
       "mod.crend.dynamiccrosshair.compat.bettercombat.ApiImplBetterCombat",

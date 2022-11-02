@@ -13,7 +13,8 @@
     "farmersdelight.ICuttingBoardBlockEntityMixin",
     "ironchests.IUpgradeItemMixin",
     "mcwroofs.IGutterTallMixin",
-    "mcwroofs.IRainGutterMixin"
+    "mcwroofs.IRainGutterMixin",
+    "nostrip.INostripClientMixin"
   ],
   "plugin": "mod.crend.dynamiccrosshair.DynamicCrosshairMixinPlugin"
 }

@@ -46,6 +46,7 @@
       "mod.crend.dynamiccrosshair.compat.ccrestitched.ApiImplCCRestitched",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
       "mod.crend.dynamiccrosshair.compat.clickthrough.ApiImplClickThrough",
+      "mod.crend.dynamiccrosshair.compat.coalexplosion.ApiImplCoalExplosion",
       "mod.crend.dynamiccrosshair.compat.conjuring.ApiImplConjuring",
       "mod.crend.dynamiccrosshair.compat.creeperoverhaul.ApiImplCreeperOverhaul",
       "mod.crend.dynamiccrosshair.compat.croptopia.ApiImplCroptopia",

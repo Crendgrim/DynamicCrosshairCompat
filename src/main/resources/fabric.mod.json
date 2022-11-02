@@ -27,6 +27,7 @@
       "mod.crend.dynamiccrosshair.compat.akashictomeoftools.ApiImplAkashicTomeOfTools",
       "mod.crend.dynamiccrosshair.compat.amphitritecoffer.ApiImplAmphitriteCoffer",
       "mod.crend.dynamiccrosshair.compat.animalfeedingtrough.ApiImplAnimalFeedingTrough",
+      "mod.crend.dynamiccrosshair.compat.anotherfurniture.ApiImplAnotherFurniture",
       "mod.crend.dynamiccrosshair.compat.appliedenergistics.ApiImplAppliedEnergistics2",
       "mod.crend.dynamiccrosshair.compat.appliedenergistics.ApiImplAE2WTlib",
       "mod.crend.dynamiccrosshair.compat.artifacts.ApiImplArtifacts",

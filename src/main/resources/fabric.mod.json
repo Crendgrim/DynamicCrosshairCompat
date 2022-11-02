@@ -70,6 +70,7 @@
       "mod.crend.dynamiccrosshair.compat.extended_drawers.ApiImplExtendedDrawers",
       "mod.crend.dynamiccrosshair.compat.extragenerators.ApiImplExtraGenerators",
       "mod.crend.dynamiccrosshair.compat.extractpoison.ApiImplExtractPoison",
+      "mod.crend.dynamiccrosshair.compat.fabricfurnaces.ApiImplFabricFurnaces",
       "mod.crend.dynamiccrosshair.compat.farmersdelight.ApiImplFarmersDelight",
       "mod.crend.dynamiccrosshair.compat.friendsandfoes.ApiImplFriendsAndFoes",
       "mod.crend.dynamiccrosshair.compat.gofish.ApiImplGoFish",

@@ -6,6 +6,7 @@ import dev.cammiescorner.camsbackpacks.common.items.BackpackItem;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 
@@ -21,16 +22,12 @@ public class ApiImplCamsBackpacks implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		if (context.getBlock() instanceof BackpackBlock) {
-			return Crosshair.INTERACTABLE;
-		}
-
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof BackpackBlock;
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		if (context.player.shouldCancelInteraction() && context.isEmptyHanded()) {
 			ItemStack chest = context.player.getEquippedStack(EquipmentSlot.CHEST);
 			if (!chest.isEmpty() && chest.getItem() instanceof BackpackItem) {

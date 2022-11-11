@@ -19,11 +19,11 @@ public class ApiImplRightClickHarvest implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (context.getItem() instanceof HoeItem) {
 			BlockState blockState = context.getBlockState();
 			if (blockState.getBlock() instanceof CropBlock cropBlock && cropBlock.isMature(blockState)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		return null;

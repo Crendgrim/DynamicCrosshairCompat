@@ -18,16 +18,16 @@ public class ApiImplRatsMischief implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.getEntity() instanceof RatEntity rat) {
 			ItemStack itemStack = context.getItemStack();
 			Item item = itemStack.getItem();
 			if (item instanceof DyeItem && rat.getRatType() == RatEntity.Type.RAT_KID) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (rat.isTamed()) {
 				if (rat.isBreedingItem(itemStack) && rat.getHealth() < rat.getMaxHealth()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (rat.isOwner(context.player)) {
 					if (context.player.isSneaking()) {
@@ -35,10 +35,10 @@ public class ApiImplRatsMischief implements DynamicCrosshairApi {
 							return Crosshair.INTERACTABLE;
 						}
 						if (item == Mischief.ELYTRAT) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					} else if (item instanceof RatPouchItem) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					} else if (!(item instanceof RatStaffItem)
 							&& !rat.isBreedingItem(itemStack)
 							&& (!(itemStack.getItem() instanceof DyeItem) || rat.getRatType() != RatEntity.Type.RAT_KID)
@@ -48,7 +48,7 @@ public class ApiImplRatsMischief implements DynamicCrosshairApi {
 					}
 				}
 			} else if (item.isFood() && !rat.hasAngerTime()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		return null;
@@ -65,9 +65,9 @@ public class ApiImplRatsMischief implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.getItem() instanceof RatPouchItem && context.player.isSneaking()) {
-			return Crosshair.USE_ITEM;
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.getItem() instanceof RatPouchItem && context.includeUsableItem() && context.player.isSneaking()) {
+			return Crosshair.USABLE;
 		}
 
 		return null;

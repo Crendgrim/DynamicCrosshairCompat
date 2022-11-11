@@ -14,21 +14,26 @@ import reborncore.common.blocks.BlockMachineBase;
 
 public class RebornCoreHandler {
 
-	public static Crosshair checkBlockInteractable(CrosshairContext context) {
+	public static boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof BlockMachineBase machine && machine.getGui() != null);
+	}
+
+	public static Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		BlockEntity blockEntity = context.getBlockEntity();
 		if (block instanceof BlockMachineBase machine && blockEntity != null) {
 			if (blockEntity instanceof MachineBaseBlockEntity machineEntity) {
 				if (machineEntity.getTank() != null && context.canInteractWithFluidStorage(machineEntity.getTank())) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			ItemStack itemStack = context.getItemStack();
 			if (ToolManager.INSTANCE.canHandleTool(itemStack)
 					|| (itemStack.getItem() instanceof IUpgrade && context.getBlockEntity() instanceof IUpgradeable)
 			) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 
 			if (machine.getGui() != null) {
@@ -47,7 +52,7 @@ public class RebornCoreHandler {
 		if (ToolManager.INSTANCE.canHandleTool(itemStack)) {
 			Block block = context.getBlock();
 			if (block instanceof BlockMachineBase) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		return null;

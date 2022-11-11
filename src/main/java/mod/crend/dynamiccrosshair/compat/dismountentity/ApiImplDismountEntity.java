@@ -20,7 +20,7 @@ public class ApiImplDismountEntity implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.player.shouldCancelInteraction()) {
 			List<Entity> mounted = context.getEntity().getPassengerList();
 			if (mounted.size() > 0) {

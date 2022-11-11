@@ -66,11 +66,9 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 
 	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
-		if (RebornCoreHandler.isUsableItem(itemStack)) {
-			return true;
-		}
 		Item item = itemStack.getItem();
-		return (item instanceof DynamicCellItem
+		return (RebornCoreHandler.isUsableItem(itemStack)
+				|| item instanceof DynamicCellItem
 				|| item instanceof UpgraderItem
 				|| item instanceof DebugToolItem
 				|| item instanceof PaintingToolItem
@@ -78,7 +76,9 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		Crosshair crosshair = RebornCoreHandler.checkUsableItem(context);
 		if (crosshair != null) return crosshair;
 
@@ -93,7 +93,7 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 					|| block instanceof BlockAlarm
 					|| block instanceof EnergyStorageBlock
 			) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof BlockAlarm) {
@@ -109,7 +109,7 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 			if (containedFluid == Fluids.EMPTY) {
 				if (fluidHitResult.getType() == HitResult.Type.BLOCK) {
 					if (fluidState.getBlock() instanceof FluidDrainable) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 
@@ -123,7 +123,7 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 		if (item instanceof UpgraderItem) {
 			BlockEntity blockEntity = context.getBlockEntity();
 			if (blockEntity instanceof StorageUnitBaseBlockEntity || blockEntity instanceof TankUnitBaseBlockEntity) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -134,24 +134,24 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 				|| item instanceof NanosaberItem
 		) {
 			if (context.player.isSneaking()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof DebugToolItem) {
 			if (context.isWithBlock()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof PaintingToolItem && context.isWithBlock()) {
 			BlockState blockState = context.getBlockState();
 			if (context.player.isSneaking()) {
 				if (blockState.isOpaqueFullCube(context.world, context.getBlockPos()) && blockState.getBlock().getDefaultState().isOpaqueFullCube(context.world, context.getBlockPos())) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else {
 				BlockState cover = PaintingToolItem.getCover(itemStack);
 				if (cover != null && blockState.getBlock() instanceof CableBlock && blockState.get(CableBlock.COVERED)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
@@ -160,8 +160,25 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Crosshair crosshair = RebornCoreHandler.checkBlockInteractable(context);
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof StorageUnitBlock
+				|| (block instanceof EnergyStorageBlock energyStorageBlock && energyStorageBlock.gui != null)
+		);
+	}
+
+	@Override
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof BlockAlarm
+				|| block instanceof ResinBasinBlock
+				|| block instanceof EnergyStorageBlock
+		);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
+		Crosshair crosshair = RebornCoreHandler.computeFromBlock(context);
 		if (crosshair != null) return crosshair;
 
 		BlockState blockState = context.getBlockState();
@@ -175,7 +192,7 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 
 		if (block instanceof BlockFusionControlComputer && !itemStack.isEmpty()) {
 			if (itemStack.getItem() == TRContent.Machine.FUSION_COIL.asItem()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof ResinBasinBlock) {
@@ -188,23 +205,15 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 			Item item = itemStack.getItem();
 			if ((item instanceof ElectricTreetapItem && getStoredEnergy(itemStack) > 20L) || item instanceof TreeTapItem) {
 				if (blockState.get(BlockRubberLog.HAS_SAP) && blockState.get(BlockRubberLog.SAP_SIDE) == context.getBlockHitSide()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
-			}
-		}
-		if (block instanceof EnergyStorageBlock energyStorageBlock) {
-			if (energyStorageBlock.gui != null) {
-				return Crosshair.INTERACTABLE;
 			}
 		}
 		if (block instanceof TankUnitBlock) {
 			Item item = itemStack.getItem();
 			if ((item instanceof DynamicCellItem || item instanceof BucketItem) && item instanceof ItemFluidInfo) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
-		}
-		if (block instanceof StorageUnitBlock) {
-			return Crosshair.INTERACTABLE;
 		}
 
 		return null;

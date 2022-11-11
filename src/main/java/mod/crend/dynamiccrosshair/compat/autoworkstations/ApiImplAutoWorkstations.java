@@ -4,6 +4,7 @@ import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import uk.co.cablepost.autoworkstations.AutoWorkstations;
 import uk.co.cablepost.autoworkstations.auto_anvil.AutoAnvilBlock;
 import uk.co.cablepost.autoworkstations.auto_brewing_stand.AutoBrewingStandBlock;
@@ -20,18 +21,14 @@ public class ApiImplAutoWorkstations implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Block block = context.getBlock();
-		if (block instanceof AutoAnvilBlock
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return block instanceof AutoAnvilBlock
 				|| block instanceof AutoBrewingStandBlock
 				|| block instanceof AutoCraftingTableBlock
 				|| block instanceof AutoEnchantingTableBlock
 				|| block instanceof AutoExperienceOrbEmitterBlock
 				|| block instanceof AutoExperienceOrbVacuumBlock
-				|| block instanceof AutoFurnaceBlock
-		) {
-			return Crosshair.INTERACTABLE;
-		}
-		return null;
+				|| block instanceof AutoFurnaceBlock;
 	}
 }

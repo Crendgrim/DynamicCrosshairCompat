@@ -24,7 +24,29 @@ public class ApiImplAnotherFurniture implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (    block instanceof CurtainBlock
+				||  block instanceof DrawerBlock
+				|| (block instanceof ShutterBlock && ((IAbstractBlockMixin) block).getMaterial() != Material.METAL)
+		);
+	}
+
+	@Override
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return block instanceof SeatBlock
+				|| block instanceof CurtainBlock
+				|| block instanceof DrawerBlock
+				|| block instanceof LampBlock
+				|| block instanceof PlanterBoxBlock
+				|| block instanceof ServiceBellBlock
+				|| block instanceof ShelfBlock
+				|| block instanceof ShutterBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
@@ -33,7 +55,7 @@ public class ApiImplAnotherFurniture implements DynamicCrosshairApi {
 		if (block instanceof SeatBlock seat) {
 			if (block instanceof BenchBlock) {
 				if (itemStack.isIn(AFItemTags.FURNITURE_HAMMER)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (block instanceof ChairBlock chair) {
@@ -55,9 +77,6 @@ public class ApiImplAnotherFurniture implements DynamicCrosshairApi {
 				return Crosshair.INTERACTABLE;
 			}
 		}
-		if (block instanceof CurtainBlock || block instanceof DrawerBlock) {
-			return Crosshair.INTERACTABLE;
-		}
 		if (block instanceof LampBlock) {
 			if (!itemStack.isIn(AFItemTags.LAMPS) || blockState.get(LampBlock.FACING) != Direction.UP || context.getBlockHitSide() != Direction.UP) {
 				return Crosshair.INTERACTABLE;
@@ -65,7 +84,7 @@ public class ApiImplAnotherFurniture implements DynamicCrosshairApi {
 		}
 		if (block instanceof PlanterBoxBlock) {
 			if (itemStack.isIn(AFItemTags.PLANTER_BOX_PLACEABLES) && !itemStack.isIn(AFItemTags.PLANTER_BOX_BANNED)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof ServiceBellBlock) {
@@ -78,12 +97,7 @@ public class ApiImplAnotherFurniture implements DynamicCrosshairApi {
 				if (itemStack.isEmpty()) {
 					return Crosshair.INTERACTABLE;
 				}
-				return Crosshair.USE_ITEM;
-			}
-		}
-		if (block instanceof ShutterBlock) {
-			if (((IAbstractBlockMixin) block).getMaterial() != Material.METAL) {
-				return Crosshair.INTERACTABLE;
+				return Crosshair.USABLE;
 			}
 		}
 

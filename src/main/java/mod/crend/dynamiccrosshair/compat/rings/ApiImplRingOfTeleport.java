@@ -19,15 +19,15 @@ public class ApiImplRingOfTeleport implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		ItemStack stack = context.getItemStack();
-		if (stack.getItem() instanceof ItemRingTeleport) {
+		if (context.includeUsableItem() && stack.getItem() instanceof ItemRingTeleport) {
 			if (context.isWithBlock()) {
 				if (ItemRingTeleport.getPosition(stack) == null && context.player.isSneaking()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (ItemRingTeleport.getPosition(stack) != null) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 
 		}

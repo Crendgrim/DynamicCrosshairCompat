@@ -44,13 +44,15 @@ public class ApiImplEnderscape implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack handItemStack = context.getItemStack();
 		Item item = handItemStack.getItem();
 
 		if (item instanceof MirrorItem) {
 			if (MirrorUtil.isLinked(handItemStack) && MirrorUtil.isSameDimension(handItemStack, context.player) && MirrorUtil.hasEnoughEnergy(handItemStack, context.player)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -60,25 +62,25 @@ public class ApiImplEnderscape implements DynamicCrosshairApi {
 
 			if (block instanceof FlangerBerryVine) {
 				if (item instanceof FlangerBerryItem) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 
 				if (item instanceof ShearsItem && blockState.get(AGE) < 15 && !blockState.get(ATTACHED)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 
 			if (item instanceof NebuliteItem) {
 				if (blockState.isOf(Blocks.CAULDRON)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (blockState.isOf(EnderscapeBlocks.NEBULITE_CAULDRON) && NebuliteCauldronBlock.canLevel(context.world, context.getBlockPos(), blockState)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 
 			if (block instanceof CelestialMyceliumBlock && item instanceof ShovelItem && context.world.getBlockState(context.getBlockPos().up()).isAir()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -86,18 +88,18 @@ public class ApiImplEnderscape implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		Entity entity = context.getEntity();
 
 		if (entity instanceof DrifterEntity drifterEntity) {
 			if (context.getItemStack().isOf(Items.GLASS_BOTTLE) && drifterEntity.isDrippingJelly()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		if (entity instanceof DriftletEntity) {
 			if (context.getItemStack().isIn(EnderscapeItems.DRIFTER_FOOD)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

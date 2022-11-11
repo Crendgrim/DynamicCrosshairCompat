@@ -35,47 +35,54 @@ public class ApiImplWaystones implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.getItem() instanceof WaystoneDebuggerItem && context.getEntity() instanceof ServerPlayerEntity) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 		return null;
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 
 		if (item instanceof LocalVoidItem) {
 			if (itemStack.hasNbt() && itemStack.getNbt().contains("fwaystones")) {
 				if (context.player.isSneaking()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				} else if (!(item instanceof VoidTotem)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 		if (item instanceof WaystoneScrollItem) {
 			if (itemStack.hasNbt() && itemStack.getNbt().contains("fwaystones")) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof WaystoneDebuggerItem && context.isWithBlock() && context.getBlock() instanceof WaystoneBlock) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 
 		return null;
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof WaystoneBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Item item = context.getItem();
 
 		if (blockState.getBlock() instanceof WaystoneBlock) {
 			if (item == Items.VINE || item == Items.SHEARS) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (!(item instanceof WaystoneScrollItem) && !(item instanceof LocalVoidItem) && !(item instanceof WaystoneDebuggerItem)) {
 				return Crosshair.INTERACTABLE;

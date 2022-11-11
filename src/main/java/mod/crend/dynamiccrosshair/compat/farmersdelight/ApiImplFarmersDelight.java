@@ -46,12 +46,25 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Block block = context.getBlock();
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (   block instanceof InventoryBlockWithEntity
+				|| block instanceof SkilletBlock
+		);
+	}
 
-		if (block instanceof InventoryBlockWithEntity) {
-			return Crosshair.INTERACTABLE;
-		}
+	@Override
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (   block instanceof CookingPotBlock
+				|| block instanceof CuttingBoardBlock
+				|| block instanceof FeastBlock
+		);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
+		Block block = context.getBlock();
 
 		if (block instanceof CookingPotBlock) {
 			// Note: Farmer's Delight is weird here and checks for sneaking pose rather than sneaking state...
@@ -61,7 +74,7 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 			if (!context.player.isSneaking()) {
 				if (context.getBlockEntity() instanceof CookingPotBlockEntity cookingPotBlockEntity) {
 					if (cookingPotBlockEntity.isContainerValid(context.getItemStack())) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 				return Crosshair.INTERACTABLE;
@@ -73,12 +86,12 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 			if (cuttingBoardBlockEntity.isEmpty() && !itemHeld.isEmpty()) {
 				// Logic copied from mod
 				if (context.player.getOffHandStack().isEmpty() || !context.isMainHand() || itemHeld.getItem() instanceof BlockItem) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (!itemHeld.isEmpty()) {
 				Optional<CuttingBoardRecipe> matchingRecipe = ((ICuttingBoardBlockEntityMixin) cuttingBoardBlockEntity).invokeGetMatchingRecipe(new RecipeWrapper((ItemHandler) cuttingBoardBlockEntity.getInventory()), itemHeld, context.player);
 				if (matchingRecipe.isPresent()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (context.isMainHand()) {
 				return Crosshair.INTERACTABLE;
@@ -93,24 +106,24 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 			if (servings > 0 && feastBlock.servingItem.hasRecipeRemainder()) {
 				Item servingContainerItem = feastBlock.servingItem.getRecipeRemainder();
 				if (context.getItem() == servingContainerItem) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 
 		if (block instanceof MushroomColonyBlock) {
 			if (context.getBlockState().get(MushroomColonyBlock.AGE) > 0 && context.getItem() instanceof ShearsItem) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		if (block instanceof PieBlock) {
 			if (context.getItemStack().isIn(TagsRegistry.KNIVES)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 
 			if (context.player.canConsume(false)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -119,7 +132,7 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 					&& context.getBlock() == BlocksRegistry.RICH_SOIL.get()
 					&& context.getBlockHitSide() != Direction.DOWN
 					&& context.world.getBlockState(context.getBlockPos().up()).isAir()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -141,10 +154,6 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 					mutable.move(Direction.UP);
 				}
 			}
-		}
-
-		if (block instanceof SkilletBlock) {
-			return Crosshair.INTERACTABLE;
 		}
 
 		return null;

@@ -16,7 +16,15 @@ public class ApiImplMacawsLights implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof LightBaseShort
+				|| (block instanceof LightBaseTall && (blockState.get(LightBaseTall.PART) == LightBaseTall.LightPart.BASE || (blockState.get(LightBaseTall.PART) == LightBaseTall.LightPart.TOP)))
+		);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		if (block instanceof LightBaseShort

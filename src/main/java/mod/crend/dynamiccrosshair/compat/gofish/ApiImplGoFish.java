@@ -5,6 +5,7 @@ import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class ApiImplGoFish implements DynamicCrosshairApi {
 
@@ -19,11 +20,16 @@ public class ApiImplGoFish implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (!context.isTargeting()) {
+	public boolean isUsableItem(ItemStack itemStack) {
+		return itemStack.getItem() instanceof CrateItem;
+	}
+
+	@Override
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeUsableItem() && !context.isTargeting()) {
 			Item item = context.getItem();
 			if (context.player.isSneaking() && item instanceof CrateItem) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

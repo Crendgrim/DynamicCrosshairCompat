@@ -14,10 +14,10 @@ public class ApiImplBlossom implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (context.getBlock() instanceof FloweringLeavesBlock) {
 			if (context.getItem() instanceof ShearsItem && context.getBlockState().get(FloweringLeavesBlock.AGE) == 7) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

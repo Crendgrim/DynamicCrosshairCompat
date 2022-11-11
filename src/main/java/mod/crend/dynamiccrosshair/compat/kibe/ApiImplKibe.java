@@ -28,7 +28,6 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -54,7 +53,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 
@@ -79,7 +78,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 			if (context.hitResult.getPos().getY() - context.getBlockPos().getY() > 0.9375) {
 				Item item = context.getItem();
 				if (item instanceof Rune || item == Items.DIAMOND || item == Items.GOLD_INGOT) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (block instanceof EntangledChest) {
@@ -87,7 +86,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 					return Crosshair.INTERACTABLE;
 				}
 			} else if (context.getBlockEntity() instanceof EntangledTankEntity blockEntity && context.canInteractWithFluidStorage(blockEntity.getTank())){
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof CursedDirt) {
@@ -124,18 +123,20 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 
 		if (item instanceof CoolerBlockItem) {
 			if (!context.isWithBlock() || context.player.isSneaking()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof EntangledBucket) {
 			if (context.isWithBlock() && context.player.isSneaking() && context.getBlock() instanceof EntangledTank) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 
 			NbtCompound tag = EntangledBucket.Companion.getTag(itemStack);
@@ -159,7 +160,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 			if (hitResult != null) {
 				boolean isBucket = (context.player.isSneaking() || fluid.getBucketItem() == Items.BUCKET);
 				if (isBucket && hasSpace) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				Direction dir = hitResult.getSide();
 				BlockPos pos = hitResult.getBlockPos();
@@ -168,7 +169,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 					BlockState blockState = context.world.getBlockState(pos);
 					if (blockState.getBlock() instanceof FluidDrainable) {
 						if (hasSpace) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					} else if (hasBucket) {
 						BlockPos interactablePos = (blockState.getBlock() instanceof FluidFillable && fluid == Fluids.WATER) ? pos : offsetPos;
@@ -183,14 +184,14 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 		}
 		if (item instanceof BooleanItem) {
 			if (context.player.isSneaking()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof CursedSeeds && context.isWithBlock()) {
 			Block block = context.getBlock();
 			if ((block == Blocks.DIRT || block == Blocks.GRASS_BLOCK)
 					&& context.world.getLightLevel(context.getBlockPos()) <= 7) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof Lasso lasso) {
@@ -198,25 +199,25 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 				if (itemStack.hasNbt() && !itemStack.getNbt().contains("Entity")) {
 					Entity entity = context.getEntity();
 					if (entity instanceof MobEntity && lasso.canStoreEntity(entity.getType())) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			} else if (context.isWithBlock()) {
 				if (itemStack.hasNbt() && itemStack.getNbt().contains("Entity")) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 		// LightRing?
 		if (item instanceof SleepingBag) {
 			if (context.isWithBlock() || context.player.isOnGround()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof VoidBucket) {
 			if (context.isWithBlock()) {
 				if (context.getBlock() instanceof FluidDrainable) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (!context.isWithEntity()) {
@@ -224,7 +225,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 				if (fluidHitResult.getType() != HitResult.Type.MISS) {
 					BlockState fluidBlockState = context.world.getBlockState(fluidHitResult.getBlockPos());
 					if (fluidBlockState.getBlock() instanceof FluidDrainable) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			}
@@ -233,7 +234,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 			if (bucket.getFluid() == Fluids.EMPTY) {
 				if (context.isWithBlock()) {
 					if (context.getBlock() instanceof FluidDrainable) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 				if (!context.isWithEntity()) {
@@ -241,13 +242,13 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 					if (fluidHitResult.getType() != HitResult.Type.MISS) {
 						BlockState fluidBlockState = context.world.getBlockState(fluidHitResult.getBlockPos());
 						if (fluidBlockState.getBlock() instanceof FluidDrainable) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					}
 				}
 			} else if (context.isWithBlock()) {
 				if (context.getBlock() instanceof Waterloggable && bucket.getFluid() == Fluids.WATER) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				return Crosshair.HOLDING_BLOCK;
 			}

@@ -31,7 +31,18 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return block instanceof ConjurerBlock
+				|| block instanceof GemTinkererBlock
+				|| block instanceof SoulWeaverBlock
+				|| block instanceof SoulfireForgeBlock
+				|| block instanceof BlackstonePedestalBlock
+				|| block instanceof SoulFunnelBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 		BlockState blockState = context.getBlockState();
 		Block block = context.getBlock();
@@ -51,21 +62,21 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 					if (itemStack.isEmpty()) {
 						return Crosshair.INTERACTABLE;
 					}
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 		if (block instanceof SoulWeaverBlock && context.getBlockEntity() instanceof SoulWeaverBlockEntity weaver) {
 			if (!weaver.isRunning()) {
 				if (itemStack.getItem().equals(ConjuringItems.CONJURATION_ESSENCE) && !weaver.isLit()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (itemStack.getItem() instanceof ConjuringScepter) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (weaver.getItem().isEmpty()) {
 					if (!itemStack.isEmpty()) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				} else {
 					return Crosshair.INTERACTABLE;
@@ -74,7 +85,7 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 		}
 		if (block instanceof SoulfireForgeBlock) {
 			if (itemStack.isOf(Items.FLINT_AND_STEEL) && !blockState.get(SoulfireForgeBlock.BURNING)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 
 			return Crosshair.INTERACTABLE;
@@ -83,7 +94,7 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 			if (!pedestal.isActive()) {
 				if (pedestal.getItem().isEmpty()) {
 					if (!itemStack.isEmpty()) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 				else {
@@ -96,16 +107,16 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 				return Crosshair.INTERACTABLE;
 			}
 			if (itemStack.isOf(Items.SOUL_SAND) && !blockState.get(SoulFunnelBlock.FILLED)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (itemStack.getItem() instanceof ConjuringScepter) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (blockState.get(SoulFunnelBlock.FILLED)) {
 				SoulFunnelBlockEntity funnel = (SoulFunnelBlockEntity) context.getBlockEntity();
 				if (funnel.getItem().isEmpty()) {
 					if (itemStack.getItem() instanceof ConjuringFocus) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				} else if (!funnel.isRitualRunning()) {
 					return Crosshair.INTERACTABLE;
@@ -118,7 +129,9 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 
 	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
-		return itemStack.getItem() instanceof SoulAlloyTool;
+		return itemStack.getItem() instanceof SoulAlloyTool
+				|| itemStack.isOf(ConjuringItems.CONJURATION_ESSENCE)
+				|| itemStack.getItem() instanceof ConjuringScepter;
 	}
 
 	@Override
@@ -127,18 +140,20 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 
 		if (itemStack.getItem() instanceof SoulAlloyTool) {
 			if (SoulAlloyTool.isSecondaryEnabled(itemStack)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		if (itemStack.isOf(ConjuringItems.CONJURATION_ESSENCE)) {
 			if (context.player.isSneaking() && context.isWithBlock() && context.getBlockState().getMaterial() == Material.STONE) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -147,17 +162,17 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 			if (context.isWithBlock()) {
 				BlockEntity blockEntity = context.getBlockEntity();
 				if (isSuperior && blockEntity instanceof SoulfireForgeBlockEntity forge && forge.isRunning()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (blockEntity instanceof BlackstonePedestalBlockEntity pedestal && !pedestal.isActive()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (blockEntity instanceof RitualCore) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else {
 				if (ConjuringScepter.isLinking(itemStack)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}

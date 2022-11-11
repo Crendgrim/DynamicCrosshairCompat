@@ -25,14 +25,20 @@ public class ApiImplMacawsRoofs implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return block instanceof RoofGlass;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		ItemStack itemStack = context.getItemStack();
 
 		if (block instanceof BaseRoof || block instanceof RoofGlass || block instanceof RoofTopNew || block instanceof RainGutter) {
 			if (itemStack.getItem() instanceof Hammer) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -51,10 +57,10 @@ public class ApiImplMacawsRoofs implements DynamicCrosshairApi {
 			}
 			boolean hasWater = blockState.get(water);
 			if (!hasWater && itemStack.isOf(Items.WATER_BUCKET)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (hasWater && (itemStack.isOf(Items.GLASS_BOTTLE) || itemStack.isOf(Items.BUCKET))) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

@@ -57,7 +57,9 @@ public class ApiImplExtendedDrawers implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		Item item = context.getItem();
 
 		if (context.isWithBlock() && context.player.isSneaking()) {
@@ -65,17 +67,17 @@ public class ApiImplExtendedDrawers implements DynamicCrosshairApi {
 
 			if (block instanceof AccessPointBlock) {
 				if (item instanceof LockItem) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 
 			if (block instanceof DrawerBlock && clickedFace(context)) {
 				if (item instanceof LockItem || item == Items.LAVA_BUCKET) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 
 				if (item instanceof UpgradeItem && clickedSlot(context).getUpgrade() != item) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
@@ -84,7 +86,16 @@ public class ApiImplExtendedDrawers implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (   block instanceof DrawerBlock
+				|| block instanceof AccessPointBlock
+				|| block instanceof ShadowDrawerBlock
+		);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		ItemStack handItemStack = context.getItemStack();
 		Block block = blockState.getBlock();
@@ -102,7 +113,7 @@ public class ApiImplExtendedDrawers implements DynamicCrosshairApi {
 				} else {
 					ItemVariant storedItem = clickedSlot(context).getItem();
 					if (storedItem.isBlank() || storedItem.getItem() == handItemStack.getItem()) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 
@@ -113,7 +124,7 @@ public class ApiImplExtendedDrawers implements DynamicCrosshairApi {
 			if (handItemStack.isEmpty()) {
 				return Crosshair.INTERACTABLE;
 			} else {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -131,7 +142,7 @@ public class ApiImplExtendedDrawers implements DynamicCrosshairApi {
 					}
 				} else {
 					if (drawerBlockEntity.item.isBlank() || drawerBlockEntity.item.getItem() == handItemStack.getItem()) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			}

@@ -10,6 +10,7 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.component.CrosshairVariant;
 import mod.crend.dynamiccrosshair.component.ModifierUse;
 import mod.crend.dynamiccrosshair.config.BlockCrosshairPolicy;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 
 public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
@@ -19,32 +20,36 @@ public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.getEntity() instanceof IBucketable) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 
 		return null;
 	}
 
 	@Override
-	public Crosshair checkThrowable(CrosshairContext context) {
-		if (context.getItem() instanceof ItemThrowableCustomEgg<?>) {
-			return Crosshair.THROWABLE;
-		}
-
-		return null;
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof BlockTurkey;
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (context.getBlock() instanceof BlockTurkey) {
 			if (context.player.canConsume(false)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		return null;
+	}
+
+	@Override
+	public ItemCategory getItemCategory(ItemStack itemStack) {
+		if (itemStack.getItem() instanceof ItemThrowableCustomEgg<?>) {
+			return ItemCategory.THROWABLE;
+		}
+		return DynamicCrosshairApi.super.getItemCategory(itemStack);
 	}
 
 	@Override
@@ -53,20 +58,25 @@ public class ApiImplBetterAnimalsPlus implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock()) {
-			if (context.getItem() instanceof ItemModFishBucket<?>) {
-				if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() != BlockCrosshairPolicy.Disabled) {
-					return new Crosshair(CrosshairVariant.HoldingBlock, ModifierUse.USE_ITEM);
-				}
-				return Crosshair.USE_ITEM;
-			}
-		} else if (!context.isTargeting()) {
-			if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() == BlockCrosshairPolicy.Always) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeHoldingBlock()) {
+			if (context.isWithBlock()) {
 				if (context.getItem() instanceof ItemModFishBucket<?>) {
-					return new Crosshair(CrosshairVariant.HoldingBlock, ModifierUse.USE_ITEM);
+					if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() != BlockCrosshairPolicy.Disabled) {
+						return new Crosshair(CrosshairVariant.HoldingBlock, ModifierUse.USE_ITEM);
+					}
+					return Crosshair.USABLE;
+				}
+			} else if (!context.isTargeting()) {
+				if (DynamicCrosshair.config.dynamicCrosshairHoldingBlock() == BlockCrosshairPolicy.Always) {
+					if (context.getItem() instanceof ItemModFishBucket<?>) {
+						return new Crosshair(CrosshairVariant.HoldingBlock, ModifierUse.USE_ITEM);
+					}
 				}
 			}
+		}
+		if (context.includeThrowable() && context.getItem() instanceof ItemThrowableCustomEgg<?>) {
+			return Crosshair.THROWABLE;
 		}
 		return null;
 	}

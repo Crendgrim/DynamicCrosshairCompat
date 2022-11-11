@@ -13,12 +13,13 @@ public class ApiImplCoalExplosion implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		if (context.isWithBlock()
+				&& context.includeUsableItem()
 				&& CommonClass.isIgniterStack(context.getItemStack())
 				&& context.getBlockState().isIn(FabricPlatformHelper.ORES_COAL)
 		) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 		return null;
 	}

@@ -4,6 +4,7 @@ import ewewukek.musketmod.GunItem;
 import ewewukek.musketmod.MusketMod;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
+import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tag.FluidTags;
@@ -16,10 +17,19 @@ public class ApiImplMusketMod implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkRangedWeapon(CrosshairContext context) {
+	public ItemCategory getItemCategory(ItemStack itemStack) {
+		if (itemStack.getItem() instanceof GunItem) {
+			return ItemCategory.RANGED_WEAPON;
+		}
+		return ItemCategory.NONE;
+	}
+
+	@Override
+	public Crosshair computeFromItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 
 		if (itemStack.getItem() instanceof GunItem gun
+				&& context.includeRangedWeapon()
 				&& gun.canUseFrom(context.player, context.getHand())
 				&& (!context.player.isSubmergedIn(FluidTags.WATER) || context.player.getAbilities().creativeMode)
 		) {
@@ -35,7 +45,7 @@ public class ApiImplMusketMod implements DynamicCrosshairApi {
 				return Crosshair.RANGED_WEAPON;
 			}
 			if (!GunItem.findAmmo(context.player).isEmpty() || context.player.getAbilities().creativeMode) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

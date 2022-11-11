@@ -1,6 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.akashictomeoftools;
 
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
+import mod.crend.dynamiccrosshair.api.ItemCategory;
 import net.minecraft.item.ItemStack;
 import vazkii.akashictomeoftools.AkashicTome;
 

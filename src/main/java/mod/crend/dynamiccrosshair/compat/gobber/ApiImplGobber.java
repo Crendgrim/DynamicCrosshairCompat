@@ -8,6 +8,7 @@ import com.kwpugh.gobber2.items.staffs.*;
 import com.kwpugh.gobber2.util.ExpUtils;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
+import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -33,7 +34,7 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 		Entity entity = context.getEntity();
@@ -48,14 +49,14 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 					|| entity instanceof AllayEntity
 					|| entity instanceof BatEntity
 			) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if ((Gobber2.CONFIG.GENERAL.staffEnsnarementHotileMobs || item instanceof StaffHostileEnsnarement)
 					&& entity instanceof HostileEntity && !(entity instanceof WitherEntity)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (item instanceof StaffHostileEnsnarement && (entity instanceof GhastEntity || entity instanceof PhantomEntity)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -80,12 +81,24 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkRangedWeapon(CrosshairContext context) {
-		Item item = context.getItem();
+	public ItemCategory getItemCategory(ItemStack itemStack) {
+		Item item = itemStack.getItem();
 		if (item instanceof StaffSniper) {
+			return ItemCategory.RANGED_WEAPON;
+		}
+		return DynamicCrosshairApi.super.getItemCategory(itemStack);
+	}
+
+	@Override
+	public Crosshair computeFromItem(CrosshairContext context) {
+		Item item = context.getItem();
+		if (context.includeRangedWeapon() && item instanceof StaffSniper) {
 			return Crosshair.RANGED_WEAPON;
 		}
 
+		if (context.includeUsableItem()) {
+			return checkUsableItem(context);
+		}
 		return null;
 	}
 
@@ -110,7 +123,6 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 				|| item instanceof SpecialItem);
 	}
 
-	@Override
 	public Crosshair checkUsableItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
@@ -118,30 +130,30 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 			if (context.player.isSneaking() && medallion.getXPStored(itemStack) != 1425) {
 				int playerXP = ExpUtils.getPlayerXP(context.player);
 				if (playerXP > 0) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (!context.player.isSneaking() && medallion.getXPStored(itemStack) != 0) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof BaseRing) {
 			if (item instanceof RingAbove) {
 				if (context.world.getRegistryKey() == World.OVERWORLD) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (item instanceof RingAirWalking) {
 				if (Gobber2.CONFIG.GENERAL.enableAirWalkingPlaceGlass) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (item instanceof RingAscent) {
 				if (context.isMainHand()) {
 					if (context.player.isSneaking()) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				} else {
 					if (context.player.isOnGround()) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			} else if (item instanceof RingAttraction
@@ -150,21 +162,21 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 					|| item instanceof RingVoid
 			) {
 				if (!context.player.isSneaking()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (item instanceof RingMiner) {
 				if (context.player.isSneaking()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (item instanceof RingTeleport) {
 				boolean hasPosition = RingTeleport.getPosition(itemStack) != null;
 				if (context.isWithBlock()) {
 					if (context.player.isSneaking() && !hasPosition) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				} else {
 					if (hasPosition) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			}
@@ -172,14 +184,14 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 		if (item instanceof BaseStaff) {
 			if (item instanceof StaffEnsnarement || item instanceof StaffHostileEnsnarement) {
 				if (context.isWithBlock() && itemStack.hasNbt() && itemStack.getNbt().contains("captured_entity")) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (item instanceof StaffNature) {
 				if (context.isWithBlock()) {
 					Block block = context.getBlock();
 					if (context.player.isSneaking()) {
 						if (block == Blocks.GLASS) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					} else {
 						if (block == Blocks.ACACIA_SAPLING
@@ -195,7 +207,7 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 								|| block == Blocks.BAMBOO_SAPLING
 								|| block == Blocks.CACTUS
 						) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					}
 				}
@@ -232,13 +244,13 @@ public class ApiImplGobber implements DynamicCrosshairApi {
 				}
 			} else if (item instanceof StaffTransformation) {
 				if (context.isMainHand() && context.getItemStack(Hand.OFF_HAND).isOf(Items.BOOK) && itemStack.getDamage() < itemStack.getMaxDamage() - 1) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 		if (item instanceof SpecialItem) {
 			if (!context.player.isSneaking()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

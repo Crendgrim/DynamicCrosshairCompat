@@ -6,21 +6,13 @@ import com.b1n_ry.yigd.config.RetrievalTypeConfig;
 import com.b1n_ry.yigd.config.YigdConfig;
 import com.b1n_ry.yigd.core.DeadPlayerData;
 import com.b1n_ry.yigd.core.DeathInfoManager;
-import com.mojang.authlib.GameProfile;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +23,12 @@ public class ApiImplYoureInGraveDanger implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof GraveBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (context.getBlock() instanceof GraveBlock && context.getBlockEntity() instanceof GraveBlockEntity grave) {
 			RetrievalTypeConfig retrievalType = YigdConfig.getConfig().graveSettings.retrievalType;
 			if ((retrievalType == RetrievalTypeConfig.ON_USE || retrievalType == RetrievalTypeConfig.ON_BREAK_OR_USE || retrievalType == null) && grave.getGraveOwner() != null && !grave.isClaimed()) {
@@ -52,7 +49,7 @@ public class ApiImplYoureInGraveDanger implements DynamicCrosshairApi {
 			} else {
 				ItemStack heldItem = context.getItemStack();
 				if (heldItem.getItem() == Items.PLAYER_HEAD && heldItem.hasNbt()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 
 			}

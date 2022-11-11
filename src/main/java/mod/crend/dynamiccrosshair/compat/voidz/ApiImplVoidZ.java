@@ -1,9 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.voidz;
 
-import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.component.Crosshair;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.voidz.block.PortalBlock;
 
 public class ApiImplVoidZ implements DynamicCrosshairApi {
@@ -13,13 +11,7 @@ public class ApiImplVoidZ implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Block block = context.getBlock();
-
-		if (block instanceof PortalBlock) {
-			return Crosshair.INTERACTABLE;
-		}
-
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof PortalBlock;
 	}
 }

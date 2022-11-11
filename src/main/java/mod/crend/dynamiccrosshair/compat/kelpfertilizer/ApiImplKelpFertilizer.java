@@ -21,12 +21,14 @@ public class ApiImplKelpFertilizer implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock()) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.isWithBlock() && context.includeUsableItem()) {
 			BlockState blockState = context.getBlockState();
 
-			if (blockState.getBlock() instanceof Fertilizable fertilizable && fertilizable.isFertilizable(context.world, context.getBlockPos(), blockState, true)) {
-				return Crosshair.USE_ITEM;
+			if (context.getItemStack().isOf(Items.KELP)
+					&& blockState.getBlock() instanceof Fertilizable fertilizable
+					&& fertilizable.isFertilizable(context.world, context.getBlockPos(), blockState, true)) {
+				return Crosshair.USABLE;
 			}
 		}
 		return null;

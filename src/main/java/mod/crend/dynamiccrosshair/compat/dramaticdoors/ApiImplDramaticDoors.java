@@ -19,7 +19,12 @@ public class ApiImplDramaticDoors implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof TallDoorBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = context.getBlock();
 		if (block instanceof TallDoorBlock door) {

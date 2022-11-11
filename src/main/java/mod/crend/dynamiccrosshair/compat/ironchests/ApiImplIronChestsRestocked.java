@@ -25,25 +25,19 @@ public class ApiImplIronChestsRestocked implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Block block = context.getBlock();
-
-		if (block instanceof GenericChestBlock) {
-			return Crosshair.INTERACTABLE;
-		}
-
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof GenericChestBlock;
 	}
 
 	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return (item instanceof DollyItem || item instanceof KeyItem);
+		return (item instanceof DollyItem || item instanceof KeyItem || item instanceof UpgradeItem);
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock()) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.isWithBlock() && context.includeUsableItem()) {
 
 			ItemStack itemStack = context.getItemStack();
 			Item item = itemStack.getItem();
@@ -55,7 +49,7 @@ public class ApiImplIronChestsRestocked implements DynamicCrosshairApi {
 					return Crosshair.HOLDING_BLOCK;
 				}
 				if (!blockState.isIn(DollyItem.NONPICKABLE_CHEST_TAG) && !DollyItem.hasChest(itemStack)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (item instanceof KeyItem) {
@@ -63,11 +57,11 @@ public class ApiImplIronChestsRestocked implements DynamicCrosshairApi {
 					if (chestBlockEntity.viewers() == 0 && !blockState.get(GenericChestBlock.LOCK).equals(LockState.NO_LOCK)) {
 						if (itemStack.hasNbt() && itemStack.getNbt().contains("key")) {
 							if (chestBlockEntity.isRightKey(itemStack)) {
-								return Crosshair.USE_ITEM;
+								return Crosshair.USABLE;
 							}
 						} else {
 							if (blockState.get(GenericChestBlock.LOCK).equals(LockState.UNLOCKED)){
-								return Crosshair.USE_ITEM;
+								return Crosshair.USABLE;
 							}
 						}
 					}
@@ -76,7 +70,7 @@ public class ApiImplIronChestsRestocked implements DynamicCrosshairApi {
 			if (item instanceof LockItem) {
 				if (block instanceof GenericChestBlock && context.getBlockEntity() instanceof GenericChestBlockEntity chestBlockEntity) {
 					if (chestBlockEntity.viewers() == 0 && blockState.get(GenericChestBlock.LOCK).equals(LockState.NO_LOCK)) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			}
@@ -87,7 +81,7 @@ public class ApiImplIronChestsRestocked implements DynamicCrosshairApi {
 							&& chestBlockEntity.getChestType().equals(upgrade.type.from())
 							&& chestBlockEntity.checkUnlocked(context.player)
 					) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				} else if (blockEntity instanceof ChestBlockEntity chestBlockEntity){
 					if (ChestBlockEntity.getPlayersLookingInChestCount(context.world, context.getBlockPos()) == 0
@@ -95,7 +89,7 @@ public class ApiImplIronChestsRestocked implements DynamicCrosshairApi {
 							&& upgrade.type.from() == null
 							&& chestBlockEntity.checkUnlocked(context.player)
 					) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			}

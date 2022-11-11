@@ -17,10 +17,10 @@ public class ApiImplCarrier implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.isMainHand() && context.getItem() instanceof GloveItem) {
 			if (CarriableRegistry.INSTANCE.contains(context.getEntity().getType())) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -33,12 +33,12 @@ public class ApiImplCarrier implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock() && context.isMainHand()) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.isWithBlock() && context.isMainHand() && context.includeUsableItem()) {
 			if (context.getItem() instanceof GloveItem) {
 				BlockState blockState = context.getBlockState();
 				if (CarriableRegistry.INSTANCE.contains(blockState.getBlock()) && blockState.getHardness(context.world, context.getBlockPos()) > -1.0F) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}

@@ -5,6 +5,7 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import shetiphian.platforms.Platforms;
 import shetiphian.platforms.common.block.BlockPlatformBase;
@@ -20,13 +21,18 @@ public class ApiImplPlatforms implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isUsableItem(ItemStack itemStack) {
+		return itemStack.getItem() instanceof ItemWrench;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		Item item = context.getItem();
 		BlockState blockState = context.getBlockState();
 
 		if (blockState.getBlock() instanceof BlockPlatformBase) {
 			if (item instanceof ItemWrench) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (blockState.getBlock() instanceof BlockPlatformFrame) {
@@ -38,12 +44,12 @@ public class ApiImplPlatforms implements DynamicCrosshairApi {
 						case REDSTONE_ON:
 						case LIGHT:
 						case SOUL:
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 					}
 				}
 			} else if (torch == null) {
 				if (item == Items.REDSTONE_TORCH || item == Items.TORCH || item == Items.SOUL_TORCH) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 
 			}

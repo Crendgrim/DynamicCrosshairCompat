@@ -16,16 +16,16 @@ public class ApiImplMacawsBridges implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		if (blockState.getBlock() instanceof Bridge_Base) {
 			if (context.getItem() instanceof Plier) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (blockState.get(Bridge_Base.TORCH)) {
 				return Crosshair.INTERACTABLE;
 			} else if (context.getItemStack().isOf(Items.TORCH)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

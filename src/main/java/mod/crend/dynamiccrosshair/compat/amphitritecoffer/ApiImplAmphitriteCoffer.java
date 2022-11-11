@@ -14,7 +14,12 @@ public class ApiImplAmphitriteCoffer implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof AmphitriteCofferBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		if (blockState.getBlock() instanceof AmphitriteCofferBlock) {
 			if (blockState.get(Properties.WATERLOGGED) || blockState.get(AmphitriteCofferBlock.CHARGED)) {

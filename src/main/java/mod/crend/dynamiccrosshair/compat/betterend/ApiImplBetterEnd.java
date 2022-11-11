@@ -13,7 +13,10 @@ public class ApiImplBetterEnd implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		return BCLibUsableItemHandler.checkUsableItem(context);
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeUsableItem()) {
+			return BCLibUsableItemHandler.checkUsableItem(context);
+		}
+		return null;
 	}
 }

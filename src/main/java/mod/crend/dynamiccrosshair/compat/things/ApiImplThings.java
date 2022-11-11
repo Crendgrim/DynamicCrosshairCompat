@@ -6,6 +6,7 @@ import com.glisco.things.items.ThingsItems;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.item.ItemStack;
 
@@ -16,7 +17,12 @@ public class ApiImplThings implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.isOf(ThingsBlocks.PLACED_ITEM);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (context.getBlock() == ThingsBlocks.PLACED_ITEM) {
 			if (!context.player.isSneaking()) {
 				return Crosshair.INTERACTABLE;
@@ -39,13 +45,13 @@ public class ApiImplThings implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock()) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.isWithBlock() && context.includeUsableItem()) {
 			ItemStack itemStack = context.getItemStack();
 
 			if (itemStack.isOf(ThingsItems.CONTAINER_KEY)) {
 				if (context.player.isSneaking() && context.getBlockEntity() instanceof LockableContainerBlockEntity) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}

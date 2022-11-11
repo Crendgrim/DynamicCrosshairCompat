@@ -20,7 +20,7 @@ public class ApiImplEditSign implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (context.getBlock() instanceof AbstractSignBlock) {
 			ItemStack itemStack = context.getItemStack();
 			if (itemStack.getItem() instanceof DyeItem || itemStack.isOf(Items.GLOW_INK_SAC) || itemStack.isOf(Items.INK_SAC)) {

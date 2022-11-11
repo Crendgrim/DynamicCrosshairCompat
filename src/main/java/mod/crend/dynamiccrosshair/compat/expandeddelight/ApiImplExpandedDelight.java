@@ -10,6 +10,7 @@ import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -25,18 +26,23 @@ public class ApiImplExpandedDelight implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof JuicerBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		Block block = context.getBlock();
 
 		if (block instanceof CinnamonLogBlock) {
 			if (context.getItem() instanceof AxeItem) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		if (block instanceof JuicerBlock && context.getBlockEntity() instanceof JuicerBlockEntity juicerBlockEntity) {
 			if (context.getItemStack().isOf(Items.GLASS_BOTTLE) && !juicerBlockEntity.getStack(3).isEmpty()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;
 		}

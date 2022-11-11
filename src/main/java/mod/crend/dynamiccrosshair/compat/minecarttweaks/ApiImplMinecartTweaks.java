@@ -20,18 +20,18 @@ public class ApiImplMinecartTweaks implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.getEntity() instanceof AbstractMinecartEntity minecart) {
 			ItemStack itemStack = context.getItemStack();
 			if (MinecartTweaks.getConfig().serverTweaks.canLinkMinecarts) {
 				if (context.player.isSneaking() && itemStack.isOf(Items.CHAIN)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (minecart.getMinecartType() == AbstractMinecartEntity.Type.RIDEABLE) {
 				if (itemStack.isOf(Items.FURNACE) || itemStack.isOf(Items.CHEST)
 						|| itemStack.isOf(Items.TNT) || itemStack.isOf(Items.HOPPER)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}

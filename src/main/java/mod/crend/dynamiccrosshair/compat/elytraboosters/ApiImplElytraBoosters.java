@@ -20,22 +20,24 @@ public class ApiImplElytraBoosters implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack handItem = context.getItemStack();
 		Item item = handItem.getItem();
 
 		if (item instanceof BoosterItem) {
 			if (handItem.hasNbt() && handItem.getNbt().getBoolean("Active")) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (context.player.isFallFlying()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		if (item instanceof ForwardLauncherItem) {
 			if (context.player.isOnGround()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

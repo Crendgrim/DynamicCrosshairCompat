@@ -5,10 +5,12 @@ import de.dafuqs.chalk.chalk.blocks.ChalkMarkBlock;
 import de.dafuqs.chalk.chalk.items.ChalkItem;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
+import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -20,8 +22,16 @@ public class ApiImplChalk implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock() && context.getItem() instanceof ChalkItem) {
+	public ItemCategory getItemCategory(ItemStack itemStack) {
+		if (itemStack.getItem() instanceof ChalkItem) {
+			return ItemCategory.BLOCK;
+		}
+		return ItemCategory.NONE;
+	}
+
+	@Override
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeUsableItem() && context.isWithBlock() && context.getItem() instanceof ChalkItem) {
 			if (context.getBlock() instanceof ChalkMarkBlock) {
 				return Crosshair.HOLDING_BLOCK;
 			}

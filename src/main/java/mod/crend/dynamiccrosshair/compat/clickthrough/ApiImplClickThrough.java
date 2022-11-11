@@ -3,9 +3,9 @@ package mod.crend.dynamiccrosshair.compat.clickthrough;
 import de.guntram.mcmod.clickthrough.ClickThrough;
 import de.guntram.mcmod.clickthrough.ConfigurationHandler;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
+import mod.crend.dynamiccrosshair.api.CrosshairContextChange;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import mod.crend.dynamiccrosshair.component.CrosshairContextChange;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallBannerBlock;
@@ -32,8 +32,7 @@ public class ApiImplClickThrough implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
-
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.getEntity() instanceof ItemFrameEntity itemFrame && !context.player.isSneaking()) {
 			BlockPos attachedPos = itemFrame.getDecorationBlockPos().offset(itemFrame.getHorizontalFacing().getOpposite());
 			if (isClickableBlockAt(context, attachedPos)) {
@@ -45,7 +44,7 @@ public class ApiImplClickThrough implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		BlockPos blockPos = context.getBlockPos();

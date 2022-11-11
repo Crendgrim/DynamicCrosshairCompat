@@ -26,25 +26,27 @@ public class ApiImplCroptosis implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 
 		if (item instanceof WateringCanItem) {
 			if (WateringCanItem.isFilled(itemStack)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 
 			BlockHitResult blockHitResult = context.raycastWithFluid();
 			if (context.world.getFluidState(blockHitResult.getBlockPos()).isIn(FluidTags.WATER)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		if (context.isWithBlock() && item instanceof FertilizerItem) {
 			BlockState blockState = context.getBlockState();
 			if (blockState.isOf(Blocks.DIRT) || blockState.isOf(Blocks.SAND) || blockState.isOf(Blocks.FARMLAND)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

@@ -17,7 +17,12 @@ public class ApiImplBoatContainer implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public boolean isInteractableEntity(Entity entity) {
+		return entity instanceof EnderChestBoatEntity || entity instanceof FurnaceBoatEntity;
+	}
+
+	@Override
+	public Crosshair computeFromEntity(CrosshairContext context) {
 
 		Entity entity = context.getEntity();
 
@@ -29,7 +34,7 @@ public class ApiImplBoatContainer implements DynamicCrosshairApi {
 
 		if (entity instanceof FurnaceBoatEntity furnaceBoatEntity) {
 			if (IFurnaceBoatEntityMixin.getINGREDIENT().test(context.getItemStack()) && ((IFurnaceBoatEntityMixin) furnaceBoatEntity).getFuel() + 3600 <= 32000) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (!context.player.shouldCancelInteraction()) {
 				return Crosshair.INTERACTABLE;

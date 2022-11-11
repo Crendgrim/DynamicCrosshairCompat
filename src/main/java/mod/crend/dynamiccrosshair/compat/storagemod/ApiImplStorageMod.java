@@ -31,21 +31,33 @@ public class ApiImplStorageMod implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof AbstractStorageTerminalBlock
+				|| block instanceof FilteredInventoryCableConnectorBlock
+				|| block instanceof InventoryConnectorBlock
+				|| block instanceof LevelEmitterBlock
+		);
+	}
+
+	@Override
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof BasicInventoryHopperBlock
+				|| block instanceof InventoryCableConnectorBlock
+		);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 
-		if (block instanceof AbstractStorageTerminalBlock) {
-			return Crosshair.INTERACTABLE;
-		}
 		if (block instanceof BasicInventoryHopperBlock) {
 			if (context.getItemStack().isEmpty()) {
 				return Crosshair.INTERACTABLE;
 			}
-			return Crosshair.USE_ITEM;
-		}
-		if (block instanceof FilteredInventoryCableConnectorBlock) {
-			return Crosshair.INTERACTABLE;
+			return Crosshair.USABLE;
 		}
 		if (block instanceof InventoryCableConnectorBlock) {
 			Direction f = blockState.get(InventoryCableConnectorBlock.FACING);
@@ -54,18 +66,12 @@ public class ApiImplStorageMod implements DynamicCrosshairApi {
 				return Crosshair.INTERACTABLE;
 			}
 		}
-		if (block instanceof InventoryConnectorBlock) {
-			return Crosshair.INTERACTABLE;
-		}
 		if (block instanceof InventoryProxyBlock) {
 			if (context.getItemStack().isOf(Items.DIAMOND) && blockState.get(InventoryProxyBlock.FACING) != context.getBlockHitSide()) {
 				if (blockState.get(InventoryProxyBlock.FILTER_FACING) == InventoryProxyBlock.DirectionWithNull.NULL) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
-		}
-		if (block instanceof LevelEmitterBlock) {
-			return Crosshair.INTERACTABLE;
 		}
 
 		return null;
@@ -78,29 +84,31 @@ public class ApiImplStorageMod implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 
 		if (item instanceof PaintKitItem && context.isWithBlock()) {
 			if (context.player.shouldCancelInteraction() || context.getBlock() instanceof IPaintable) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof WirelessTerminalItem) {
 			BlockHitResult lookingAt = (BlockHitResult)context.player.raycast(StorageMod.CONFIG.wirelessRange, 0.0F, true);
 			BlockState state = context.world.getBlockState(lookingAt.getBlockPos());
 			if (state.isIn(StorageTags.REMOTE_ACTIVATE)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof AdvWirelessTerminalItem) {
 			if (context.isWithBlock() && context.player.shouldCancelInteraction()) {
 				if (context.getBlockState().isIn(StorageTags.REMOTE_ACTIVATE)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else if (itemStack.hasNbt() && itemStack.getNbt().contains("BindX")) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

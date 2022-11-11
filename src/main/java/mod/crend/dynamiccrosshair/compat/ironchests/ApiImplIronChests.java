@@ -10,6 +10,7 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.mixin.ironchests.IUpgradeItemMixin;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.item.Item;
@@ -22,14 +23,8 @@ public class ApiImplIronChests implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Block block = context.getBlock();
-
-		if (block instanceof GenericChestBlock) {
-			return Crosshair.INTERACTABLE;
-		}
-
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof GenericChestBlock;
 	}
 
 	@Override
@@ -39,22 +34,22 @@ public class ApiImplIronChests implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock()) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.isWithBlock() && context.includeUsableItem()) {
 			Block block = context.getBlock();
 
 			if (context.getItem() instanceof UpgradeItem upgrade) {
 				UpgradeTypes type = ((IUpgradeItemMixin) upgrade).getType();
 				if (type.canUpgrade(ChestTypes.WOOD)) {
 					if (block instanceof ChestBlock) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				} else if (block.getDefaultState() == ChestTypes.get(type.source).getDefaultState()
 						&& context.getBlockEntity() instanceof ChestBlockEntity chest
 						&& ChestBlockEntity.getPlayersLookingInChestCount(context.world, context.getBlockPos()) == 0
 						&& chest.canPlayerUse(context.player)
 				) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}

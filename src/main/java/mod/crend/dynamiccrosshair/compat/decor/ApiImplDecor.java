@@ -6,6 +6,7 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.gmsgarcia.decor4fabric.blocks.*;
 import net.gmsgarcia.decor4fabric.mainDecor;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 
 public class ApiImplDecor implements DynamicCrosshairApi {
 	@Override
@@ -14,11 +15,23 @@ public class ApiImplDecor implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof workBench;
+	}
+
+	@Override
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return     block instanceof logBench
+				|| block instanceof logBench2
+				|| block instanceof logBench3
+				|| block instanceof logChair
+				|| block instanceof logSmallStool;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		Block block = context.getBlock();
-		if (block instanceof workBench) {
-			return Crosshair.INTERACTABLE;
-		}
 		if (!context.player.shouldCancelInteraction()) {
 			if (context.getItemStack().isEmpty() && (
 					   block instanceof logBench

@@ -17,24 +17,34 @@ public class ApiImplExtraGenerators implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		BlockState blockState = context.getBlockState();
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
 		Block block = blockState.getBlock();
-		if (block instanceof ColorfulGeneratorBlock
+		return (block instanceof ColorfulGeneratorBlock
 				|| block instanceof InfiniteGeneratorBlock
 				|| block instanceof ItemGeneratorBlock
-		) {
-			return Crosshair.INTERACTABLE;
-		}
+		);
+	}
+
+	@Override
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof FluidGeneratorBlock
+				|| block instanceof FluidItemGeneratorBlock);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
+		BlockState blockState = context.getBlockState();
+		Block block = blockState.getBlock();
 		if (block instanceof FluidGeneratorBlock && context.getBlockEntity() instanceof FluidGeneratorBlockEntity blockEntity) {
 			if (context.canInteractWithFluidStorage(blockEntity.getFluidInv())) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;
 		}
 		if (block instanceof FluidItemGeneratorBlock && context.getBlockEntity() instanceof FluidItemGeneratorBlockEntity blockEntity) {
 			if (context.canInteractWithFluidStorage(blockEntity.getFluidInv())) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;
 		}

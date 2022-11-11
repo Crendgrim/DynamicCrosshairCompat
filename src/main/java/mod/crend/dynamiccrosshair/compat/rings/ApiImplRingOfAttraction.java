@@ -18,9 +18,11 @@ public class ApiImplRingOfAttraction implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.getItemStack().isOf(RingOfAttraction.RING_OF_ATTRACTION) && !context.player.shouldCancelInteraction()) {
-			return Crosshair.USE_ITEM;
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeUsableItem()
+				&& context.getItemStack().isOf(RingOfAttraction.RING_OF_ATTRACTION)
+				&& !context.player.shouldCancelInteraction()) {
+			return Crosshair.USABLE;
 		}
 
 		return null;

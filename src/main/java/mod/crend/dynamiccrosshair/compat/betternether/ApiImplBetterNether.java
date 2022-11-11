@@ -5,6 +5,7 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.bclib.BCLibUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import org.betterx.betternether.BetterNether;
 import org.betterx.betternether.blocks.BNChair;
 
@@ -15,16 +16,15 @@ public class ApiImplBetterNether implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Block block = context.getBlock();
-		if (block instanceof BNChair) {
-			return Crosshair.INTERACTABLE;
-		}
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof BNChair;
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		return BCLibUsableItemHandler.checkUsableItem(context);
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeUsableItem()) {
+			return BCLibUsableItemHandler.checkUsableItem(context);
+		}
+		return null;
 	}
 }

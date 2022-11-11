@@ -42,18 +42,16 @@ public class BOMDHandler {
 		if (item instanceof SoulStarItem) {
 			if (context.isWithBlock() && context.getBlockState().isOf(ModBlocks.INSTANCE.getChiseledStoneAltar())) {
 				if (!context.getBlockState().get(ChiseledStoneAltarBlock.Companion.getLit())) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
 		if (item instanceof ChargedEnderPearlItem) {
 			return Crosshair.THROWABLE;
 		}
-
-
 
 		return null;
 	}

@@ -4,6 +4,7 @@ import draylar.fabricfurnaces.block.FabricFurnaceBlock;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
 
 public class ApiImplFabricFurnaces implements DynamicCrosshairApi {
 	@Override
@@ -12,11 +13,7 @@ public class ApiImplFabricFurnaces implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		if (context.getBlock() instanceof FabricFurnaceBlock) {
-			return Crosshair.INTERACTABLE;
-		}
-
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof FabricFurnaceBlock;
 	}
 }

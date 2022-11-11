@@ -23,10 +23,10 @@ public class ApiImplBushierFlowers implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		Block block = context.getBlock();
 		if (block instanceof FlowerBlock && context.getItem() instanceof BoneMealItem) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 		if ((block instanceof GrowableFlower || block instanceof GrowableWitherRose) && context.getItem() instanceof ShearsItem) {
 			return Crosshair.CORRECT_TOOL;

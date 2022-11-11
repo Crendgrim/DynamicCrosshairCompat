@@ -46,7 +46,9 @@ public class ApiImplPaladinsFurniture implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 
@@ -55,11 +57,11 @@ public class ApiImplPaladinsFurniture implements DynamicCrosshairApi {
 				&& context.isWithBlock()
 				&& context.getBlock() instanceof DyeableFurniture
 		) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 		if (item instanceof LightSwitchItem) {
 			if (context.player.isSneaking()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -67,7 +69,32 @@ public class ApiImplPaladinsFurniture implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof ClassicNightstand
+				|| block instanceof Freezer
+				|| block instanceof Fridge
+				|| block instanceof KitchenCabinet
+				|| block instanceof KitchenDrawer
+				|| block instanceof LightSwitch
+				|| block instanceof Microwave
+				|| block instanceof Stove
+				|| block instanceof WorkingTable
+		);
+	}
+
+	@Override
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof AbstractSittableBlock
+				|| block instanceof Cutlery
+				|| block instanceof Plate
+				|| block instanceof KitchenStovetop
+		);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 
@@ -79,18 +106,7 @@ public class ApiImplPaladinsFurniture implements DynamicCrosshairApi {
 				}
 			}
 		}
-		if (block instanceof ClassicNightstand
-				|| block instanceof Freezer
-				|| block instanceof Fridge
-				|| block instanceof KitchenCabinet
-				|| block instanceof KitchenDrawer
-				|| block instanceof LightSwitch
-				|| block instanceof Microwave
-				|| block instanceof Stove
-				|| block instanceof WorkingTable
-		) {
-			return Crosshair.INTERACTABLE;
-		}
+
 		if (block instanceof Cutlery) {
 			ItemStack itemStack = context.getItemStack();
 			Block handBlock = Registry.BLOCK.get(Registry.ITEM.getId(itemStack.getItem()));
@@ -109,20 +125,20 @@ public class ApiImplPaladinsFurniture implements DynamicCrosshairApi {
 			if (context.getBlockEntity() instanceof PlateBlockEntity plateBlockEntity) {
 				if (itemStack.isFood()) {
 					if (plateBlockEntity.getItemInPlate().isEmpty()) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				} else if (!plateBlockEntity.getItemInPlate().isEmpty()) {
 					if (context.player.isSneaking()) {
 						return Crosshair.INTERACTABLE;
 					} else {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			}
 		}
 		if (block instanceof KitchenStovetop && context.getBlockEntity() instanceof StovetopBlockEntity stovetopBlockEntity) {
 			if (stovetopBlockEntity.getRecipeFor(context.getItemStack()).isPresent()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			for (ItemStack stack : stovetopBlockEntity.getItemsBeingCooked()) {
 				if (!stack.isEmpty() && context.world.getRecipeManager().getFirstMatch(RecipeType.CAMPFIRE_COOKING, new SimpleInventory(stack), context.world).isEmpty()) {

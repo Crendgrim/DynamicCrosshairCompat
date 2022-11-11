@@ -10,6 +10,7 @@ import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SignBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -28,12 +29,13 @@ public class ApiImplVanillaTweaks implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		Block block = context.getBlock();
-		if (block instanceof PedestalBlock) {
-			return Crosshair.INTERACTABLE;
-		}
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof PedestalBlock;
+	}
 
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
+		Block block = context.getBlock();
 		if (VanillaTweaksFabric.config.tweaks.enableSignEditing && block instanceof SignBlock && context.player.isSneaking()) {
 			return Crosshair.INTERACTABLE;
 		}
@@ -42,10 +44,10 @@ public class ApiImplVanillaTweaks implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (VanillaTweaksFabric.config.tweaks.shearOffNameTag) {
 			if (context.getItem() instanceof ShearsItem && context.getEntity() instanceof LivingEntity le && le.hasCustomName()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		return null;

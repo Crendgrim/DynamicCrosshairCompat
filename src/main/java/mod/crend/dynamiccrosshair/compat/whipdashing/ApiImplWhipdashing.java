@@ -16,7 +16,7 @@ public class ApiImplWhipdashing implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 
 		if (context.isMainHand()
 				&& context.getEntity() instanceof LatchEntity
@@ -28,9 +28,10 @@ public class ApiImplWhipdashing implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		Item item = context.getItem();
 		if (context.isWithBlock()
+				&& context.includeHoldingBlock()
 				&& item instanceof LatchItem
 				&& context.world.isAir(context.getBlockPos().offset(context.getBlockHitSide()))) {
 			return Crosshair.HOLDING_BLOCK;

@@ -102,13 +102,13 @@ public class AE2Handler {
 					upgrades = ((IUpgradeableObject)be).getUpgrades();
 				}
 				if (upgrades != null && upgrades.size() > 0) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 		if (item instanceof CraftingBlockItem) {
 			if (AEConfig.instance().isDisassemblyCraftingEnabled() && context.player.isSneaking()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof FacadeItem facadeItem && context.isWithBlock()) {
@@ -125,42 +125,77 @@ public class AE2Handler {
 		}
 		if (item instanceof BasicStorageCell) {
 			if (context.player.isSneaking()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof ColorApplicatorItem applicator && applicator.getAECurrentPower(itemStack) > 100.0) {
 			if (context.isWithBlock()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (context.isWithEntity()) {
 				Entity entity = context.getEntity();
 				if (entity instanceof SheepEntity sheep && !sheep.isSheared()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 		if (item instanceof EntropyManipulatorItem manipulator && manipulator.getAECurrentPower(itemStack) > 1600.0) {
 			if (context.isWithBlock() || context.raycastWithFluid().getType() == HitResult.Type.BLOCK) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof MatterCannonItem matterCannon && matterCannon.getAECurrentPower(itemStack) > 1600.0) {
 			return Crosshair.THROWABLE;
 		}
 		if (item instanceof WirelessTerminalItem wirelessTerminal && wirelessTerminal.hasPower(context.player, 0.5, itemStack)) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 
 		return null;
 	}
 
-	public static Crosshair checkBlockInteractable(CrosshairContext context) {
+	public static boolean isAlwaysInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (   block instanceof CrankBlock
+				|| block instanceof ControllerBlock
+				|| block instanceof SkyChestBlock
+		);
+	}
+
+	public static boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+
+		return block instanceof AbstractCraftingUnitBlock<?>
+			|| block instanceof MolecularAssemblerBlock
+			|| block instanceof ChestBlock
+			|| block instanceof DriveBlock
+			|| block instanceof IOPortBlock
+			|| block instanceof PatternProviderBlock
+			|| block instanceof CellWorkbenchBlock
+			|| block instanceof ChargerBlock
+			|| block instanceof CondenserBlock
+			|| block instanceof InscriberBlock
+			|| block instanceof InterfaceBlock
+			|| block instanceof SecurityStationBlock
+			|| block instanceof VibrationChamberBlock
+			|| block instanceof WirelessBlock
+			|| block instanceof QuantumLinkChamberBlock
+			|| block instanceof SpatialAnchorBlock
+			|| block instanceof SpatialIOPortBlock
+			|| block instanceof CrankBlock
+			|| block instanceof TinyTNTBlock
+			|| block instanceof SkyStoneTankBlock
+			|| block instanceof ControllerBlock
+			|| block instanceof CableBusBlock;
+	}
+
+	public static Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 
 		if (block instanceof AEBaseEntityBlock<?>) {
 			if (context.getItem() instanceof IMemoryCard && !(block instanceof CableBusBlock)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof AbstractCraftingUnitBlock<?> && context.getBlockEntity() instanceof CraftingBlockEntity tg) {
@@ -189,22 +224,15 @@ public class AE2Handler {
 				return Crosshair.INTERACTABLE;
 			}
 		}
-		if (block instanceof CrankBlock) {
-			return Crosshair.INTERACTABLE;
-		}
 		if (block instanceof TinyTNTBlock && context.getItemStack().isOf(Items.FLINT_AND_STEEL)) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 		if (block instanceof SkyStoneTankBlock && context.getBlockEntity() instanceof SkyStoneTankBlockEntity blockEntity) {
 			if (context.canInteractWithFluidStorage(blockEntity.getStorage())) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
-		if (block instanceof ControllerBlock
-				|| block instanceof SkyChestBlock
-		) {
-			return Crosshair.INTERACTABLE;
-		}
+
 		if (block instanceof CableBusBlock && context.isMainHand()) {
 			if (context.getBlockEntity() instanceof CableBusBlockEntity busBlockEntity) {
 				IPart part = busBlockEntity.selectPartWorld(context.hitResult.getPos()).part;
@@ -223,14 +251,14 @@ public class AE2Handler {
 				if (part instanceof P2PTunnelPart<?> p2pTunnelPart) {
 					ItemStack itemStack = context.getItemStack();
 					if (itemStack.getItem() instanceof IMemoryCard) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 
 					ItemStack newType = P2PTunnelAttunement.getTunnelPartByTriggerItem(itemStack);
 					if (!newType.isEmpty()
 							&& newType.getItem() != p2pTunnelPart.getPartItem()
 							&& newType.getItem() instanceof IPartItem) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 
@@ -242,7 +270,7 @@ public class AE2Handler {
 
 				if (part instanceof AbstractReportingPart) {
 					if (InteractionUtil.canWrenchRotate(context.getItemStack())) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 

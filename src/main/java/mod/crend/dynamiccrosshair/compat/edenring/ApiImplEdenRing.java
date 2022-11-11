@@ -2,6 +2,7 @@ package mod.crend.dynamiccrosshair.compat.edenring;
 
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
+import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.compat.bclib.BCLibUsableItemHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,23 +27,31 @@ public class ApiImplEdenRing implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockItem(CrosshairContext context) {
-		if (context.getItem() instanceof EdenPaintingItem) {
-			Direction side = context.getBlockHitSide();
-			if (!side.getAxis().isVertical() && context.player.canPlaceOn(context.getBlockPos(), side, context.getItemStack())) {
-				return Crosshair.HOLDING_BLOCK;
-			}
+	public ItemCategory getItemCategory(ItemStack itemStack) {
+		if (itemStack.getItem() instanceof EdenPaintingItem || itemStack.getItem() instanceof BalloonMushroomBlockItem) {
+			return ItemCategory.BLOCK;
 		}
-
-		return null;
+		return DynamicCrosshairApi.super.getItemCategory(itemStack);
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.getItem() instanceof BalloonMushroomBlockItem) {
-			return Crosshair.HOLDING_BLOCK;
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeHoldingBlock()) {
+			if (context.getItem() instanceof EdenPaintingItem) {
+				Direction side = context.getBlockHitSide();
+				if (!side.getAxis().isVertical() && context.player.canPlaceOn(context.getBlockPos(), side, context.getItemStack())) {
+					return Crosshair.HOLDING_BLOCK;
+				}
+			}
+
+			if (context.getItem() instanceof BalloonMushroomBlockItem) {
+				return Crosshair.HOLDING_BLOCK;
+			}
 		}
-		return BCLibUsableItemHandler.checkUsableItem(context);
+		if (context.includeUsableItem()) {
+			return BCLibUsableItemHandler.checkUsableItem(context);
+		}
+		return null;
 	}
 
 }

@@ -25,9 +25,9 @@ public class ApiImplTrinkets implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.getItem() instanceof TrinketItem && canEquipTrinket(context)) {
-			return Crosshair.USE_ITEM;
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeUsableItem() && context.getItem() instanceof TrinketItem && canEquipTrinket(context)) {
+			return Crosshair.USABLE;
 		}
 		return null;
 	}

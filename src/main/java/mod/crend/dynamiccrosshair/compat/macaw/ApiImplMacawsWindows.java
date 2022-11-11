@@ -9,6 +9,7 @@ import net.kikoz.mcwwindows.objects.GothicWindow;
 import net.kikoz.mcwwindows.objects.Window;
 import net.kikoz.mcwwindows.util.Hammer;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 
 public class ApiImplMacawsWindows implements DynamicCrosshairApi {
 	@Override
@@ -17,11 +18,17 @@ public class ApiImplMacawsWindows implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof Window || block instanceof GothicWindow || block instanceof Blinds);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		Block block = context.getBlock();
 		if (block instanceof Window || block instanceof GothicWindow) {
 			if (context.getItem() instanceof Hammer) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (context.getItem() != block.asItem()) {
 				return Crosshair.INTERACTABLE;

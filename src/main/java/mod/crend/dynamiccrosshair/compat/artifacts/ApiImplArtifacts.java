@@ -20,11 +20,11 @@ public class ApiImplArtifacts implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 
-		if (itemStack.getItem() instanceof CurioItem && ApiImplTrinkets.canEquipTrinket(context)) {
-			return Crosshair.USE_ITEM;
+		if (context.includeUsableItem() && itemStack.getItem() instanceof CurioItem && ApiImplTrinkets.canEquipTrinket(context)) {
+			return Crosshair.USABLE;
 		}
 		// everlasting food, umbrella
 		return null;

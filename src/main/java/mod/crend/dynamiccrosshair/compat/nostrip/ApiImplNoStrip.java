@@ -4,6 +4,7 @@ import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.mixin.nostrip.INostripClientMixin;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import mod.crend.dynamiccrosshair.handler.VanillaBlockHandler;
 import mod.crend.dynamiccrosshair.mixin.IAxeItemMixin;
 import mod.crend.dynamiccrosshair.mixin.IShovelItemMixin;
 import net.fabricmc.api.ClientModInitializer;
@@ -52,15 +53,13 @@ public class ApiImplNoStrip implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (!client.getDoStrip() && context.isWithBlock()) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!client.getDoStrip() && context.includeTool() && context.isWithBlock()) {
 			Item item = context.getItem();
 			BlockState blockState = context.getBlockState();
-			if (item instanceof ToolItem && IAxeItemMixin.getSTRIPPED_BLOCKS().containsKey(blockState.getBlock())) {
-				return Crosshair.TOOL;
-			}
-			if (item instanceof ShovelItem && IShovelItemMixin.getPATH_STATES().containsKey(blockState.getBlock())) {
-				return Crosshair.TOOL;
+			if ((item instanceof ToolItem && IAxeItemMixin.getSTRIPPED_BLOCKS().containsKey(blockState.getBlock()))
+				|| (item instanceof ShovelItem && IShovelItemMixin.getPATH_STATES().containsKey(blockState.getBlock()))) {
+				return Crosshair.combine(Crosshair.TOOL, VanillaBlockHandler.checkToolWithBlock(context));
 			}
 		}
 

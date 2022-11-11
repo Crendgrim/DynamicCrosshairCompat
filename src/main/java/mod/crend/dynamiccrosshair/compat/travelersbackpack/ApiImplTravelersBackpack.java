@@ -6,6 +6,7 @@ import com.tiviacz.travelersbackpack.items.TravelersBackpackItem;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 
 public class ApiImplTravelersBackpack implements DynamicCrosshairApi {
@@ -15,11 +16,8 @@ public class ApiImplTravelersBackpack implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		if (context.getBlock() instanceof TravelersBackpackBlock) {
-			return Crosshair.INTERACTABLE;
-		}
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof TravelersBackpackBlock;
 	}
 
 	@Override
@@ -28,9 +26,9 @@ public class ApiImplTravelersBackpack implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (!context.player.isSneaking() && context.getItem() instanceof TravelersBackpackItem) {
-			return Crosshair.USE_ITEM;
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeUsableItem() && !context.player.isSneaking() && context.getItem() instanceof TravelersBackpackItem) {
+			return Crosshair.USABLE;
 		}
 
 		return null;

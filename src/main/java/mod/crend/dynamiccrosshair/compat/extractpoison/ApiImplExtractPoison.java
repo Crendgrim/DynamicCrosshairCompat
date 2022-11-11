@@ -21,11 +21,11 @@ public class ApiImplExtractPoison implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		if (context.getItem() == Items.GLASS_BOTTLE) {
 			Entity entity = context.getEntity();
 			if (entity instanceof CaveSpiderEntity || entity instanceof PufferfishEntity || entity instanceof BeeEntity) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		return null;

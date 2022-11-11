@@ -27,13 +27,13 @@ public class ApiImplCroptopia implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 
-		if (item instanceof CroptopiaSaplingItem sapling && context.isWithBlock()) {
+		if (context.includeUsableItem() && item instanceof CroptopiaSaplingItem sapling && context.isWithBlock()) {
 			if (context.getBlock() == ((ICroptopiaSaplingItemMixin) sapling).getVanillaLeafBlock()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -41,7 +41,12 @@ public class ApiImplCroptopia implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof CroptopiaCropBlock || blockState.getBlock() instanceof LeafCropBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		if (block instanceof CroptopiaCropBlock cropBlock

@@ -4,6 +4,8 @@ import com.kenza.clickmachine.blocks.AutoClickerBlock;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
+import uk.co.cablepost.autoworkstations.auto_crafting_table.AutoCraftingTableBlock;
 
 public class ApiImplClickMachine implements DynamicCrosshairApi {
 	@Override
@@ -12,11 +14,7 @@ public class ApiImplClickMachine implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
-		if (context.getBlock() instanceof AutoClickerBlock) {
-			return Crosshair.INTERACTABLE;
-		}
-
-		return null;
+	public boolean isAlwaysInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof AutoClickerBlock;
 	}
 }

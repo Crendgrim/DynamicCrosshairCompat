@@ -35,7 +35,6 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.Direction;
 
 public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
@@ -60,33 +59,35 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
 		if (item instanceof IRModularDrillItem) {
 			if ((!context.isWithBlock() && DrillModule.CONTROLLED_DESTRUCTION.getLevel(itemStack) > 0) || DrillModule.MATTER_PROJECTOR.getLevel(itemStack) > 0) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof IREnergyReaderItem) {
 			if (context.isWithBlock()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof IRMachineUpgradeItem upgradeItem && context.isWithBlock()) {
 			BlockState blockState = context.getBlockState();
 			if (blockState.getBlock() instanceof MachineBlock machineBlock && machineBlock.getTier() == upgradeItem.getFrom()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (item instanceof IRServoItem) {
 			if (!context.isWithBlock()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (context.isMainHand() && context.getBlockEntity() instanceof BasePipeBlockEntity pipeBlockEntity) {
 				Direction dir = BasePipeBlock.Companion.getSideFromHit(context.hitResult.getPos(), context.getBlockPos());
 				if (dir != null && pipeBlockEntity.getConnections().getOrDefault(dir, BasePipeBlock.ConnectionType.NONE).isConnected()) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 
 			}
@@ -95,7 +96,17 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		Block block = blockState.getBlock();
+		return (block instanceof SolarPowerPlantTowerBlock
+				|| block instanceof CapsuleBlock
+				|| block instanceof MachineBlock
+				|| block instanceof BiomassComposterBlock
+		);
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		ItemStack itemStack = context.getItemStack();
@@ -112,7 +123,7 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 		}
 		if (block instanceof BasePipeBlock) {
 			if (itemStack.isIn(IndustrialRevolution.INSTANCE.getWRENCH_TAG())) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (context.getBlockEntity() instanceof BasePipeBlockEntity pipeBlockEntity
 					&& pipeBlockEntity.getCoverState() == null
@@ -129,13 +140,13 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 					&& itemStack.hasNbt()
 					&& itemStack.getNbt().contains("SelectedHeliostats")
 			) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;
 		}
 		if (block instanceof CapsuleBlock && context.isMainHand() && context.getBlockEntity() instanceof CapsuleBlockEntity capsuleEntity) {
 			if (capsuleEntity.getInventory().get(0).isEmpty()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;
 		}
@@ -145,7 +156,7 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 			if (!ic.getInventory().getStack(0).isEmpty()) {
 				return Crosshair.INTERACTABLE;
 			}
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 		if (block instanceof DrillBlock
 				|| block instanceof CabinetBlock
@@ -154,33 +165,33 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 		}
 		if (block instanceof TankBlock) {
 			if (context.canInteractWithFluidStorage(FluidutilsKt.fluidStorageOf(context.world, context.getBlockPos(), context.getBlockHitSide()))) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof MachineBlock && context.getBlockEntity() instanceof MachineBlockEntity<?> blockEntity) {
 			if (blockEntity.getFluidComponent() != null) {
 				if (context.canInteractWithFluidStorage(blockEntity.getFluidComponent())) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (!(item instanceof IRMachineUpgradeItem)) {
 				if (itemStack.isIn(IndustrialRevolution.INSTANCE.getWRENCH_TAG())
 						|| itemStack.isIn(IndustrialRevolution.INSTANCE.getSCREWDRIVER_TAG())) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				return Crosshair.INTERACTABLE;
 			}
 		}
 		if (block instanceof BiomassComposterBlock && context.getBlockEntity() instanceof BiomassComposterBlockEntity blockEntity) {
 			if (context.canInteractWithFluidStorage(blockEntity.getFluidInv())) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(item) || itemStack.isEmpty()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			} else if (blockState.get(BiomassComposterBlock.Companion.getCLOSED())) {
 				return Crosshair.INTERACTABLE;
 			} else if (itemStack.isOf(IRBlockRegistry.INSTANCE.getPLANKS().asItem())) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

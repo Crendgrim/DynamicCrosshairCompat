@@ -39,20 +39,20 @@ public class ApiImplBedrockIfy implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		Entity entity = context.getEntity();
 		if (entity instanceof TntMinecartEntity tntMinecart && !tntMinecart.isPrimed() && Bedrockify.getInstance().settings.fireAspectLight) {
 			ItemStack itemStack = context.getItemStack();
 			if ((itemStack.hasEnchantments() || itemStack.getItem() instanceof EnchantedBookItem)
 					&& EnchantmentHelper.get(itemStack).containsKey(Enchantments.FIRE_ASPECT)) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (Bedrockify.getInstance().settings.fireAspectLight) {
 			ItemStack itemStack = context.getItemStack();
 			if ((itemStack.hasEnchantments() || itemStack.getItem() instanceof EnchantedBookItem)
@@ -60,23 +60,23 @@ public class ApiImplBedrockIfy implements DynamicCrosshairApi {
 				BlockState blockState = context.getBlockState();
 				Block block = context.getBlock();
 				if (block instanceof TntBlock) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (block instanceof CampfireBlock
 						&& !CampfireBlock.isLitCampfire(blockState)
 						&& CampfireBlock.canBeLit(blockState)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (block instanceof CandleBlock
 						&& !CandleBlock.isLitCandle(blockState)
 						&& CandleBlock.canBeLit(blockState)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (block instanceof CandleCakeBlock
 						&& isHittingCandleOnCake(context.getBlockHitResult())
 						&& !CandleCakeBlock.isLitCandle(blockState)
 						&& CandleCakeBlock.canBeLit(blockState)) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
@@ -85,8 +85,9 @@ public class ApiImplBedrockIfy implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (!context.isTargeting()
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.includeHoldingBlock()
+				&& !context.isTargeting()
 				&& context.getItem() instanceof BlockItem
 				&& BedrockifyClient.getInstance().settings.isReacharoundEnabled()
 				&& (MinecraftClient.getInstance().isInSingleplayer() || BedrockifyClient.getInstance().settings.isReacharoundMultiplayerEnabled())

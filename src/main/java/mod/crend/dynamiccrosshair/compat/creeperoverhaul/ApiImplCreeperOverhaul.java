@@ -15,16 +15,16 @@ public class ApiImplCreeperOverhaul implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		Entity entity = context.getEntity();
 
 		if (entity instanceof BaseCreeper creeper) {
 			Item item = context.getItem();
 			if (creeper.type.melee() == 0 && item instanceof FlintAndSteelItem) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (creeper.type.shearable() && !creeper.isSheared() && item instanceof ShearsItem) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

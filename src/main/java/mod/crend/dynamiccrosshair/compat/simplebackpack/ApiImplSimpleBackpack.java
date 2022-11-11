@@ -27,15 +27,17 @@ public class ApiImplSimpleBackpack implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (!context.includeUsableItem()) return null;
+
 		ItemStack itemStack = context.getItemStack();
 
 		if (itemStack.isOf(Backpack.PORTABLE_CRAFTER) && !context.player.isSneaking()) {
-			return Crosshair.USE_ITEM;
+			return Crosshair.USABLE;
 		}
 		if (itemStack.isOf(Backpack.SIMPLE_BUNDLE) || itemStack.isOf(Backpack.VOID_BUNDLE)) {
 			if (context.player.isSneaking() && itemStack.hasNbt() && itemStack.getNbt().contains("Items")) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

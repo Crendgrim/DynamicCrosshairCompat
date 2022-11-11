@@ -18,19 +18,18 @@ public class ApiImplAdaPaxels implements DynamicCrosshairApi {
 		return AdaPaxels.MOD_ID;
 	}
 
-
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
-		if (context.isWithBlock()) {
+	public Crosshair computeFromItem(CrosshairContext context) {
+		if (context.isWithBlock() && context.includeUsableItem()) {
 			Item handItem = context.getItem();
 			if (handItem instanceof PaxelItem) {
 				if (IAxeItemMixin.getSTRIPPED_BLOCKS().get(context.getBlock()) != null
 						|| Oxidizable.getDecreasedOxidationBlock(context.getBlock()).isPresent()
 						|| HoneycombItem.WAXED_TO_UNWAXED_BLOCKS.get().get(context.getBlock()) != null) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 				if (IShovelItemMixin.getPATH_STATES().get(context.getBlock()) != null) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}

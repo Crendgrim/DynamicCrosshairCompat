@@ -34,7 +34,7 @@ public class ApiImplDehydration implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (context.player.isSneaking() && context.isMainHand() && context.getItemStack().isEmpty()) {
 			HitResult hitResult = context.player.raycast(1.5, 0.0F, true);
 			BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
@@ -56,34 +56,34 @@ public class ApiImplDehydration implements DynamicCrosshairApi {
 			int level = blockState.get(CampfireCauldronBlock.LEVEL);
 			if (level < 4) {
 				if (item == Items.WATER_BUCKET) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (level == 4) {
 				if (item == Items.BUCKET) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 			if (level > 0) {
 				if (item == Items.GLASS_BOTTLE || item instanceof Leather_Flask) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}
 
 		if (block instanceof AbstractCopperCauldronBlock) {
 			if (item == Items.WATER_BUCKET || item == Items.POWDER_SNOW_BUCKET) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (block instanceof CopperLeveledCauldronBlock) {
 				if (block == BlockInit.COPPER_POWDERED_CAULDRON_BLOCK || block == BlockInit.COPPER_WATER_CAULDRON_BLOCK) {
 					if (item == Items.BUCKET && blockState.get(CopperLeveledCauldronBlock.LEVEL) == 3) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 				if (block == BlockInit.COPPER_PURIFIED_WATER_CAULDRON_BLOCK || block == BlockInit.COPPER_WATER_CAULDRON_BLOCK) {
 					if (item == Items.GLASS_BOTTLE) {
-						return Crosshair.USE_ITEM;
+						return Crosshair.USABLE;
 					}
 				}
 			}

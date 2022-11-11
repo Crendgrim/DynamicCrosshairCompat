@@ -24,18 +24,18 @@ public class ApiImplMoreBannerFeatures implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkEntity(CrosshairContext context) {
+	public Crosshair computeFromEntity(CrosshairContext context) {
 		Item item = context.getItem();
 		Entity entity = context.getEntity();
 
 		if (entity instanceof Bannerable bannerable && !(entity instanceof InventoryBannerable || entity instanceof PlayerEntity)) {
 			if (bannerable.getBannerItem().isEmpty()) {
 				if (item instanceof BannerItem) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			} else {
 				if (item instanceof ShearsItem) {
-					return Crosshair.USE_ITEM;
+					return Crosshair.USABLE;
 				}
 			}
 		}

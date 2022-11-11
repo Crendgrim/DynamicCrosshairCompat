@@ -10,6 +10,7 @@ import io.github.coolmineman.bitsandchisels.chisel.SmartChisel;
 import io.github.coolmineman.bitsandchisels.wrench.WrenchItem;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
+import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.component.CrosshairVariant;
 import mod.crend.dynamiccrosshair.component.ModifierUse;
@@ -25,6 +26,14 @@ public class ApiImplBitsAndChisels implements DynamicCrosshairApi {
 	}
 
 	@Override
+	public ItemCategory getItemCategory(ItemStack itemStack) {
+		Item item = itemStack.getItem();
+		if (item instanceof WrenchItem) {
+			return ItemCategory.TOOL;
+		}
+		return DynamicCrosshairApi.super.getItemCategory(itemStack);
+	}
+
 	public Crosshair checkTool(CrosshairContext context) {
 		Item item = context.getItem();
 		if (item instanceof IronChisel || item instanceof DiamondChisel || item instanceof SmartChisel) {
@@ -59,12 +68,19 @@ public class ApiImplBitsAndChisels implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public boolean isUsableItem(ItemStack itemStack) {
+		return itemStack.getItem() instanceof Blueprint;
+	}
+
+	public Crosshair computeFromItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
-		if (itemStack.getItem() instanceof Blueprint && context.isWithBlock()) {
+		if (context.includeUsableItem() && itemStack.getItem() instanceof Blueprint && context.isWithBlock()) {
 			if (itemStack.getSubNbt("blueprint") != null || context.getBlockEntity() instanceof BitsBlockEntity) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
+		}
+		if (context.includeTool()) {
+			return checkTool(context);
 		}
 
 		return null;

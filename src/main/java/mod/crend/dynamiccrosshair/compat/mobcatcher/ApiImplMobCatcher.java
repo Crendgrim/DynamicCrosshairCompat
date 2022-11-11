@@ -27,12 +27,13 @@ public class ApiImplMobCatcher implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 
-		if (itemStack.isOf(ItemInit.MOB_CATCHER) || itemStack.isOf(ItemInit.MOB_CATCHER_HOSTILE)) {
+		if (context.includeUsableItem()
+				&& (itemStack.isOf(ItemInit.MOB_CATCHER) || itemStack.isOf(ItemInit.MOB_CATCHER_HOSTILE))) {
 			if (context.isWithBlock() && itemStack.hasGlint()) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			if (context.isWithEntity() && !itemStack.hasGlint()) {
 				Entity entity = context.getEntity();
@@ -40,7 +41,7 @@ public class ApiImplMobCatcher implements DynamicCrosshairApi {
 				if (itemStack.isOf(ItemInit.MOB_CATCHER)) {
 					if (MobCatcher.CONFIG.SETTINGS.enableDatapackMobTypes) {
 						if (entity.getType().isIn(TagInit.MOBS_PASSIVE)) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					} else {
 						if (entity instanceof AnimalEntity
@@ -52,20 +53,20 @@ public class ApiImplMobCatcher implements DynamicCrosshairApi {
 								|| entity instanceof AllayEntity
 								|| entity instanceof BatEntity
 						) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					}
 				} else { // hostile mob catcher
 					if (MobCatcher.CONFIG.SETTINGS.enableDatapackMobTypes) {
 						if (entity.getType().isIn(TagInit.MOBS_HOSTILE)) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					} else {
 						if ((entity instanceof HostileEntity && !(entity instanceof WitherEntity))
 								|| entity instanceof SlimeEntity
 								|| entity instanceof GhastEntity
 								|| entity instanceof PhantomEntity) {
-							return Crosshair.USE_ITEM;
+							return Crosshair.USABLE;
 						}
 					}
 				}

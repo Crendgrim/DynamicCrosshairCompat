@@ -3,6 +3,7 @@ package mod.crend.dynamiccrosshair.compat.decorative_blocks;
 import lilypuree.decorative_blocks.blocks.SeatBlock;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
+import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.compat.mixin.decorative_blocks.ISeatBlockMixin;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
@@ -27,9 +28,10 @@ public class ApiImplDecorativeBlocks implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		// attach lantern to seat
 		if (context.isWithBlock()
+				&& context.includeHoldingBlock()
 				&& context.getItem() instanceof BlockItem blockItem
 				&& blockItem.getBlock() instanceof LanternBlock
 				&& context.getBlock() instanceof SeatBlock
@@ -42,7 +44,12 @@ public class ApiImplDecorativeBlocks implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof SeatBlock;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		BlockState state = context.getBlockState();
 		Block block = context.getBlock();
 		ItemStack heldItem = context.getItemStack();
@@ -61,7 +68,7 @@ public class ApiImplDecorativeBlocks implements DynamicCrosshairApi {
 
 		if (block instanceof HayBlock) {
 			if (heldItem.getItem() instanceof ShearsItem) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 		}
 

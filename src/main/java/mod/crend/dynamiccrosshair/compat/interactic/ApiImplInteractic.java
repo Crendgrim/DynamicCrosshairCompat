@@ -22,7 +22,7 @@ public class ApiImplInteractic implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkUsableItem(CrosshairContext context) {
+	public Crosshair computeFromItem(CrosshairContext context) {
 		if (!InteracticInit.getConfig().rightClickPickup) return null;
 		if (KeyBindingHelper.getBoundKeyOf(InteracticClientInit.PICKUP_ITEM) != InputUtil.UNKNOWN_KEY) return null;
 

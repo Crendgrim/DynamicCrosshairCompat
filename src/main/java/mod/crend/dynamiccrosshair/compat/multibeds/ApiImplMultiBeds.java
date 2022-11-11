@@ -3,6 +3,7 @@ package mod.crend.dynamiccrosshair.compat.multibeds;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import shetiphian.multibeds.MultiBeds;
@@ -19,11 +20,16 @@ public class ApiImplMultiBeds implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair checkBlockInteractable(CrosshairContext context) {
+	public boolean isInteractableBlock(BlockState blockState) {
+		return blockState.getBlock() instanceof BlockMultiBedBase;
+	}
+
+	@Override
+	public Crosshair computeFromBlock(CrosshairContext context) {
 		Item item = context.getItem();
 		if (context.getBlock() instanceof BlockMultiBedBase) {
 			if (item instanceof ItemBedCustomization || item instanceof ItemBeddingPackage) {
-				return Crosshair.USE_ITEM;
+				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;
 		}

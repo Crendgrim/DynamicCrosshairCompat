@@ -1,42 +1,25 @@
 package mod.crend.dynamiccrosshair.compat.farmersdelight;
 
 import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
-import com.nhoryzon.mc.farmersdelight.advancement.CuttingBoardTrigger;
 import com.nhoryzon.mc.farmersdelight.block.*;
 import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
 import com.nhoryzon.mc.farmersdelight.entity.block.CuttingBoardBlockEntity;
-import com.nhoryzon.mc.farmersdelight.entity.block.SkilletBlockEntity;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.ItemHandler;
 import com.nhoryzon.mc.farmersdelight.entity.block.inventory.RecipeWrapper;
 import com.nhoryzon.mc.farmersdelight.recipe.CuttingBoardRecipe;
-import com.nhoryzon.mc.farmersdelight.registry.AdvancementsRegistry;
 import com.nhoryzon.mc.farmersdelight.registry.BlocksRegistry;
 import com.nhoryzon.mc.farmersdelight.registry.TagsRegistry;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.mixin.farmersdelight.ICuttingBoardBlockEntityMixin;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import net.minecraft.block.BellBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 public class ApiImplFarmersDelight implements DynamicCrosshairApi {
@@ -99,15 +82,14 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 		}
 
 		if (block instanceof FeastBlock feastBlock) {
-			int servings = context.getBlockState().get(FeastBlock.SERVINGS);
+			int servings = context.getBlockState().get(feastBlock.getServingsProperty());
 			if (servings == 0) {
 				return Crosshair.INTERACTABLE;
 			}
-			if (servings > 0 && feastBlock.servingItem.hasRecipeRemainder()) {
-				Item servingContainerItem = feastBlock.servingItem.getRecipeRemainder();
-				if (context.getItem() == servingContainerItem) {
-					return Crosshair.USABLE;
-				}
+			ItemStack serving = feastBlock.getServingStack(context.getBlockState());
+			ItemStack heldItem = context.getItemStack();
+			if (!serving.getItem().hasRecipeRemainder() || heldItem.isItemEqualIgnoreDamage(new ItemStack(serving.getItem().getRecipeRemainder()))) {
+				return Crosshair.USABLE;
 			}
 		}
 
@@ -153,6 +135,16 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 
 					mutable.move(Direction.UP);
 				}
+			}
+		}
+
+		if (block instanceof SkilletBlock) {
+			return Crosshair.INTERACTABLE;
+		}
+
+		if (block instanceof TomatoVineBlock tomato) {
+			if (tomato.isMature(context.getBlockState())) {
+				return Crosshair.USABLE;
 			}
 		}
 

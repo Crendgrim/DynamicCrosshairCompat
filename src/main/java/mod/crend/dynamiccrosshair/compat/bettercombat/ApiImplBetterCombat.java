@@ -47,7 +47,7 @@ public class ApiImplBetterCombat implements DynamicCrosshairApi {
 	public Crosshair computeFromEntity(CrosshairContext context) {
 		WeaponAttributes attributes = WeaponRegistry.getAttributes(context.getItemStack());
 		if (attributes != null) {
-			if (!((MinecraftClient_BetterCombat) (MinecraftClient.getInstance())).hasTargetsInRange()) {
+			if (!((MinecraftClient_BetterCombat) (MinecraftClient.getInstance())).hasTargetsInReach()) {
 				throw new CrosshairContextChange(BlockHitResult.createMissed(context.hitResult.getPos(), Direction.UP, null));
 			}
 		}

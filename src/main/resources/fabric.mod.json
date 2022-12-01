@@ -63,6 +63,7 @@
       "mod.crend.dynamiccrosshair.compat.croptosis.ApiImplCroptosis",
       "mod.crend.dynamiccrosshair.compat.camsbackpacks.ApiImplCamsBackpacks",
       "mod.crend.dynamiccrosshair.compat.cyclepaintings.ApiImplCyclePaintings",
+      "mod.crend.dynamiccrosshair.compat.darkutilities.ApiImplDarkUtilities",
       "mod.crend.dynamiccrosshair.compat.dehydration.ApiImplDehydration",
       "mod.crend.dynamiccrosshair.compat.decor.ApiImplDecor",
       "mod.crend.dynamiccrosshair.compat.decorative_blocks.ApiImplDecorativeBlocks",

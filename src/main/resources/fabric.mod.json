@@ -101,6 +101,7 @@
       "mod.crend.dynamiccrosshair.compat.macaw.ApiImplMacawsWindows",
       "mod.crend.dynamiccrosshair.compat.mcd.ApiImplMCDArtifacts",
       "mod.crend.dynamiccrosshair.compat.mcd.ApiImplMCDWeapons",
+      "mod.crend.dynamiccrosshair.compat.mcsa.ApiImplMCSA",
       "mod.crend.dynamiccrosshair.compat.mimic.ApiImplMimic",
       "mod.crend.dynamiccrosshair.compat.minecarttweaks.ApiImplMinecartTweaks",
       "mod.crend.dynamiccrosshair.compat.mobcatcher.ApiImplMobCatcher",

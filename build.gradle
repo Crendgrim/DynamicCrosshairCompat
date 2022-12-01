@@ -36,6 +36,10 @@ repositories {
 	}
 	maven { url 'https://maven.wispforest.io' }
 	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+	maven {
+		name = "Jitpack"
+		url = "https://jitpack.io"
+	}
 	flatDir {
 		dir "lib"
 	}
@@ -55,6 +59,8 @@ dependencies {
 	modCompileOnly("de.guntram.mcmod:GBfabrictools:${project.gbfabrictools_version}")
 	modCompileOnly("io.wispforest:owo-lib:${project.owo_version}")
 	modCompileOnly("software.bernie.geckolib:geckolib-fabric-${project.gecko_version}")
+	// required by ParadiseLost
+	modCompileOnly("com.github.devs-immortal:Incubus-Core:${project.incubus_core_version}")
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
 	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {

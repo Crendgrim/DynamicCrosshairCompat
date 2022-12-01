@@ -108,6 +108,7 @@
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfTeleport",
       "mod.crend.dynamiccrosshair.compat.simplebackpack.ApiImplSimpleBackpack",
       "mod.crend.dynamiccrosshair.compat.storagemod.ApiImplStorageMod",
+      "mod.crend.dynamiccrosshair.compat.soulsweapons.ApiImplSoulsWeaponry",
       "mod.crend.dynamiccrosshair.compat.techreborn.ApiImplTechReborn",
       "mod.crend.dynamiccrosshair.compat.techreborn.ApiImplTechRebornPatchouli",
       "mod.crend.dynamiccrosshair.compat.techreborn.ApiImplAdvancedReborn",

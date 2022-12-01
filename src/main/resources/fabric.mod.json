@@ -106,6 +106,7 @@
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfAttraction",
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfEnderchest",
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfTeleport",
+      "mod.crend.dynamiccrosshair.compat.rottencreatures.ApiImplRottenCreatures",
       "mod.crend.dynamiccrosshair.compat.simplebackpack.ApiImplSimpleBackpack",
       "mod.crend.dynamiccrosshair.compat.storagemod.ApiImplStorageMod",
       "mod.crend.dynamiccrosshair.compat.soulsweapons.ApiImplSoulsWeaponry",

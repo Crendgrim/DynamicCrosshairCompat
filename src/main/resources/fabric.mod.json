@@ -75,6 +75,7 @@
       "mod.crend.dynamiccrosshair.compat.friendsandfoes.ApiImplFriendsAndFoes",
       "mod.crend.dynamiccrosshair.compat.gofish.ApiImplGoFish",
       "mod.crend.dynamiccrosshair.compat.gobber.ApiImplGobber",
+      "mod.crend.dynamiccrosshair.compat.graves.ApiImplUniversalGraves",
       "mod.crend.dynamiccrosshair.compat.greatereyeofender.ApiImplGreaterEyeOfEnder",
       "mod.crend.dynamiccrosshair.compat.halfdoors.ApiImplHalfDoors",
       "mod.crend.dynamiccrosshair.compat.hookshot.ApiImplHookshot",

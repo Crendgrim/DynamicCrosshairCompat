@@ -48,6 +48,7 @@
       "mod.crend.dynamiccrosshair.compat.carrier.ApiImplCarrier",
       "mod.crend.dynamiccrosshair.compat.ccrestitched.ApiImplCCRestitched",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
+      "mod.crend.dynamiccrosshair.compat.chisel.ApiImplChiselReborn",
       "mod.crend.dynamiccrosshair.compat.clickmachine.ApiImplClickMachine",
       "mod.crend.dynamiccrosshair.compat.clickthrough.ApiImplClickThrough",
       "mod.crend.dynamiccrosshair.compat.coalexplosion.ApiImplCoalExplosion",

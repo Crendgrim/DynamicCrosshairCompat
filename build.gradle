@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.11-SNAPSHOT'
+	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'com.modrinth.minotaur' version '2.+'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
@@ -55,12 +55,10 @@ dependencies {
 	modImplementation include(fabricApi.module("fabric-key-binding-api-v1", project.fabric_api_version))
 	modCompileOnly include(fabricApi.module("fabric-transfer-api-v1", project.fabric_api_version))
 	modCompileOnly include(fabricApi.module("fabric-screen-handler-api-v1", project.fabric_api_version))
-	modCompileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
-	modCompileOnly("de.guntram.mcmod:GBfabrictools:${project.gbfabrictools_version}")
-	modCompileOnly("io.wispforest:owo-lib:${project.owo_version}")
-	modCompileOnly("software.bernie.geckolib:geckolib-fabric-${project.gecko_version}")
-	// required by ParadiseLost
-	modCompileOnly("com.github.devs-immortal:Incubus-Core:${project.incubus_core_version}")
+	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
+	modImplementation("de.guntram.mcmod:GBfabrictools:${project.gbfabrictools_version}")
+	modImplementation("io.wispforest:owo-lib:${project.owo_version}")
+	modImplementation("software.bernie.geckolib:geckolib-fabric-${project.gecko_version}")
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
 	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {

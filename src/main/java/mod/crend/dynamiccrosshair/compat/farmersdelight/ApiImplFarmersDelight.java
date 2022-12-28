@@ -88,7 +88,7 @@ public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 			}
 			ItemStack serving = feastBlock.getServingStack(context.getBlockState());
 			ItemStack heldItem = context.getItemStack();
-			if (!serving.getItem().hasRecipeRemainder() || heldItem.isItemEqualIgnoreDamage(new ItemStack(serving.getItem().getRecipeRemainder()))) {
+			if (!serving.getItem().hasRecipeRemainder() || heldItem.isItemEqual(new ItemStack(serving.getItem().getRecipeRemainder()))) {
 				return Crosshair.USABLE;
 			}
 		}

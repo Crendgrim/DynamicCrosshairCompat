@@ -10,7 +10,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
 
 public class ApiImplMimic implements DynamicCrosshairApi {
 	@Override
@@ -25,9 +25,9 @@ public class ApiImplMimic implements DynamicCrosshairApi {
 				return Crosshair.INTERACTABLE;
 			} else {
 				ItemStack stack = context.getItemStack();
-				if (stack.getItem() == Registry.ITEM.get(Constants.MIMIC_LOCK_ID) && !mimic.isTamed() && !mimic.isLocked()) {
+				if (stack.getItem() == Registries.ITEM.get(Constants.MIMIC_LOCK_ID) && !mimic.isTamed() && !mimic.isLocked()) {
 					return Crosshair.USABLE;
-				} else if (stack.getItem() == Registry.ITEM.get(Constants.MIMIC_KEY_ID) && !mimic.isTamed() && !mimic.isLocked()) {
+				} else if (stack.getItem() == Registries.ITEM.get(Constants.MIMIC_KEY_ID) && !mimic.isTamed() && !mimic.isLocked()) {
 					return Crosshair.USABLE;
 				} else if (mimic.isStealth()) {
 					Item item = stack.getItem();

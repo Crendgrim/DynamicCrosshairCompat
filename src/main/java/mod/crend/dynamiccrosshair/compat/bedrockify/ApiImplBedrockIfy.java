@@ -124,8 +124,8 @@ public class ApiImplBedrockIfy implements DynamicCrosshairApi {
 	}
 
 	private boolean checkRelativeBlockPosition(CrosshairContext context) {
-		return this.checkRelativeBlockPosition(context.player.getPos().getX() - (double)context.player.getBlockPos().getX(), context.player.getHorizontalFacing().getUnitVector().getX())
-				|| this.checkRelativeBlockPosition(context.player.getPos().getZ() - (double)context.player.getBlockPos().getZ(), context.player.getHorizontalFacing().getUnitVector().getZ());
+		return this.checkRelativeBlockPosition(context.player.getPos().getX() - (double)context.player.getBlockPos().getX(), context.player.getHorizontalFacing().getUnitVector().x())
+				|| this.checkRelativeBlockPosition(context.player.getPos().getZ() - (double)context.player.getBlockPos().getZ(), context.player.getHorizontalFacing().getUnitVector().z());
 	}
 
 	private boolean checkRelativeBlockPosition(double pos, float direction) {

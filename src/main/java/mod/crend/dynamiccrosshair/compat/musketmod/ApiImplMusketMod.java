@@ -7,7 +7,7 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tag.FluidTags;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.Hand;
 
 public class ApiImplMusketMod implements DynamicCrosshairApi {

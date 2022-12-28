@@ -4,7 +4,7 @@ import artifacts.Artifacts;
 import artifacts.common.item.curio.CurioItem;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.compat.trinkets.ApiImplTrinkets;
+import mod.crend.dynamiccrosshair.compat.trinkets.TrinketsHandler;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.item.ItemStack;
 
@@ -23,7 +23,7 @@ public class ApiImplArtifacts implements DynamicCrosshairApi {
 	public Crosshair computeFromItem(CrosshairContext context) {
 		ItemStack itemStack = context.getItemStack();
 
-		if (context.includeUsableItem() && itemStack.getItem() instanceof CurioItem && ApiImplTrinkets.canEquipTrinket(context)) {
+		if (context.includeUsableItem() && itemStack.getItem() instanceof CurioItem && TrinketsHandler.canEquipTrinket(context)) {
 			return Crosshair.USABLE;
 		}
 		// everlasting food, umbrella

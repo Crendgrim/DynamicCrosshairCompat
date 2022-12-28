@@ -18,8 +18,8 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.registry.Registry;
 
 import java.util.List;
 
@@ -109,7 +109,7 @@ public class ApiImplPaladinsFurniture implements DynamicCrosshairApi {
 
 		if (block instanceof Cutlery) {
 			ItemStack itemStack = context.getItemStack();
-			Block handBlock = Registry.BLOCK.get(Registry.ITEM.getId(itemStack.getItem()));
+			Block handBlock = Registries.BLOCK.get(Registries.ITEM.getId(itemStack.getItem()));
 			if (handBlock instanceof Plate) {
 				return Crosshair.HOLDING_BLOCK;
 			}
@@ -117,7 +117,7 @@ public class ApiImplPaladinsFurniture implements DynamicCrosshairApi {
 		if (block instanceof Plate) {
 			ItemStack itemStack = context.getItemStack();
 			if (!blockState.get(Plate.CUTLERY)) {
-				Block handBlock = Registry.BLOCK.get(Registry.ITEM.getId(itemStack.getItem()));
+				Block handBlock = Registries.BLOCK.get(Registries.ITEM.getId(itemStack.getItem()));
 				if (handBlock instanceof Cutlery) {
 					return Crosshair.HOLDING_BLOCK;
 				}

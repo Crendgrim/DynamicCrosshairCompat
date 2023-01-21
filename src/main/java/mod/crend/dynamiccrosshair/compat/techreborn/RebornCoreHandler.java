@@ -2,6 +2,7 @@ package mod.crend.dynamiccrosshair.compat.techreborn;
 
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import mod.crend.dynamiccrosshair.fabric.api.CrosshairFluidContext;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -25,7 +26,7 @@ public class RebornCoreHandler {
 		BlockEntity blockEntity = context.getBlockEntity();
 		if (block instanceof BlockMachineBase machine && blockEntity != null) {
 			if (blockEntity instanceof MachineBaseBlockEntity machineEntity) {
-				if (machineEntity.getTank() != null && context.canInteractWithFluidStorage(machineEntity.getTank())) {
+				if (machineEntity.getTank() != null && CrosshairFluidContext.canInteractWithFluidStorage(context, machineEntity.getTank())) {
 					return Crosshair.USABLE;
 				}
 			}

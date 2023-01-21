@@ -7,6 +7,7 @@ import io.github.lucaargolo.extragenerators.common.blockentity.FluidItemGenerato
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import mod.crend.dynamiccrosshair.fabric.api.CrosshairFluidContext;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 
@@ -37,13 +38,13 @@ public class ApiImplExtraGenerators implements DynamicCrosshairApi {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		if (block instanceof FluidGeneratorBlock && context.getBlockEntity() instanceof FluidGeneratorBlockEntity blockEntity) {
-			if (context.canInteractWithFluidStorage(blockEntity.getFluidInv())) {
+			if (CrosshairFluidContext.canInteractWithFluidStorage(context, blockEntity.getFluidInv())) {
 				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;
 		}
 		if (block instanceof FluidItemGeneratorBlock && context.getBlockEntity() instanceof FluidItemGeneratorBlockEntity blockEntity) {
-			if (context.canInteractWithFluidStorage(blockEntity.getFluidInv())) {
+			if (CrosshairFluidContext.canInteractWithFluidStorage(context, blockEntity.getFluidInv())) {
 				return Crosshair.USABLE;
 			}
 			return Crosshair.INTERACTABLE;

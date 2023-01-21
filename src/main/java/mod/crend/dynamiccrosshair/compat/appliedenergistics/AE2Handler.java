@@ -42,6 +42,7 @@ import appeng.parts.storagebus.StorageBusPart;
 import appeng.util.InteractionUtil;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import mod.crend.dynamiccrosshair.fabric.api.CrosshairFluidContext;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -217,7 +218,7 @@ public class AE2Handler {
 			return Crosshair.USABLE;
 		}
 		if (block instanceof SkyStoneTankBlock && context.getBlockEntity() instanceof SkyStoneTankBlockEntity blockEntity) {
-			if (context.canInteractWithFluidStorage(blockEntity.getStorage())) {
+			if (CrosshairFluidContext.canInteractWithFluidStorage(context, blockEntity.getStorage())) {
 				return Crosshair.USABLE;
 			}
 		}

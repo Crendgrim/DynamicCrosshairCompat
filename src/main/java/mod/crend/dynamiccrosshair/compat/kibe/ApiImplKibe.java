@@ -26,6 +26,7 @@ import io.github.lucaargolo.kibe.items.trashcan.PocketTrashCan;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import mod.crend.dynamiccrosshair.fabric.api.CrosshairFluidContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
@@ -85,7 +86,7 @@ public class ApiImplKibe implements DynamicCrosshairApi {
 				if (EntangledChest.Companion.canOpen(context.world, context.getBlockPos())) {
 					return Crosshair.INTERACTABLE;
 				}
-			} else if (context.getBlockEntity() instanceof EntangledTankEntity blockEntity && context.canInteractWithFluidStorage(blockEntity.getTank())){
+			} else if (context.getBlockEntity() instanceof EntangledTankEntity blockEntity && CrosshairFluidContext.canInteractWithFluidStorage(context, blockEntity.getTank())){
 				return Crosshair.USABLE;
 			}
 		}

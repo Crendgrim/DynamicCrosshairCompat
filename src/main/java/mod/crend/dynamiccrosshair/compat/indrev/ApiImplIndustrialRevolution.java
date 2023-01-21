@@ -28,6 +28,7 @@ import me.steven.indrev.utils.FluidutilsKt;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
+import mod.crend.dynamiccrosshair.fabric.api.CrosshairFluidContext;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -164,13 +165,13 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 			return Crosshair.INTERACTABLE;
 		}
 		if (block instanceof TankBlock) {
-			if (context.canInteractWithFluidStorage(FluidutilsKt.fluidStorageOf(context.world, context.getBlockPos(), context.getBlockHitSide()))) {
+			if (CrosshairFluidContext.canInteractWithFluidStorage(context, FluidutilsKt.fluidStorageOf(context.world, context.getBlockPos(), context.getBlockHitSide()))) {
 				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof MachineBlock && context.getBlockEntity() instanceof MachineBlockEntity<?> blockEntity) {
 			if (blockEntity.getFluidComponent() != null) {
-				if (context.canInteractWithFluidStorage(blockEntity.getFluidComponent())) {
+				if (CrosshairFluidContext.canInteractWithFluidStorage(context, blockEntity.getFluidComponent())) {
 					return Crosshair.USABLE;
 				}
 			}
@@ -183,7 +184,7 @@ public class ApiImplIndustrialRevolution implements DynamicCrosshairApi {
 			}
 		}
 		if (block instanceof BiomassComposterBlock && context.getBlockEntity() instanceof BiomassComposterBlockEntity blockEntity) {
-			if (context.canInteractWithFluidStorage(blockEntity.getFluidInv())) {
+			if (CrosshairFluidContext.canInteractWithFluidStorage(context, blockEntity.getFluidInv())) {
 				return Crosshair.USABLE;
 			}
 			if (ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.containsKey(item) || itemStack.isEmpty()) {

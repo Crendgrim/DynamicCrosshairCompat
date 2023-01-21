@@ -84,38 +84,40 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 
 		ItemStack itemStack = context.getItemStack();
 		Item item = itemStack.getItem();
-		Block block = context.getBlock();
-		if (ToolManager.INSTANCE.canHandleTool(itemStack)) {
-			if (block instanceof CableBlock
-					|| block instanceof LampBlock
-					|| block instanceof LSUStorageBlock
-					|| block instanceof BlockTransformer
-					|| block instanceof BlockAlarm
-					|| block instanceof EnergyStorageBlock
-			) {
-				return Crosshair.USABLE;
-			}
-		}
-		if (block instanceof BlockAlarm) {
-			if (context.player.isSneaking()) {
-				return Crosshair.INTERACTABLE;
-			}
-		}
-
-		if (item instanceof DynamicCellItem cell && context.isWithBlock()) {
-			Fluid containedFluid = cell.getFluid(itemStack);
-			BlockHitResult fluidHitResult = context.raycastWithFluid(RaycastContext.FluidHandling.SOURCE_ONLY);
-			BlockState fluidState = context.world.getBlockState(fluidHitResult.getBlockPos());
-			if (containedFluid == Fluids.EMPTY) {
-				if (fluidHitResult.getType() == HitResult.Type.BLOCK) {
-					if (fluidState.getBlock() instanceof FluidDrainable) {
-						return Crosshair.USABLE;
-					}
+		if (context.isWithBlock()) {
+			Block block = context.getBlock();
+			if (ToolManager.INSTANCE.canHandleTool(itemStack)) {
+				if (block instanceof CableBlock
+						|| block instanceof LampBlock
+						|| block instanceof LSUStorageBlock
+						|| block instanceof BlockTransformer
+						|| block instanceof BlockAlarm
+						|| block instanceof EnergyStorageBlock
+				) {
+					return Crosshair.USABLE;
 				}
+			}
+			if (block instanceof BlockAlarm) {
+				if (context.player.isSneaking()) {
+					return Crosshair.INTERACTABLE;
+				}
+			}
 
-			} else if (containedFluid instanceof FlowableFluid) {
-				if (fluidState.canBucketPlace(containedFluid)) {
-					return Crosshair.HOLDING_BLOCK;
+			if (item instanceof DynamicCellItem cell) {
+				Fluid containedFluid = cell.getFluid(itemStack);
+				BlockHitResult fluidHitResult = context.raycastWithFluid(RaycastContext.FluidHandling.SOURCE_ONLY);
+				BlockState fluidState = context.world.getBlockState(fluidHitResult.getBlockPos());
+				if (containedFluid == Fluids.EMPTY) {
+					if (fluidHitResult.getType() == HitResult.Type.BLOCK) {
+						if (fluidState.getBlock() instanceof FluidDrainable) {
+							return Crosshair.USABLE;
+						}
+					}
+
+				} else if (containedFluid instanceof FlowableFluid) {
+					if (fluidState.canBucketPlace(containedFluid)) {
+						return Crosshair.HOLDING_BLOCK;
+					}
 				}
 			}
 		}

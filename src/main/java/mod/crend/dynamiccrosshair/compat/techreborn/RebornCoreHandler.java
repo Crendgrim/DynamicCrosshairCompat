@@ -49,8 +49,7 @@ public class RebornCoreHandler {
 	}
 
 	public static Crosshair checkUsableItem(CrosshairContext context) {
-		ItemStack itemStack = context.getItemStack();
-		if (ToolManager.INSTANCE.canHandleTool(itemStack)) {
+		if (context.isWithBlock() && ToolManager.INSTANCE.canHandleTool(context.getItemStack())) {
 			Block block = context.getBlock();
 			if (block instanceof BlockMachineBase) {
 				return Crosshair.USABLE;

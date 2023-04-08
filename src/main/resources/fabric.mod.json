@@ -161,6 +161,8 @@
       "mod.crend.dynamiccrosshair.compat.wolveswitharmor.ApiImplWolvesWithArmor",
       "mod.crend.dynamiccrosshair.compat.wondrouswilds.ApiImplWondrousWilds",
       "mod.crend.dynamiccrosshair.compat.woof.ApiImplWoof",
+      "mod.crend.dynamiccrosshair.compat.xpstorage.ApiImplXpStorage",
+      "mod.crend.dynamiccrosshair.compat.xpstorage.ApiImplXpStorageAdditions",
       "mod.crend.dynamiccrosshair.compat.yigd.ApiImplYoureInGraveDanger"
     ]
   },

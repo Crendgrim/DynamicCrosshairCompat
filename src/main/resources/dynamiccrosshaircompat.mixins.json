@@ -32,7 +32,8 @@
     "mcwroofs.IRainGutterMixin",
     "nostrip.INostripClientMixin",
     "transportables.EntityAccessor",
-    "vinery.GrapevinePotBlockAccessor"
+    "vinery.GrapevinePotBlockAccessor",
+    "xps_additions.StaffOfRebarkAccessor"
   ],
   "plugin": "mod.crend.dynamiccrosshair.DynamicCrosshairMixinPlugin"
 }

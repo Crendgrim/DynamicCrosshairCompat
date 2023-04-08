@@ -28,7 +28,8 @@
     "ironchests.IUpgradeItemMixin",
     "mcwroofs.IGutterTallMixin",
     "mcwroofs.IRainGutterMixin",
-    "nostrip.INostripClientMixin"
+    "nostrip.INostripClientMixin",
+    "transportables.EntityAccessor"
   ],
   "plugin": "mod.crend.dynamiccrosshair.DynamicCrosshairMixinPlugin"
 }

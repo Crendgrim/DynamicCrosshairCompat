@@ -54,6 +54,7 @@
       "mod.crend.dynamiccrosshair.compat.byg.ApiImplOhTheBiomesYoullGo",
       "mod.crend.dynamiccrosshair.compat.bygonenether.ApiImplBygoneNether",
       "mod.crend.dynamiccrosshair.compat.carrier.ApiImplCarrier",
+      "mod.crend.dynamiccrosshair.compat.carryon.ApiImplCarryOn",
       "mod.crend.dynamiccrosshair.compat.ccrestitched.ApiImplCCRestitched",
       "mod.crend.dynamiccrosshair.compat.chalk.ApiImplChalk",
       "mod.crend.dynamiccrosshair.compat.chisel.ApiImplChiselReborn",

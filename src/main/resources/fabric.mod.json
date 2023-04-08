@@ -38,6 +38,7 @@
       "mod.crend.dynamiccrosshair.compat.autoworkstations.ApiImplAutoWorkstations",
       "mod.crend.dynamiccrosshair.compat.barteringstation.ApiImplBarteringStation",
       "mod.crend.dynamiccrosshair.compat.bedrockify.ApiImplBedrockIfy",
+      "mod.crend.dynamiccrosshair.compat.beneaththewetlands.ApiImplBeneathTheWetlands",
       "mod.crend.dynamiccrosshair.compat.betteranimalsplus.ApiImplBetterAnimalsPlus",
       "mod.crend.dynamiccrosshair.compat.bettercombat.ApiImplBetterCombat",
       "mod.crend.dynamiccrosshair.compat.betternether.ApiImplBetterNether",

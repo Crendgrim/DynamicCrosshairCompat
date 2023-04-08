@@ -26,6 +26,8 @@
     "extended_drawers.IDrawerBlockMixin",
     "farmersdelight.ICuttingBoardBlockEntityMixin",
     "ironchests.IUpgradeItemMixin",
+    "meadow.WoodenFlowerPotBlockAccessor",
+    "meadow.WoodenBucketAccessor",
     "mcwroofs.IGutterTallMixin",
     "mcwroofs.IRainGutterMixin",
     "nostrip.INostripClientMixin",

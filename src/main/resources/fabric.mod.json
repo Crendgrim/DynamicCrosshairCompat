@@ -159,6 +159,7 @@
       "mod.crend.dynamiccrosshair.compat.windchimes.ApiImplWindchimes",
       "mod.crend.dynamiccrosshair.compat.winterly.ApiImplWinterly",
       "mod.crend.dynamiccrosshair.compat.wolveswitharmor.ApiImplWolvesWithArmor",
+      "mod.crend.dynamiccrosshair.compat.wondrouswilds.ApiImplWondrousWilds",
       "mod.crend.dynamiccrosshair.compat.yigd.ApiImplYoureInGraveDanger"
     ]
   },

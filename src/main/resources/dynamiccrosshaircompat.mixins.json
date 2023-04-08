@@ -29,7 +29,8 @@
     "mcwroofs.IGutterTallMixin",
     "mcwroofs.IRainGutterMixin",
     "nostrip.INostripClientMixin",
-    "transportables.EntityAccessor"
+    "transportables.EntityAccessor",
+    "vinery.GrapevinePotBlockAccessor"
   ],
   "plugin": "mod.crend.dynamiccrosshair.DynamicCrosshairMixinPlugin"
 }

@@ -145,6 +145,7 @@
       "mod.crend.dynamiccrosshair.compat.trinkets.ApiImplTrinkets",
       "mod.crend.dynamiccrosshair.compat.twigs.ApiImplTwigs",
       "mod.crend.dynamiccrosshair.compat.vanillatweaks.ApiImplVanillaTweaks",
+      "mod.crend.dynamiccrosshair.compat.vinery.ApiImplVinery",
       "mod.crend.dynamiccrosshair.compat.voidz.ApiImplVoidZ",
       "mod.crend.dynamiccrosshair.compat.waystones.ApiImplWaystones",
       "mod.crend.dynamiccrosshair.compat.windchimes.ApiImplWindchimes",

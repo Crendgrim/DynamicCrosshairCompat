@@ -65,6 +65,8 @@ dependencies {
 	// required by Create
 	modCompileOnly("io.github.fabricators_of_create.Porting-Lib:porting-lib:${project.porting_lib_version}")
 	modCompileOnly("com.tterrag.registrate_fabric:Registrate:${project.registrate_version}")
+	// required by SpellbladeNext
+	modCompileOnly("dev.architectury:architectury:${project.architectury_version}")
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
 	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {

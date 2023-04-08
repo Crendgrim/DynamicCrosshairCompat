@@ -135,6 +135,7 @@
       "mod.crend.dynamiccrosshair.compat.rings.ApiImplRingOfTeleport",
       "mod.crend.dynamiccrosshair.compat.rottencreatures.ApiImplRottenCreatures",
       "mod.crend.dynamiccrosshair.compat.runecrafting.ApiImplRuneCrafting",
+      "mod.crend.dynamiccrosshair.compat.shroomdealers.ApiImplShroomDealers",
       "mod.crend.dynamiccrosshair.compat.simplebackpack.ApiImplSimpleBackpack",
       "mod.crend.dynamiccrosshair.compat.storagemod.ApiImplStorageMod",
       "mod.crend.dynamiccrosshair.compat.soulsweapons.ApiImplSoulsWeaponry",

@@ -5,6 +5,8 @@
   "client": [
     "additionaladditions.ICopperPatinaBlockMixin",
     "adorn.ISeatBlockMixin",
+    "bewitchment.BWTameableEntityAccessor",
+    "bewitchment.SaltLineBlockAccessor",
     "boatcontainer.IBoatWithBlockEntityMixin",
     "boatcontainer.IFurnaceBoatEntityMixin",
     "bygonenether.WarpedEnderManAccessor",

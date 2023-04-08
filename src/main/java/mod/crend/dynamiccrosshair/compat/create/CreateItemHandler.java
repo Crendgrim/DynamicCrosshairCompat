@@ -235,7 +235,7 @@ public class CreateItemHandler {
 			if (context.player.isSneaking()) {
 				return Crosshair.USABLE;
 			}
-			if (BeltConnectorItem.validateAxis(context.world, context.getBlockPos())) {
+			if (context.isWithBlock() && BeltConnectorItem.validateAxis(context.world, context.getBlockPos())) {
 				return Crosshair.HOLDING_BLOCK;
 			}
 		}

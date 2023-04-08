@@ -155,8 +155,9 @@
       "mod.crend.dynamiccrosshair.compat.vinery.ApiImplVinery",
       "mod.crend.dynamiccrosshair.compat.voidz.ApiImplVoidZ",
       "mod.crend.dynamiccrosshair.compat.waystones.ApiImplWaystones",
-      "mod.crend.dynamiccrosshair.compat.windchimes.ApiImplWindchimes",
       "mod.crend.dynamiccrosshair.compat.whipdashing.ApiImplWhipdashing",
+      "mod.crend.dynamiccrosshair.compat.windchimes.ApiImplWindchimes",
+      "mod.crend.dynamiccrosshair.compat.winterly.ApiImplWinterly",
       "mod.crend.dynamiccrosshair.compat.yigd.ApiImplYoureInGraveDanger"
     ]
   },

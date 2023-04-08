@@ -138,6 +138,7 @@
       "mod.crend.dynamiccrosshair.compat.shroomdealers.ApiImplShroomDealers",
       "mod.crend.dynamiccrosshair.compat.simplebackpack.ApiImplSimpleBackpack",
       "mod.crend.dynamiccrosshair.compat.spellbladenext.ApiImplSpellbladeNext",
+      "mod.crend.dynamiccrosshair.compat.spellengine.ApiImplSpellEngine",
       "mod.crend.dynamiccrosshair.compat.storagemod.ApiImplStorageMod",
       "mod.crend.dynamiccrosshair.compat.soulsweapons.ApiImplSoulsWeaponry",
       "mod.crend.dynamiccrosshair.compat.techreborn.ApiImplTechReborn",

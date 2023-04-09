@@ -35,6 +35,7 @@
       "mod.crend.dynamiccrosshair.compat.appliedenergistics.ApiImplAE2WTlib",
       "mod.crend.dynamiccrosshair.compat.appliedenergistics.ApiImplMegaCells",
       "mod.crend.dynamiccrosshair.compat.appliedenergistics.ApiImplMERequester",
+      "mod.crend.dynamiccrosshair.compat.architectspalette.ApiImplArchitectsPalette",
       "mod.crend.dynamiccrosshair.compat.archon.ApiImplArchon",
       "mod.crend.dynamiccrosshair.compat.artifacts.ApiImplArtifacts",
       "mod.crend.dynamiccrosshair.compat.autoworkstations.ApiImplAutoWorkstations",

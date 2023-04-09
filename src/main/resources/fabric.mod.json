@@ -157,6 +157,7 @@
       "mod.crend.dynamiccrosshair.compat.techreborn.ApiImplAdvancedReborn",
       "mod.crend.dynamiccrosshair.compat.things.ApiImplThings",
       "mod.crend.dynamiccrosshair.compat.throwabletorch.ApiImplThrowableTorch",
+      "mod.crend.dynamiccrosshair.compat.tradingpost.ApiImplTradingPost",
       "mod.crend.dynamiccrosshair.compat.transportables.ApiImplGrimsTransportables",
       "mod.crend.dynamiccrosshair.compat.travelersbackpack.ApiImplTravelersBackpack",
       "mod.crend.dynamiccrosshair.compat.trinkets.ApiImplTrinkets",

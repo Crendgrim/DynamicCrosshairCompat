@@ -62,9 +62,7 @@ import com.simibubi.create.content.logistics.trains.track.TrackBlockItem;
 import com.simibubi.create.content.schematics.item.SchematicItem;
 import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
 import io.github.fabricators_of_create.porting_lib.mixin.common.accessor.AxeItemAccessor;
-import io.github.fabricators_of_create.porting_lib.mixin.common.accessor.BaseSpawnerAccessor;
 import io.github.fabricators_of_create.porting_lib.util.MinecartAndRailUtil;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.ItemCategory;
@@ -73,7 +71,6 @@ import mod.crend.dynamiccrosshair.mixin.IItemMixin;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.block.enums.RailShape;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.BlazeEntity;
@@ -83,19 +80,14 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.Weighted;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.MobSpawnerEntry;
 import net.minecraft.world.RaycastContext;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class CreateItemHandler {
@@ -211,17 +203,8 @@ public class CreateItemHandler {
 		// processing.burner
 		if (item instanceof BlazeBurnerBlockItem burnerItem) {
 			if (context.isWithBlock()) {
-				if (!burnerItem.hasCapturedBlaze() && context.getBlockEntity() instanceof MobSpawnerBlockEntity spawner) {
-					List<MobSpawnerEntry> possibleSpawns = ((BaseSpawnerAccessor)spawner).port_lib$getSpawnPotentials().getEntries().stream().map(Weighted.Present::getData).toList();
-					if (possibleSpawns.isEmpty()) {
-						possibleSpawns = new ArrayList<>();
-						possibleSpawns.add(((BaseSpawnerAccessor)spawner).port_lib$getNextSpawnData());
-					}
-					Identifier blazeId = RegisteredObjects.getKeyOrThrow(EntityType.BLAZE);
-					boolean canSpawnBlaze = possibleSpawns.stream().anyMatch(mobSpawnerEntry -> blazeId.equals(new Identifier(mobSpawnerEntry.entity().getString("id"))));
-					if (canSpawnBlaze) {
-						return Crosshair.USABLE;
-					}
+				if (!burnerItem.hasCapturedBlaze() && context.getBlockEntity() instanceof MobSpawnerBlockEntity) {
+					return Crosshair.USABLE;
 				}
 			} else if (context.isWithEntity()) {
 				if (!burnerItem.hasCapturedBlaze() && context.getEntity() instanceof BlazeEntity) {

@@ -129,6 +129,7 @@
       "mod.crend.dynamiccrosshair.compat.multibeds.ApiImplMultiBeds",
       "mod.crend.dynamiccrosshair.compat.musica.ApiImplMusica",
       "mod.crend.dynamiccrosshair.compat.musketmod.ApiImplMusketMod",
+      "mod.crend.dynamiccrosshair.compat.naturescompass.ApiImplNaturesCompass",
       "mod.crend.dynamiccrosshair.compat.nostrip.ApiImplNoStrip",
       "mod.crend.dynamiccrosshair.compat.numismaticoverhaul.ApiImplNumismaticOverhaul",
       "mod.crend.dynamiccrosshair.compat.omnihopper.ApiImplOmniHopper",

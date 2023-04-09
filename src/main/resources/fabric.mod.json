@@ -95,6 +95,7 @@
       "mod.crend.dynamiccrosshair.compat.fabricfurnaces.ApiImplFabricFurnaces",
       "mod.crend.dynamiccrosshair.compat.farmersdelight.ApiImplFarmersDelight",
       "mod.crend.dynamiccrosshair.compat.friendsandfoes.ApiImplFriendsAndFoes",
+      "mod.crend.dynamiccrosshair.compat.galosphere.ApiImplGalosphere",
       "mod.crend.dynamiccrosshair.compat.gofish.ApiImplGoFish",
       "mod.crend.dynamiccrosshair.compat.gobber.ApiImplGobber",
       "mod.crend.dynamiccrosshair.compat.goblintraders.ApiImplGoblinTraders",

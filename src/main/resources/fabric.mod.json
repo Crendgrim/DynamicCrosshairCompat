@@ -102,6 +102,7 @@
       "mod.crend.dynamiccrosshair.compat.goodall.ApiImplGoodall",
       "mod.crend.dynamiccrosshair.compat.graves.ApiImplUniversalGraves",
       "mod.crend.dynamiccrosshair.compat.greatereyeofender.ApiImplGreaterEyeOfEnder",
+      "mod.crend.dynamiccrosshair.compat.guardvillagers.ApiImplGuardVillagers",
       "mod.crend.dynamiccrosshair.compat.halfdoors.ApiImplHalfDoors",
       "mod.crend.dynamiccrosshair.compat.hookshot.ApiImplHookshot",
       "mod.crend.dynamiccrosshair.compat.inmis.ApiImplInmis",

@@ -10,6 +10,7 @@ import net.bettercombat.api.MinecraftClient_BetterCombat;
 import net.bettercombat.api.WeaponAttributes;
 import net.bettercombat.logic.WeaponRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -56,6 +57,9 @@ public class ApiImplBetterCombat implements DynamicCrosshairApi {
 
 	@Override
 	public ItemCategory getItemCategory(ItemStack itemStack) {
+		if (itemStack.getItem() instanceof AxeItem) {
+			return ItemCategory.NONE;
+		}
 		WeaponAttributes attributes = WeaponRegistry.getAttributes(itemStack);
 		if (attributes != null) {
 			return ItemCategory.MELEE_WEAPON;
@@ -66,6 +70,11 @@ public class ApiImplBetterCombat implements DynamicCrosshairApi {
 	@Override
 	public Crosshair computeFromItem(CrosshairContext context) {
 		if (context.includeMeleeWeapon()) {
+			if (context.getItemStack().getItem() instanceof AxeItem) {
+				if (context.canUseWeaponAsTool()) {
+					return null;
+				}
+			}
 			WeaponAttributes attributes = WeaponRegistry.getAttributes(context.getItemStack());
 			if (attributes != null && context.isMainHand()) {
 				return Crosshair.MELEE_WEAPON;

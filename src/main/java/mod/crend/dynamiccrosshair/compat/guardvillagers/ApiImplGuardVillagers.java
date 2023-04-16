@@ -1,6 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.guardvillagers;
 
 import dev.mrsterner.guardvillagers.GuardVillagers;
+import dev.mrsterner.guardvillagers.GuardVillagersConfig;
 import dev.mrsterner.guardvillagers.common.entity.GuardEntity;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
@@ -34,12 +35,12 @@ public class ApiImplGuardVillagers implements DynamicCrosshairApi {
 		Entity entity = context.getEntity();
 
 		if (entity instanceof GuardEntity guard) {
-			boolean configValues = !GuardVillagers.config.general.giveGuardStuffHOTV
-					|| !GuardVillagers.config.general.setGuardPatrolHotv
-					|| context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE) && GuardVillagers.config.general.giveGuardStuffHOTV
-					|| context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE) && GuardVillagers.config.general.setGuardPatrolHotv
-					|| context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE) && GuardVillagers.config.general.giveGuardStuffHOTV
-					&& GuardVillagers.config.general.setGuardPatrolHotv;
+			boolean configValues = !GuardVillagersConfig.giveGuardStuffHOTV
+					|| !GuardVillagersConfig.setGuardPatrolHotv
+					|| context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE) && GuardVillagersConfig.giveGuardStuffHOTV
+					|| context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE) && GuardVillagersConfig.setGuardPatrolHotv
+					|| context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE) && GuardVillagersConfig.giveGuardStuffHOTV
+					&& GuardVillagersConfig.setGuardPatrolHotv;
 			boolean inventoryRequirements = !context.player.shouldCancelInteraction() && guard.isOnGround();
 			if (configValues && inventoryRequirements && guard.getTarget() != context.player && guard.canMoveVoluntarily()) {
 				return Crosshair.INTERACTABLE;
@@ -51,8 +52,8 @@ public class ApiImplGuardVillagers implements DynamicCrosshairApi {
 			if (entity instanceof VillagerEntity villagerEntity) {
 				if (!villagerEntity.isBaby()
 						&& (villagerEntity.getVillagerData().getProfession() == VillagerProfession.NONE || villagerEntity.getVillagerData().getProfession() == VillagerProfession.NITWIT)
-						&& (!GuardVillagers.config.general.ConvertVillagerIfHaveHOTV || context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)
-						&& GuardVillagers.config.general.ConvertVillagerIfHaveHOTV)) {
+						&& (!GuardVillagersConfig.ConvertVillagerIfHaveHOTV || context.player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)
+						&& GuardVillagersConfig.ConvertVillagerIfHaveHOTV)) {
 					return Crosshair.USABLE;
 				}
 			}

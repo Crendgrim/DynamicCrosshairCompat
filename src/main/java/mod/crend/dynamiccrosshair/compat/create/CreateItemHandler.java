@@ -3,64 +3,68 @@ package mod.crend.dynamiccrosshair.compat.create;
 import com.google.common.collect.BiMap;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.contraptions.base.CasingBlock;
-import com.simibubi.create.content.contraptions.components.actors.AttachedActorBlock;
-import com.simibubi.create.content.contraptions.components.crafter.MechanicalCrafterBlock;
-import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
-import com.simibubi.create.content.contraptions.components.fan.NozzleBlock;
-import com.simibubi.create.content.contraptions.components.steam.whistle.WhistleBlock;
-import com.simibubi.create.content.contraptions.components.steam.whistle.WhistleExtenderBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.mounted.CartAssembleRailType;
-import com.simibubi.create.content.contraptions.components.structureMovement.mounted.CartAssemblerBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.mounted.CartAssemblerBlockItem;
-import com.simibubi.create.content.contraptions.components.structureMovement.mounted.MinecartContraptionItem;
-import com.simibubi.create.content.contraptions.components.structureMovement.piston.MechanicalPistonBlock;
-import com.simibubi.create.content.contraptions.components.tracks.ControllerRailBlock;
-import com.simibubi.create.content.contraptions.fluids.FluidPropagator;
-import com.simibubi.create.content.contraptions.fluids.pipes.*;
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankBlock;
-import com.simibubi.create.content.contraptions.goggles.GogglesItem;
-import com.simibubi.create.content.contraptions.processing.BasinBlock;
-import com.simibubi.create.content.contraptions.processing.burner.BlazeBurnerBlockItem;
-import com.simibubi.create.content.contraptions.relays.advanced.sequencer.SequencedGearshiftBlock;
-import com.simibubi.create.content.contraptions.relays.belt.BeltBlock;
-import com.simibubi.create.content.contraptions.relays.belt.BeltPart;
-import com.simibubi.create.content.contraptions.relays.belt.item.BeltConnectorItem;
-import com.simibubi.create.content.contraptions.relays.elementary.BracketedTileEntityBehaviour;
-import com.simibubi.create.content.contraptions.relays.encased.EncasedCogwheelBlock;
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.content.contraptions.wrench.IWrenchableWithBracket;
-import com.simibubi.create.content.contraptions.wrench.WrenchItem;
-import com.simibubi.create.content.curiosities.ExperienceNuggetItem;
-import com.simibubi.create.content.curiosities.TreeFertilizerItem;
-import com.simibubi.create.content.curiosities.armor.CopperBacktankItem;
-import com.simibubi.create.content.curiosities.girder.GirderBlock;
-import com.simibubi.create.content.curiosities.symmetry.SymmetryWandItem;
-import com.simibubi.create.content.curiosities.tools.BlueprintItem;
-import com.simibubi.create.content.curiosities.tools.SandPaperItem;
-import com.simibubi.create.content.curiosities.tools.SandPaperPolishingRecipe;
-import com.simibubi.create.content.curiosities.weapons.PotatoCannonItem;
-import com.simibubi.create.content.curiosities.zapper.ZapperItem;
-import com.simibubi.create.content.logistics.block.belts.tunnel.BeltTunnelBlock;
-import com.simibubi.create.content.logistics.block.chute.ChuteBlock;
-import com.simibubi.create.content.logistics.block.depot.EjectorItem;
-import com.simibubi.create.content.logistics.block.display.DisplayLinkBlockItem;
-import com.simibubi.create.content.logistics.block.funnel.BeltFunnelBlock;
-import com.simibubi.create.content.logistics.block.funnel.FunnelBlock;
-import com.simibubi.create.content.logistics.block.mechanicalArm.ArmInteractionPoint;
-import com.simibubi.create.content.logistics.block.mechanicalArm.ArmItem;
-import com.simibubi.create.content.logistics.block.redstone.RedstoneLinkBlock;
-import com.simibubi.create.content.logistics.block.vault.ItemVaultBlock;
-import com.simibubi.create.content.logistics.item.LinkedControllerItem;
-import com.simibubi.create.content.logistics.item.filter.FilterItem;
-import com.simibubi.create.content.logistics.trains.ITrackBlock;
-import com.simibubi.create.content.logistics.trains.management.edgePoint.TrackTargetingBlockItem;
-import com.simibubi.create.content.logistics.trains.management.edgePoint.signal.SignalBlock;
-import com.simibubi.create.content.logistics.trains.management.schedule.ScheduleItem;
-import com.simibubi.create.content.logistics.trains.track.TrackBlock;
-import com.simibubi.create.content.logistics.trains.track.TrackBlockItem;
-import com.simibubi.create.content.schematics.item.SchematicItem;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
+import com.simibubi.create.content.contraptions.actors.AttachedActorBlock;
+import com.simibubi.create.content.contraptions.mounted.CartAssembleRailType;
+import com.simibubi.create.content.contraptions.mounted.CartAssemblerBlock;
+import com.simibubi.create.content.contraptions.mounted.CartAssemblerBlockItem;
+import com.simibubi.create.content.contraptions.mounted.MinecartContraptionItem;
+import com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock;
+import com.simibubi.create.content.decoration.bracket.BracketBlock;
+import com.simibubi.create.content.decoration.bracket.BracketBlockItem;
+import com.simibubi.create.content.decoration.bracket.BracketedBlockEntityBehaviour;
+import com.simibubi.create.content.decoration.encasing.CasingBlock;
+import com.simibubi.create.content.decoration.girder.GirderBlock;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleExtenderBlock;
+import com.simibubi.create.content.equipment.TreeFertilizerItem;
+import com.simibubi.create.content.equipment.armor.BacktankItem;
+import com.simibubi.create.content.equipment.blueprint.BlueprintItem;
+import com.simibubi.create.content.equipment.goggles.GogglesItem;
+import com.simibubi.create.content.equipment.potatoCannon.PotatoCannonItem;
+import com.simibubi.create.content.equipment.sandPaper.SandPaperItem;
+import com.simibubi.create.content.equipment.sandPaper.SandPaperPolishingRecipe;
+import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandItem;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.content.equipment.wrench.IWrenchableWithBracket;
+import com.simibubi.create.content.equipment.wrench.WrenchItem;
+import com.simibubi.create.content.equipment.zapper.ZapperItem;
+import com.simibubi.create.content.fluids.FluidPropagator;
+import com.simibubi.create.content.fluids.pipes.EncasedPipeBlock;
+import com.simibubi.create.content.fluids.pipes.FluidPipeBlock;
+import com.simibubi.create.content.fluids.pipes.GlassFluidPipeBlock;
+import com.simibubi.create.content.fluids.tank.FluidTankBlock;
+import com.simibubi.create.content.kinetics.belt.BeltBlock;
+import com.simibubi.create.content.kinetics.belt.BeltPart;
+import com.simibubi.create.content.kinetics.belt.item.BeltConnectorItem;
+import com.simibubi.create.content.kinetics.crafter.MechanicalCrafterBlock;
+import com.simibubi.create.content.kinetics.deployer.DeployerBlock;
+import com.simibubi.create.content.kinetics.fan.NozzleBlock;
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPoint;
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmItem;
+import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogwheelBlock;
+import com.simibubi.create.content.kinetics.transmission.sequencer.SequencedGearshiftBlock;
+import com.simibubi.create.content.logistics.chute.ChuteBlock;
+import com.simibubi.create.content.logistics.depot.EjectorItem;
+import com.simibubi.create.content.logistics.filter.FilterItem;
+import com.simibubi.create.content.logistics.funnel.BeltFunnelBlock;
+import com.simibubi.create.content.logistics.funnel.FunnelBlock;
+import com.simibubi.create.content.logistics.tunnel.BeltTunnelBlock;
+import com.simibubi.create.content.logistics.vault.ItemVaultBlock;
+import com.simibubi.create.content.materials.ExperienceNuggetItem;
+import com.simibubi.create.content.processing.basin.BasinBlock;
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlockItem;
+import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockItem;
+import com.simibubi.create.content.redstone.link.RedstoneLinkBlock;
+import com.simibubi.create.content.redstone.link.controller.LinkedControllerItem;
+import com.simibubi.create.content.redstone.rail.ControllerRailBlock;
+import com.simibubi.create.content.schematics.SchematicItem;
+import com.simibubi.create.content.trains.schedule.ScheduleItem;
+import com.simibubi.create.content.trains.signal.SignalBlock;
+import com.simibubi.create.content.trains.track.ITrackBlock;
+import com.simibubi.create.content.trains.track.TrackBlock;
+import com.simibubi.create.content.trains.track.TrackBlockItem;
+import com.simibubi.create.content.trains.track.TrackTargetingBlockItem;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
 import io.github.fabricators_of_create.porting_lib.mixin.common.accessor.AxeItemAccessor;
 import io.github.fabricators_of_create.porting_lib.util.MinecartAndRailUtil;
@@ -175,10 +179,10 @@ public class CreateItemHandler {
 		if (item instanceof BracketBlockItem bracketBlockItem) {
 			BlockState state = context.getBlockState();
 			BracketBlock bracketBlock = (BracketBlock) bracketBlockItem.getBlock();
-			BracketedTileEntityBehaviour behaviour = TileEntityBehaviour.get(context.world, context.getBlockPos(), BracketedTileEntityBehaviour.TYPE);
+			BracketedBlockEntityBehaviour behaviour = BlockEntityBehaviour.get(context.world, context.getBlockPos(), BracketedBlockEntityBehaviour.TYPE);
 			if (behaviour != null && behaviour.canHaveBracket()) {
 				Optional<BlockState> suitableBracket = bracketBlock.getSuitableBracket(state, context.getBlockHitSide());
-				if (!suitableBracket.isPresent()) {
+				if (suitableBracket.isEmpty()) {
 					suitableBracket = bracketBlock.getSuitableBracket(state, Direction.getEntityFacingOrder(context.player)[0].getOpposite());
 				}
 
@@ -224,7 +228,7 @@ public class CreateItemHandler {
 		}
 
 		// curiosities.armor
-		if (item instanceof CopperBacktankItem.CopperBacktankBlockItem) {
+		if (item instanceof BacktankItem.BacktankBlockItem) {
 			if (context.isWithBlock()) {
 				return Crosshair.HOLDING_BLOCK;
 			}
@@ -241,7 +245,7 @@ public class CreateItemHandler {
 				} else {
 					newState = Oxidizable.getDecreasedOxidationState(state);
 					if (newState.isEmpty()) {
-						newState = Optional.ofNullable((Block)((BiMap)HoneycombItem.WAXED_TO_UNWAXED_BLOCKS.get()).get(state.getBlock())).map((block) -> {
+						newState = Optional.ofNullable((Block)((BiMap<?, ?>) HoneycombItem.WAXED_TO_UNWAXED_BLOCKS.get()).get(state.getBlock())).map((block) -> {
 							return block.getStateWithProperties(state);
 						});
 					}
@@ -477,7 +481,7 @@ public class CreateItemHandler {
 			}
 		}
 		if (block instanceof IWrenchableWithBracket) {
-			BracketedTileEntityBehaviour behaviour = BracketedTileEntityBehaviour.get(context.world, context.getBlockPos(), BracketedTileEntityBehaviour.TYPE);
+			BracketedBlockEntityBehaviour behaviour = BracketedBlockEntityBehaviour.get(context.world, context.getBlockPos(), BracketedBlockEntityBehaviour.TYPE);
 			if (behaviour != null && behaviour.isBracketPresent()) {
 				return Crosshair.USABLE;
 			}

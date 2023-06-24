@@ -1,6 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.mixin.create;
 
-import com.simibubi.create.content.contraptions.components.steam.SteamEngineBlock;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

@@ -1,6 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.mixin.create;
 
-import com.simibubi.create.content.contraptions.components.structureMovement.piston.MechanicalPistonBlock;
+import com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

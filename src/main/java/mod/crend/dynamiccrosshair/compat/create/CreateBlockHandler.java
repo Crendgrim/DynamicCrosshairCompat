@@ -3,85 +3,89 @@ package mod.crend.dynamiccrosshair.compat.create;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.contraptions.base.DirectionalKineticBlock;
-import com.simibubi.create.content.contraptions.base.HorizontalKineticBlock;
-import com.simibubi.create.content.contraptions.base.KineticBlock;
-import com.simibubi.create.content.contraptions.components.actors.SeatBlock;
-import com.simibubi.create.content.contraptions.components.actors.SeatEntity;
-import com.simibubi.create.content.contraptions.components.crafter.MechanicalCrafterBlock;
-import com.simibubi.create.content.contraptions.components.crank.HandCrankBlock;
-import com.simibubi.create.content.contraptions.components.deployer.DeployerBlock;
-import com.simibubi.create.content.contraptions.components.millstone.MillstoneBlock;
-import com.simibubi.create.content.contraptions.components.steam.PoweredShaftBlock;
-import com.simibubi.create.content.contraptions.components.steam.SteamEngineBlock;
-import com.simibubi.create.content.contraptions.components.steam.whistle.WhistleBlock;
-import com.simibubi.create.content.contraptions.components.steam.whistle.WhistleExtenderBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.bearing.ClockworkBearingBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.bearing.MechanicalBearingBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.bearing.SailBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.bearing.WindmillBearingBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.chassis.AbstractChassisBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.gantry.GantryCarriageBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.mounted.CartAssembleRailType;
-import com.simibubi.create.content.contraptions.components.structureMovement.mounted.CartAssemblerBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.piston.MechanicalPistonBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.piston.PistonExtensionPoleBlock;
-import com.simibubi.create.content.contraptions.components.structureMovement.pulley.PulleyBlock;
-import com.simibubi.create.content.contraptions.fluids.actors.ItemDrainBlock;
-import com.simibubi.create.content.contraptions.fluids.actors.ItemDrainTileEntity;
-import com.simibubi.create.content.contraptions.fluids.pipes.AxisPipeBlock;
-import com.simibubi.create.content.contraptions.fluids.pipes.FluidPipeBlock;
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankBlock;
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankTileEntity;
-import com.simibubi.create.content.contraptions.processing.BasinBlock;
-import com.simibubi.create.content.contraptions.processing.BasinTileEntity;
-import com.simibubi.create.content.contraptions.processing.EmptyingByBasin;
-import com.simibubi.create.content.contraptions.processing.burner.BlazeBurnerBlock;
-import com.simibubi.create.content.contraptions.processing.burner.BlazeBurnerTileEntity;
-import com.simibubi.create.content.contraptions.processing.burner.LitBlazeBurnerBlock;
-import com.simibubi.create.content.contraptions.relays.advanced.GantryShaftBlock;
-import com.simibubi.create.content.contraptions.relays.advanced.SpeedControllerBlock;
-import com.simibubi.create.content.contraptions.relays.advanced.sequencer.SequencedGearshiftBlock;
-import com.simibubi.create.content.contraptions.relays.belt.BeltBlock;
-import com.simibubi.create.content.contraptions.relays.belt.BeltHelper;
-import com.simibubi.create.content.contraptions.relays.belt.BeltPart;
-import com.simibubi.create.content.contraptions.relays.belt.BeltTileEntity;
-import com.simibubi.create.content.contraptions.relays.elementary.CogWheelBlock;
-import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
-import com.simibubi.create.content.contraptions.relays.encased.EncasedCogwheelBlock;
-import com.simibubi.create.content.contraptions.relays.encased.EncasedShaftBlock;
-import com.simibubi.create.content.curiosities.armor.CopperBacktankBlock;
-import com.simibubi.create.content.curiosities.deco.MetalLadderBlock;
-import com.simibubi.create.content.curiosities.deco.PlacardBlock;
-import com.simibubi.create.content.curiosities.deco.PlacardTileEntity;
-import com.simibubi.create.content.curiosities.girder.GirderBlock;
-import com.simibubi.create.content.curiosities.toolbox.ToolboxBlock;
-import com.simibubi.create.content.logistics.block.belts.tunnel.BrassTunnelBlock;
-import com.simibubi.create.content.logistics.block.belts.tunnel.BrassTunnelTileEntity;
-import com.simibubi.create.content.logistics.block.chute.AbstractChuteBlock;
-import com.simibubi.create.content.logistics.block.chute.ChuteTileEntity;
-import com.simibubi.create.content.logistics.block.depot.DepotBlock;
-import com.simibubi.create.content.logistics.block.depot.EjectorBlock;
-import com.simibubi.create.content.logistics.block.diodes.BrassDiodeBlock;
-import com.simibubi.create.content.logistics.block.diodes.ToggleLatchBlock;
-import com.simibubi.create.content.logistics.block.display.DisplayLinkBlock;
-import com.simibubi.create.content.logistics.block.funnel.FunnelBlock;
-import com.simibubi.create.content.logistics.block.mechanicalArm.ArmBlock;
-import com.simibubi.create.content.logistics.block.mechanicalArm.ArmTileEntity;
-import com.simibubi.create.content.logistics.block.redstone.*;
-import com.simibubi.create.content.logistics.item.LecternControllerBlock;
-import com.simibubi.create.content.logistics.item.LecternControllerTileEntity;
-import com.simibubi.create.content.logistics.trains.management.display.FlapDisplayBlock;
-import com.simibubi.create.content.logistics.trains.management.display.FlapDisplayTileEntity;
-import com.simibubi.create.content.logistics.trains.management.edgePoint.station.StationBlock;
-import com.simibubi.create.content.logistics.trains.management.edgePoint.station.StationTileEntity;
-import com.simibubi.create.content.logistics.trains.track.TrackBlock;
-import com.simibubi.create.content.schematics.block.SchematicTableBlock;
-import com.simibubi.create.content.schematics.block.SchematicannonBlock;
-import com.simibubi.create.foundation.tileEntity.behaviour.filtering.FilteringBehaviour;
+import com.simibubi.create.content.contraptions.actors.seat.SeatBlock;
+import com.simibubi.create.content.contraptions.actors.seat.SeatEntity;
+import com.simibubi.create.content.contraptions.bearing.ClockworkBearingBlock;
+import com.simibubi.create.content.contraptions.bearing.MechanicalBearingBlock;
+import com.simibubi.create.content.contraptions.bearing.SailBlock;
+import com.simibubi.create.content.contraptions.bearing.WindmillBearingBlock;
+import com.simibubi.create.content.contraptions.chassis.AbstractChassisBlock;
+import com.simibubi.create.content.contraptions.gantry.GantryCarriageBlock;
+import com.simibubi.create.content.contraptions.mounted.CartAssembleRailType;
+import com.simibubi.create.content.contraptions.mounted.CartAssemblerBlock;
+import com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock;
+import com.simibubi.create.content.contraptions.piston.PistonExtensionPoleBlock;
+import com.simibubi.create.content.contraptions.pulley.PulleyBlock;
+import com.simibubi.create.content.decoration.MetalLadderBlock;
+import com.simibubi.create.content.decoration.encasing.EncasedBlock;
+import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
+import com.simibubi.create.content.decoration.girder.GirderBlock;
+import com.simibubi.create.content.decoration.placard.PlacardBlock;
+import com.simibubi.create.content.decoration.placard.PlacardBlockEntity;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock;
+import com.simibubi.create.content.decoration.steamWhistle.WhistleExtenderBlock;
+import com.simibubi.create.content.equipment.armor.BacktankBlock;
+import com.simibubi.create.content.equipment.toolbox.ToolboxBlock;
+import com.simibubi.create.content.fluids.drain.ItemDrainBlock;
+import com.simibubi.create.content.fluids.drain.ItemDrainBlockEntity;
+import com.simibubi.create.content.fluids.pipes.AxisPipeBlock;
+import com.simibubi.create.content.fluids.pipes.FluidPipeBlock;
+import com.simibubi.create.content.fluids.tank.FluidTankBlock;
+import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
+import com.simibubi.create.content.fluids.transfer.GenericItemEmptying;
+import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
+import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
+import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.simibubi.create.content.kinetics.belt.BeltBlock;
+import com.simibubi.create.content.kinetics.belt.BeltBlockEntity;
+import com.simibubi.create.content.kinetics.belt.BeltHelper;
+import com.simibubi.create.content.kinetics.belt.BeltPart;
+import com.simibubi.create.content.kinetics.crafter.MechanicalCrafterBlock;
+import com.simibubi.create.content.kinetics.crank.HandCrankBlock;
+import com.simibubi.create.content.kinetics.deployer.DeployerBlock;
+import com.simibubi.create.content.kinetics.gantry.GantryShaftBlock;
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlock;
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
+import com.simibubi.create.content.kinetics.millstone.MillstoneBlock;
+import com.simibubi.create.content.kinetics.simpleRelays.CogWheelBlock;
+import com.simibubi.create.content.kinetics.simpleRelays.ShaftBlock;
+import com.simibubi.create.content.kinetics.speedController.SpeedControllerBlock;
+import com.simibubi.create.content.kinetics.steamEngine.PoweredShaftBlock;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlock;
+import com.simibubi.create.content.kinetics.transmission.sequencer.SequencedGearshiftBlock;
+import com.simibubi.create.content.logistics.chute.AbstractChuteBlock;
+import com.simibubi.create.content.logistics.chute.ChuteBlockEntity;
+import com.simibubi.create.content.logistics.depot.DepotBlock;
+import com.simibubi.create.content.logistics.depot.EjectorBlock;
+import com.simibubi.create.content.logistics.funnel.FunnelBlock;
+import com.simibubi.create.content.logistics.tunnel.BrassTunnelBlock;
+import com.simibubi.create.content.logistics.tunnel.BrassTunnelBlockEntity;
+import com.simibubi.create.content.processing.basin.BasinBlock;
+import com.simibubi.create.content.processing.basin.BasinBlockEntity;
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity;
+import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
+import com.simibubi.create.content.redstone.analogLever.AnalogLeverBlock;
+import com.simibubi.create.content.redstone.diodes.BrassDiodeBlock;
+import com.simibubi.create.content.redstone.diodes.ToggleLatchBlock;
+import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlock;
+import com.simibubi.create.content.redstone.link.RedstoneLinkBlock;
+import com.simibubi.create.content.redstone.link.controller.LecternControllerBlock;
+import com.simibubi.create.content.redstone.link.controller.LecternControllerBlockEntity;
+import com.simibubi.create.content.redstone.nixieTube.NixieTubeBlock;
+import com.simibubi.create.content.redstone.nixieTube.NixieTubeBlockEntity;
+import com.simibubi.create.content.redstone.thresholdSwitch.ThresholdSwitchBlock;
+import com.simibubi.create.content.schematics.cannon.SchematicannonBlock;
+import com.simibubi.create.content.schematics.table.SchematicTableBlock;
+import com.simibubi.create.content.trains.display.FlapDisplayBlock;
+import com.simibubi.create.content.trains.display.FlapDisplayBlockEntity;
+import com.simibubi.create.content.trains.station.StationBlock;
+import com.simibubi.create.content.trains.station.StationBlockEntity;
+import com.simibubi.create.content.trains.track.TrackBlock;
+import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
+import com.simibubi.create.foundation.placement.IPlacementHelper;
+import com.simibubi.create.foundation.placement.PlacementHelpers;
 import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.placement.IPlacementHelper;
-import com.simibubi.create.foundation.utility.placement.PlacementHelpers;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.util.TagUtil;
 import me.alphamode.forgetags.Tags;
@@ -146,7 +150,7 @@ public class CreateBlockHandler {
 				|| block instanceof BeltBlock
 				|| block instanceof CogWheelBlock
 				|| block instanceof ShaftBlock
-				|| block instanceof CopperBacktankBlock
+				|| block instanceof BacktankBlock
 				|| block instanceof PlacardBlock
 				|| block instanceof ToolboxBlock
 				|| block instanceof DepotBlock
@@ -155,11 +159,21 @@ public class CreateBlockHandler {
 				|| block instanceof DisplayLinkBlock
 				|| block instanceof NixieTubeBlock
 				|| block instanceof RedstoneLinkBlock
-				|| block instanceof StockpileSwitchBlock
+				|| block instanceof ThresholdSwitchBlock
 				|| block instanceof LecternControllerBlock
 				|| block instanceof FlapDisplayBlock
 				|| block instanceof StationBlock
 				;
+	}
+
+	private static boolean isEncasable(Block block, ItemStack heldItem) {
+		List<Block> encasedVariants = EncasingRegistry.getVariants(block);
+		for (Block variant : encasedVariants) {
+			if (variant instanceof EncasedBlock encased && encased.getCasing().asItem() == heldItem.getItem()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static Crosshair computeFromBlock(CrosshairContext context) {
@@ -327,7 +341,7 @@ public class CreateBlockHandler {
 		}
 
 		// contraptions.fluids
-		if (block instanceof ItemDrainBlock && context.getBlockEntity() instanceof ItemDrainTileEntity te) {
+		if (block instanceof ItemDrainBlock && context.getBlockEntity() instanceof ItemDrainBlockEntity te) {
 			if (!(heldItem.getItem() instanceof BlockItem) || ContainerItemContext.withConstant(heldItem).find(FluidStorage.ITEM) != null) {
 				if (CrosshairFluidContext.canInteractWithFluidStorage(context, te.getFluidStorage(context.getBlockHitSide()))) {
 					return Crosshair.USABLE;
@@ -341,7 +355,7 @@ public class CreateBlockHandler {
 			}
 		}
 
-		if (block instanceof FluidTankBlock fluidTank && context.getBlockEntity() instanceof FluidTankTileEntity te) {
+		if (block instanceof FluidTankBlock fluidTank && context.getBlockEntity() instanceof FluidTankBlockEntity te) {
 			if (!heldItem.isEmpty() && (context.player.isCreative() || ((FluidTankBlockAccessor) fluidTank).getCreative())) {
 				if (CrosshairFluidContext.canInteractWithFluidStorage(context, te.getFluidStorage(context.getBlockHitSide()))) {
 					return Crosshair.USABLE;
@@ -350,15 +364,15 @@ public class CreateBlockHandler {
 		}
 
 		// processing.burner
-		if (block instanceof BlazeBurnerBlock && context.getBlockEntity() instanceof BlazeBurnerTileEntity burner) {
+		if (block instanceof BlazeBurnerBlock && context.getBlockEntity() instanceof BlazeBurnerBlockEntity burner) {
 			BlazeBurnerBlock.HeatLevel heat = blockState.get(BlazeBurnerBlock.HEAT_LEVEL);
 			if (AllItems.GOGGLES.isIn(heldItem) && heat != BlazeBurnerBlock.HeatLevel.NONE) {
-				if (!((BlazeBurnerTileEntityAccessor) burner).getGoggles()) {
+				if (!((BlazeBurnerBlockEntityAccessor) burner).getGoggles()) {
 					return Crosshair.USABLE;
 				}
 			} else if (FilteringBehaviour.playerCanInteract(context.player)) {
 				if (heldItem.isEmpty() && heat != BlazeBurnerBlock.HeatLevel.NONE) {
-					if (((BlazeBurnerTileEntityAccessor) burner).getGoggles()) {
+					if (((BlazeBurnerBlockEntityAccessor) burner).getGoggles()) {
 						return Crosshair.USABLE;
 					}
 				} else if (heat == BlazeBurnerBlock.HeatLevel.NONE) {
@@ -369,18 +383,18 @@ public class CreateBlockHandler {
 					if (burner.isCreativeFuel(heldItem)) {
 						return Crosshair.USABLE;
 					}
-					BlazeBurnerTileEntity.FuelType newFuel = BlazeBurnerTileEntity.FuelType.NONE;
+					BlazeBurnerBlockEntity.FuelType newFuel = BlazeBurnerBlockEntity.FuelType.NONE;
 					if (AllTags.AllItemTags.BLAZE_BURNER_FUEL_SPECIAL.matches(heldItem)) {
-						newFuel = BlazeBurnerTileEntity.FuelType.SPECIAL;
+						newFuel = BlazeBurnerBlockEntity.FuelType.SPECIAL;
 					} else if (FuelRegistry.INSTANCE.get(heldItem.getItem()) != null
 							|| AllTags.AllItemTags.BLAZE_BURNER_FUEL_REGULAR.matches(heldItem)
 					) {
-						newFuel = BlazeBurnerTileEntity.FuelType.NORMAL;
+						newFuel = BlazeBurnerBlockEntity.FuelType.NORMAL;
 					}
-					if (newFuel != BlazeBurnerTileEntity.FuelType.NONE && newFuel.ordinal() >= burner.getActiveFuel().ordinal()) {
+					if (newFuel != BlazeBurnerBlockEntity.FuelType.NONE && newFuel.ordinal() >= burner.getActiveFuel().ordinal()) {
 						if (newFuel != burner.getActiveFuel()
 								|| burner.getRemainingBurnTime() <= 500
-								|| newFuel == BlazeBurnerTileEntity.FuelType.NORMAL
+								|| newFuel == BlazeBurnerBlockEntity.FuelType.NORMAL
 						) {
 							return Crosshair.USABLE;
 						}
@@ -397,7 +411,7 @@ public class CreateBlockHandler {
 		}
 
 		// processing
-		if (block instanceof BasinBlock && context.getBlockEntity() instanceof BasinTileEntity te) {
+		if (block instanceof BasinBlock && context.getBlockEntity() instanceof BasinBlockEntity te) {
 			Direction direction = context.getBlockHitSide();
 			if (heldItem.isEmpty()) {
 				Storage<ItemVariant> inv = te.getItemStorage(direction);
@@ -454,7 +468,7 @@ public class CreateBlockHandler {
 				boolean isConnector = AllItems.BELT_CONNECTOR.isIn(heldItem);
 				boolean isShaft = AllBlocks.SHAFT.isIn(heldItem);
 				boolean isDye = heldItem.isIn(Tags.Items.DYES);
-				boolean hasWater = (EmptyingByBasin.emptyItem(context.world, heldItem, true).getFirst()).getFluid().matchesType(Fluids.WATER);
+				boolean hasWater = (GenericItemEmptying.emptyItem(context.world, heldItem, true).getFirst()).getFluid().matchesType(Fluids.WATER);
 				boolean isHand = heldItem.isEmpty() && context.isMainHand();
 				if (!isDye && !hasWater) {
 					if (isConnector) {
@@ -463,10 +477,10 @@ public class CreateBlockHandler {
 						// TODO wrench
 						return Crosshair.USABLE;
 					} else {
-						BeltTileEntity belt = BeltHelper.getSegmentTE(context.world, context.getBlockPos());
+						BeltBlockEntity belt = BeltHelper.getSegmentBE(context.world, context.getBlockPos());
 						if (belt != null) {
 							if (isHand) {
-								BeltTileEntity controllerBelt = belt.getControllerTE();
+								BeltBlockEntity controllerBelt = belt.getControllerBE();
 								if (controllerBelt != null) {
 									return Crosshair.INTERACTABLE;
 								}
@@ -485,29 +499,17 @@ public class CreateBlockHandler {
 				}
 			}
 		}
-		if (block instanceof CogWheelBlock cogWheelBlock) {
+		if (block instanceof CogWheelBlock) {
 			if (!context.player.isSneaking() && context.player.canModifyBlocks()) {
-				EncasedCogwheelBlock[] encasedBlocks = cogWheelBlock.isLargeCog()
-						? new EncasedCogwheelBlock[]{ AllBlocks.ANDESITE_ENCASED_LARGE_COGWHEEL.get(), AllBlocks.BRASS_ENCASED_LARGE_COGWHEEL.get()}
-						: new EncasedCogwheelBlock[]{ AllBlocks.ANDESITE_ENCASED_COGWHEEL.get(), AllBlocks.BRASS_ENCASED_COGWHEEL.get()};
-				for (EncasedCogwheelBlock encasedCog : encasedBlocks) {
-					if (encasedCog.getCasing().isIn(heldItem)) {
-						return Crosshair.USABLE;
-					}
+				if (isEncasable(block, heldItem)) {
+					return Crosshair.USABLE;
 				}
 			}
 		}
 		if (block instanceof ShaftBlock) {
 			if (!context.player.isSneaking() && context.player.canModifyBlocks()) {
-				EncasedShaftBlock[] encasedShaftBlocks = new EncasedShaftBlock[] {
-						AllBlocks.ANDESITE_ENCASED_SHAFT.get(),
-						AllBlocks.BRASS_ENCASED_SHAFT.get()
-				};
-
-				for (EncasedShaftBlock encasedShaft : encasedShaftBlocks) {
-					if (encasedShaft.getCasing().isIn(heldItem)) {
-						return Crosshair.USABLE;
-					}
+				if (isEncasable(block, heldItem)) {
+					return Crosshair.USABLE;
 				}
 
 				if (AllBlocks.METAL_GIRDER.isIn(heldItem) && blockState.get(ShaftBlock.AXIS) != Direction.Axis.Y) {
@@ -520,7 +522,7 @@ public class CreateBlockHandler {
 				}
 			}
 		}
-		if (block instanceof CopperBacktankBlock) {
+		if (block instanceof BacktankBlock) {
 			if (!context.player.isSneaking()
 					&& !(heldItem.getItem() instanceof BlockItem)
 					&& context.player.getEquippedStack(EquipmentSlot.CHEST).isEmpty()
@@ -536,7 +538,7 @@ public class CreateBlockHandler {
 				return Crosshair.HOLDING_BLOCK;
 			}
 		}
-		if (block instanceof PlacardBlock && context.getBlockEntity() instanceof PlacardTileEntity pte) {
+		if (block instanceof PlacardBlock && context.getBlockEntity() instanceof PlacardBlockEntity pte) {
 			if (!context.player.isSneaking()) {
 				ItemStack inBlock = pte.getHeldItem();
 				if (context.player.canModifyBlocks() && !heldItem.isEmpty() && inBlock.isEmpty()) {
@@ -579,14 +581,14 @@ public class CreateBlockHandler {
 		}
 
 		// logistics.block
-		if (block instanceof BrassTunnelBlock && context.getBlockEntity() instanceof BrassTunnelTileEntity bte) {
+		if (block instanceof BrassTunnelBlock && context.getBlockEntity() instanceof BrassTunnelBlockEntity bte) {
 			List<ItemStack> stacksOfGroup = bte.grabAllStacksOfGroup(true);
 			if (!stacksOfGroup.isEmpty()) {
 				return Crosshair.INTERACTABLE;
 			}
 		}
 
-		if (block instanceof AbstractChuteBlock && context.getBlockEntity() instanceof ChuteTileEntity chute) {
+		if (block instanceof AbstractChuteBlock && context.getBlockEntity() instanceof ChuteBlockEntity chute) {
 			if (heldItem.isEmpty() && !chute.getItem().isEmpty()) {
 				return Crosshair.INTERACTABLE;
 			}
@@ -631,14 +633,14 @@ public class CreateBlockHandler {
 		}
 
 		// logistics.mechanicalArm
-		if (block instanceof ArmBlock && context.getBlockEntity() instanceof ArmTileEntity te) {
-			if (!((ArmTileEntityAccessor) te).getHeldItem().isEmpty()) {
+		if (block instanceof ArmBlock && context.getBlockEntity() instanceof ArmBlockEntity te) {
+			if (!((ArmBlockEntityAccessor) te).getHeldItem().isEmpty()) {
 				return Crosshair.INTERACTABLE;
 			}
 		}
 
 		// logistics.redstone
-		if (block instanceof NixieTubeBlock && context.getBlockEntity() instanceof NixieTubeTileEntity nixie) {
+		if (block instanceof NixieTubeBlock && context.getBlockEntity() instanceof NixieTubeBlockEntity nixie) {
 			if (!context.player.isSneaking()) {
 				if (heldItem.isEmpty()) {
 					if (!nixie.reactsToRedstone()) {
@@ -658,7 +660,7 @@ public class CreateBlockHandler {
 				return Crosshair.INTERACTABLE;
 			}
 		}
-		if (block instanceof StockpileSwitchBlock) {
+		if (block instanceof ThresholdSwitchBlock) {
 			if (!AllItems.WRENCH.isIn(heldItem)) {
 				return Crosshair.INTERACTABLE;
 			}
@@ -666,13 +668,13 @@ public class CreateBlockHandler {
 
 		// logistics.item
 		if (block instanceof LecternControllerBlock) {
-			if (LecternControllerTileEntity.playerInRange(context.player, context.world, context.getBlockPos())) {
+			if (LecternControllerBlockEntity.playerInRange(context.player, context.world, context.getBlockPos())) {
 				return Crosshair.INTERACTABLE;
 			}
 		}
 
 		// logistics.trains
-		if (block instanceof FlapDisplayBlock && context.getBlockEntity() instanceof FlapDisplayTileEntity flapTe) {
+		if (block instanceof FlapDisplayBlock && context.getBlockEntity() instanceof FlapDisplayBlockEntity flapTe) {
 			if (!context.player.isSneaking()) {
 				IPlacementHelper placementHelper = PlacementHelpers.get(FlapDisplayBlockAcessor.getPlacementHelperId());
 				if (placementHelper.matchesItem(heldItem)) {
@@ -698,7 +700,7 @@ public class CreateBlockHandler {
 			}
 		}
 
-		if (block instanceof StationBlock && context.getBlockEntity() instanceof StationTileEntity station) {
+		if (block instanceof StationBlock && context.getBlockEntity() instanceof StationBlockEntity station) {
 			if (!context.player.isSneaking() && !AllItems.WRENCH.isIn(heldItem)) {
 				if (heldItem.getItem() == Items.FILLED_MAP) {
 					if (station.getStation() != null && station.getStation().getId() != null) {
@@ -711,9 +713,9 @@ public class CreateBlockHandler {
 		}
 
 		if (block instanceof TrackBlock) {
-			for (Map.Entry<BlockPos, BlockBox> entry : StationTileEntity.assemblyAreas.get(context.world).entrySet()) {
+			for (Map.Entry<BlockPos, BlockBox> entry : StationBlockEntity.assemblyAreas.get(context.world).entrySet()) {
 				if (entry.getValue().contains(context.getBlockPos())) {
-					if (context.world.getBlockEntity(entry.getKey()) instanceof StationTileEntity) {
+					if (context.world.getBlockEntity(entry.getKey()) instanceof StationBlockEntity) {
 						return Crosshair.INTERACTABLE;
 					}
 				}

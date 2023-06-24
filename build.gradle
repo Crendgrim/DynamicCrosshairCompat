@@ -63,7 +63,7 @@ dependencies {
 	// required by ParadiseLost
 	modCompileOnly("com.github.devs-immortal:Incubus-Core:${project.incubus_core_version}")
 	// required by Create
-	modCompileOnly("io.github.fabricators_of_create.Porting-Lib:porting-lib:${project.porting_lib_version}")
+	modCompileOnly("io.github.fabricators_of_create.Porting-Lib:Porting-Lib:${project.porting_lib_version}")
 	modCompileOnly("com.tterrag.registrate_fabric:Registrate:${project.registrate_version}")
 	// required by SpellbladeNext
 	modCompileOnly("dev.architectury:architectury:${project.architectury_version}")

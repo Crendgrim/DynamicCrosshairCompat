@@ -1,6 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.mixin.create;
 
-import com.simibubi.create.content.contraptions.components.structureMovement.chassis.AbstractChassisBlock;
+import com.simibubi.create.content.contraptions.chassis.AbstractChassisBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

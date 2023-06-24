@@ -1,6 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.mixin.create;
 
-import com.simibubi.create.content.contraptions.relays.advanced.SpeedControllerBlock;
+import com.simibubi.create.content.kinetics.speedController.SpeedControllerBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

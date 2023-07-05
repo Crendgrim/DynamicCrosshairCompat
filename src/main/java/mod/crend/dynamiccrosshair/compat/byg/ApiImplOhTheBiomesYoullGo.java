@@ -20,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
 import potionstudios.byg.BYG;
 import potionstudios.byg.common.block.*;
-import potionstudios.byg.common.block.end.TheriumCrystalBlock;
 import potionstudios.byg.common.block.end.nightshade.NightshadeBerryBushBlock;
 import potionstudios.byg.common.block.nether.HypogealImperiumBlock;
 import potionstudios.byg.common.block.nether.crimson.CrimsonBerryBushBlock;
@@ -45,7 +44,6 @@ public class ApiImplOhTheBiomesYoullGo implements DynamicCrosshairApi {
 	public boolean isInteractableBlock(BlockState blockState) {
 		Block block = blockState.getBlock();
 		return block instanceof NightshadeBerryBushBlock
-				|| block instanceof TheriumCrystalBlock
 				;
 	}
 
@@ -67,9 +65,6 @@ public class ApiImplOhTheBiomesYoullGo implements DynamicCrosshairApi {
 
 		if (block instanceof NightshadeBerryBushBlock) {
 			return fromBush(blockState, itemStack, NightshadeBerryBushBlock.AGE, 1);
-		}
-		if (block instanceof TheriumCrystalBlock) {
-			return fromBush(blockState, itemStack, TheriumCrystalBlock.AGE, 2);
 		}
 		if (block instanceof CrimsonBerryBushBlock) {
 			return fromBush(blockState, itemStack, CrimsonBerryBushBlock.AGE, 1);

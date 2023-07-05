@@ -23,7 +23,7 @@ public class ApiImplCreeperOverhaul implements DynamicCrosshairApi {
 			if (creeper.type.melee() == 0 && item instanceof FlintAndSteelItem) {
 				return Crosshair.USABLE;
 			}
-			if (creeper.type.shearable() && !creeper.isSheared() && item instanceof ShearsItem) {
+			if (creeper.type.isShearable() && !creeper.isSheared() && item instanceof ShearsItem) {
 				return Crosshair.USABLE;
 			}
 		}

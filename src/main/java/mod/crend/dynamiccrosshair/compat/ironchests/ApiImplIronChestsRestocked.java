@@ -56,7 +56,7 @@ public class ApiImplIronChestsRestocked implements DynamicCrosshairApi {
 				if (block instanceof GenericChestBlock && context.getBlockEntity() instanceof GenericChestBlockEntity chestBlockEntity) {
 					if (chestBlockEntity.viewers() == 0 && !blockState.get(GenericChestBlock.LOCK).equals(LockState.NO_LOCK)) {
 						if (itemStack.hasNbt() && itemStack.getNbt().contains("key")) {
-							if (chestBlockEntity.isRightKey(itemStack)) {
+							if (chestBlockEntity.isRightKey(itemStack.getNbt().getUuid("key"))) {
 								return Crosshair.USABLE;
 							}
 						} else {

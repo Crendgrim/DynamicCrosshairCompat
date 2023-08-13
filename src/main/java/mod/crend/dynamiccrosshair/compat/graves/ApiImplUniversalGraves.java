@@ -33,7 +33,7 @@ public class ApiImplUniversalGraves implements DynamicCrosshairApi {
 		Block block = blockState.getBlock();
 
 		if (block instanceof GraveBlock && context.isMainHand()) {
-			if (!ConfigManager.getConfig().configData.shiftClickTakesItems || !context.player.isSneaking() && ConfigManager.getConfig().configData.clickGraveToOpenGui) {
+			if (!ConfigManager.getConfig().interactions.shiftClickTakesItems || !context.player.isSneaking() && ConfigManager.getConfig().interactions.clickGraveToOpenGui) {
 				return Crosshair.INTERACTABLE;
 			} else {
 				return Crosshair.USABLE;

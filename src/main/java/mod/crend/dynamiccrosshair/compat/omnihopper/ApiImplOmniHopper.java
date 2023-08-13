@@ -3,7 +3,7 @@ package mod.crend.dynamiccrosshair.compat.omnihopper;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import net.minecraft.block.BlockState;
 import nl.enjarai.omnihopper.OmniHopper;
-import nl.enjarai.omnihopper.blocks.HopperBlock;
+import nl.enjarai.omnihopper.blocks.hopper.OmniHopperBlock;
 
 public class ApiImplOmniHopper implements DynamicCrosshairApi {
 	@Override
@@ -13,6 +13,6 @@ public class ApiImplOmniHopper implements DynamicCrosshairApi {
 
 	@Override
 	public boolean isAlwaysInteractableBlock(BlockState blockState) {
-		return blockState.getBlock() instanceof HopperBlock;
+		return blockState.getBlock() instanceof OmniHopperBlock;
 	}
 }

@@ -3,6 +3,7 @@ package mod.crend.dynamiccrosshair.compat.crockpot;
 import com.github.nosrick.crockpot.CrockPotMod;
 import com.github.nosrick.crockpot.block.CrockPotBlock;
 import com.github.nosrick.crockpot.blockentity.CrockPotBlockEntity;
+import com.github.nosrick.crockpot.blockentity.ElectricCrockPotBlockEntity;
 import com.github.nosrick.crockpot.config.ConfigManager;
 import com.github.nosrick.crockpot.tag.Tags;
 import com.github.nosrick.crockpot.util.UUIDUtil;
@@ -43,7 +44,7 @@ public class ApiImplCrockpot implements DynamicCrosshairApi {
 					|| (context.player.isCreative() && ConfigManager.creativePlayersIgnoreLocks())) {
 				if (itemStack.isEmpty()) {
 					return Crosshair.INTERACTABLE;
-				} else if (!potBlockEntity.isElectric() && itemStack.isOf(Blocks.REDSTONE_BLOCK.asItem())) {
+				} else if (!(potBlockEntity instanceof ElectricCrockPotBlockEntity) && itemStack.isOf(Blocks.REDSTONE_BLOCK.asItem())) {
 					return Crosshair.USABLE;
 				} else {
 					if (blockState.get(CrockPotBlock.HAS_LIQUID)) {

@@ -23,7 +23,7 @@ public class ApiImplInteractic implements DynamicCrosshairApi {
 
 	@Override
 	public Crosshair computeFromItem(CrosshairContext context) {
-		if (!InteracticInit.getConfig().rightClickPickup) return null;
+		if (!InteracticInit.getConfig().rightClickPickup()) return null;
 		if (KeyBindingHelper.getBoundKeyOf(InteracticClientInit.PICKUP_ITEM) != InputUtil.UNKNOWN_KEY) return null;
 
 		if (Helpers.raycastItem(MinecraftClient.getInstance().cameraEntity, MinecraftClient.getInstance().interactionManager.getReachDistance()) == null)

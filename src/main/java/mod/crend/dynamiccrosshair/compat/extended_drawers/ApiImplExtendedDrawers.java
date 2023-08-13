@@ -6,10 +6,9 @@ import io.github.mattidragon.extendeddrawers.block.DrawerBlock;
 import io.github.mattidragon.extendeddrawers.block.ShadowDrawerBlock;
 import io.github.mattidragon.extendeddrawers.block.entity.DrawerBlockEntity;
 import io.github.mattidragon.extendeddrawers.block.entity.ShadowDrawerBlockEntity;
-import io.github.mattidragon.extendeddrawers.drawer.DrawerSlot;
-import io.github.mattidragon.extendeddrawers.item.LockItem;
 import io.github.mattidragon.extendeddrawers.item.UpgradeItem;
 import io.github.mattidragon.extendeddrawers.misc.DrawerRaycastUtil;
+import io.github.mattidragon.extendeddrawers.storage.DrawerSlot;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.mixin.extended_drawers.IDrawerBlockMixin;
@@ -21,8 +20,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec2f;
+import tech.thatgravyboat.ironchests.common.items.LockItem;
 
 import static io.github.mattidragon.extendeddrawers.block.DrawerBlock.FACING;
 

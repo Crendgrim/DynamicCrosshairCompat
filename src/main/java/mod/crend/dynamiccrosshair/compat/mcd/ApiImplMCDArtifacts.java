@@ -1,8 +1,8 @@
 package mod.crend.dynamiccrosshair.compat.mcd;
 
 import chronosacaria.mcdar.Mcdar;
-import chronosacaria.mcdar.artefacts.*;
-import chronosacaria.mcdar.artefacts.beacon.AbstractBeaconItem;
+import chronosacaria.mcdar.artifacts.*;
+import chronosacaria.mcdar.artifacts.beacon.AbstractBeaconItem;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
@@ -18,11 +18,11 @@ public class ApiImplMCDArtifacts implements DynamicCrosshairApi {
 	@Override
 	public boolean isAlwaysUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return item instanceof ArtefactAgilityItem
-				|| item instanceof ArtefactQuiverItem
+		return item instanceof ArtifactAgilityItem
+				|| item instanceof ArtifactQuiverItem
 				|| item instanceof BlastFungusItem
 				|| item instanceof UpdraftTomeItem
-				|| (item instanceof ArtefactStatusInflictingItem && !(item instanceof SatchelOfElementsItem))
+				|| (item instanceof ArtifactStatusInflictingItem && !(item instanceof SatchelOfElementsItem))
 				;
 	}
 
@@ -30,11 +30,11 @@ public class ApiImplMCDArtifacts implements DynamicCrosshairApi {
 	public boolean isUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
 		return item instanceof AbstractBeaconItem
-				|| item instanceof ArtefactDefenciveItem
+				|| item instanceof ArtifactDefensiveItem
 				|| item instanceof HarvesterItem
 				|| item instanceof LightningRodItem
 				|| item instanceof SatchelOfElementsItem
-				|| item instanceof ArtefactSummoningItem
+				|| item instanceof ArtifactSummoningItem
 				;
 	}
 
@@ -58,10 +58,10 @@ public class ApiImplMCDArtifacts implements DynamicCrosshairApi {
 				return Crosshair.USABLE;
 			}
 		}
-		if (item instanceof ArtefactSummoningItem && context.isWithBlock()) {
+		if (item instanceof ArtifactSummoningItem && context.isWithBlock()) {
 			return Crosshair.USABLE;
 		}
-		if (item instanceof ArtefactDefenciveItem) {
+		if (item instanceof ArtifactDefensiveItem) {
 			if (item instanceof TotemOfShieldingItem
 					|| item instanceof TotemOfRegenerationItem
 					|| item instanceof TotemOfSoulProtectionItem) {

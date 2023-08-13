@@ -3,13 +3,12 @@ package mod.crend.dynamiccrosshair.compat.adorn;
 import juuxel.adorn.block.*;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.compat.mixin.adorn.ISeatBlockMixin;
+import mod.crend.dynamiccrosshair.compat.mixin.adorn.SeatBlockAccessor;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 public class ApiImplAdorn implements DynamicCrosshairApi {
@@ -35,7 +34,7 @@ public class ApiImplAdorn implements DynamicCrosshairApi {
 		Block block = context.getBlock();
 		Item handItem = context.getItem();
 
-		if (block instanceof SeatBlock seatBlock && ((ISeatBlockMixin) seatBlock).invokeIsSittingEnabled()) {
+		if (block instanceof SeatBlock seatBlock && ((SeatBlockAccessor) seatBlock).invokeIsSittingEnabled()) {
 			return Crosshair.INTERACTABLE;
 		}
 

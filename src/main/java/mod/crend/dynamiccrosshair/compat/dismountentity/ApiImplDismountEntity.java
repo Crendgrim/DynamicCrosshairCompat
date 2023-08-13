@@ -1,6 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.dismountentity;
 
-import com.natamus.dismountentity.util.Reference;
+import com.natamus.dismountentity_common_fabric.util.Reference;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;

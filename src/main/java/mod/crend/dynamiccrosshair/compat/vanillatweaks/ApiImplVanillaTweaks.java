@@ -9,9 +9,7 @@ import io.github.strikerrocker.vt.content.items.dynamite.DynamiteItem;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SignBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,16 +29,6 @@ public class ApiImplVanillaTweaks implements DynamicCrosshairApi {
 	@Override
 	public boolean isAlwaysInteractableBlock(BlockState blockState) {
 		return blockState.getBlock() instanceof PedestalBlock;
-	}
-
-	@Override
-	public Crosshair computeFromBlock(CrosshairContext context) {
-		Block block = context.getBlock();
-		if (VanillaTweaksFabric.config.tweaks.enableSignEditing && block instanceof SignBlock && context.player.isSneaking()) {
-			return Crosshair.INTERACTABLE;
-		}
-
-		return null;
 	}
 
 	@Override

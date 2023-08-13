@@ -4,17 +4,20 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "additionaladditions.ICopperPatinaBlockMixin",
-    "adorn.ISeatBlockMixin",
-    "boatcontainer.IBoatWithBlockEntityMixin",
-    "boatcontainer.IFurnaceBoatEntityMixin",
+    "adorn.SeatBlockAccessor",
+    "bewitchment.BWTameableEntityAccessor",
+    "bewitchment.SaltLineBlockAccessor",
+    "boatcontainer.BoatWithBlockEntityAccessor",
+    "boatcontainer.FurnaceBoatEntityAccessor",
     "croptopia.ICroptopiaSaplingItemMixin",
-    "decorative_blocks.ISeatBlockMixin",
     "extended_drawers.IDrawerBlockMixin",
     "farmersdelight.ICuttingBoardBlockEntityMixin",
-    "ironchests.IUpgradeItemMixin",
-    "mcwroofs.IGutterTallMixin",
-    "mcwroofs.IRainGutterMixin",
-    "nostrip.INostripClientMixin"
+    "ironchest.UpgradeItemAccessor",
+    "mcwroofs.GutterTallAccessor",
+    "mcwroofs.RainGutterAccessor",
+    "meadow.WoodenBucketAccessor",
+    "meadow.WoodenFlowerPotBlockAccessor",
+    "vinery.GrapevinePotBlockAccessor"
   ],
   "plugin": "mod.crend.dynamiccrosshair.DynamicCrosshairMixinPlugin"
 }

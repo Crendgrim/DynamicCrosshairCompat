@@ -1,7 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.blossom;
 
-import com.yurisuika.blossom.Blossom;
-import com.yurisuika.blossom.block.FloweringLeavesBlock;
+import dev.yurisuika.blossom.block.FloweringLeavesBlock;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
@@ -10,7 +9,7 @@ import net.minecraft.item.ShearsItem;
 public class ApiImplBlossom implements DynamicCrosshairApi {
 	@Override
 	public String getNamespace() {
-		return Blossom.MOD_ID;
+		return "blossom";
 	}
 
 	@Override

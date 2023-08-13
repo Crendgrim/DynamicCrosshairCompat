@@ -13,7 +13,7 @@ import appeng.block.crafting.PatternProviderBlock;
 import appeng.block.misc.*;
 import appeng.block.networking.CableBusBlock;
 import appeng.block.networking.ControllerBlock;
-import appeng.block.networking.WirelessBlock;
+import appeng.block.networking.WirelessAccessPointBlock;
 import appeng.block.qnb.QuantumLinkChamberBlock;
 import appeng.block.spatial.SpatialAnchorBlock;
 import appeng.block.spatial.SpatialIOPortBlock;
@@ -166,9 +166,8 @@ public class AE2Handler {
 			|| block instanceof CondenserBlock
 			|| block instanceof InscriberBlock
 			|| block instanceof InterfaceBlock
-			|| block instanceof SecurityStationBlock
 			|| block instanceof VibrationChamberBlock
-			|| block instanceof WirelessBlock
+			|| block instanceof WirelessAccessPointBlock
 			|| block instanceof QuantumLinkChamberBlock
 			|| block instanceof SpatialAnchorBlock
 			|| block instanceof SpatialIOPortBlock
@@ -203,9 +202,8 @@ public class AE2Handler {
 				|| block instanceof CondenserBlock
 				|| block instanceof InscriberBlock
 				|| block instanceof InterfaceBlock
-				|| block instanceof SecurityStationBlock
 				|| block instanceof VibrationChamberBlock
-				|| block instanceof WirelessBlock
+				|| block instanceof WirelessAccessPointBlock
 				|| block instanceof QuantumLinkChamberBlock
 				|| block instanceof SpatialAnchorBlock
 				|| block instanceof SpatialIOPortBlock

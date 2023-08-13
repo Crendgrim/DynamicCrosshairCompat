@@ -68,9 +68,7 @@ public class ApiImplStorageMod implements DynamicCrosshairApi {
 		}
 		if (block instanceof InventoryProxyBlock) {
 			if (context.getItemStack().isOf(Items.DIAMOND) && blockState.get(InventoryProxyBlock.FACING) != context.getBlockHitSide()) {
-				if (blockState.get(InventoryProxyBlock.FILTER_FACING) == InventoryProxyBlock.DirectionWithNull.NULL) {
-					return Crosshair.USABLE;
-				}
+				return Crosshair.USABLE;
 			}
 		}
 

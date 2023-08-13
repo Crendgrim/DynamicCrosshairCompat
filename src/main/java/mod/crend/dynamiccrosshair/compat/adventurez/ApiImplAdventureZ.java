@@ -1,6 +1,5 @@
 package mod.crend.dynamiccrosshair.compat.adventurez;
 
-import ml.pkom.advancedreborn.blocks.IndustrialTNT;
 import mod.crend.dynamiccrosshair.DynamicCrosshair;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;

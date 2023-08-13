@@ -2,8 +2,8 @@ package mod.crend.dynamiccrosshair.compat.macaw;
 
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.compat.mixin.mcwroofs.IGutterTallMixin;
-import mod.crend.dynamiccrosshair.compat.mixin.mcwroofs.IRainGutterMixin;
+import mod.crend.dynamiccrosshair.compat.mixin.mcwroofs.GutterTallAccessor;
+import mod.crend.dynamiccrosshair.compat.mixin.mcwroofs.RainGutterAccessor;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.kikoz.mcwroofs.MacawsRoofs;
 import net.kikoz.mcwroofs.objects.gutters.GutterTall;
@@ -51,9 +51,9 @@ public class ApiImplMacawsRoofs implements DynamicCrosshairApi {
 		if (block instanceof RainGutter || block instanceof GutterTall) {
 			BooleanProperty water;
 			if (block instanceof RainGutter) {
-				water = IRainGutterMixin.getWATER();
+				water = RainGutterAccessor.getWATER();
 			} else {
-				water = IGutterTallMixin.getWATER();
+				water = GutterTallAccessor.getWATER();
 			}
 			boolean hasWater = blockState.get(water);
 			if (!hasWater && itemStack.isOf(Items.WATER_BUCKET)) {

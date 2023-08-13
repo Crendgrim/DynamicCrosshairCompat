@@ -7,10 +7,8 @@ import dqu.additionaladditions.config.ConfigValues;
 import dqu.additionaladditions.item.*;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
-import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.compat.mixin.additionaladditions.ICopperPatinaBlockMixin;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import mod.crend.dynamiccrosshair.handler.VanillaUsableItemHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.item.Item;
@@ -113,7 +111,7 @@ public class ApiImplAdditionalAdditions implements DynamicCrosshairApi {
 				}
 
 				if (handItemStack.getDamage() < 100) {
-					if (wateredBlock instanceof FluidDrainable && wateredBlockState.getMaterial() == Material.WATER) {
+					if (wateredBlock == Blocks.WATER) {
 						return Crosshair.USABLE;
 					}
 				}

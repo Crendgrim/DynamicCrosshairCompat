@@ -9,7 +9,7 @@ import net.dehydration.block.CampfireCauldronBlock;
 import net.dehydration.block.CopperLeveledCauldronBlock;
 import net.dehydration.init.BlockInit;
 import net.dehydration.init.ConfigInit;
-import net.dehydration.item.Leather_Flask;
+import net.dehydration.item.LeatherFlask;
 import net.dehydration.thirst.ThirstManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -64,7 +64,7 @@ public class ApiImplDehydration implements DynamicCrosshairApi {
 				}
 			}
 			if (level > 0) {
-				if (item == Items.GLASS_BOTTLE || item instanceof Leather_Flask) {
+				if (item == Items.GLASS_BOTTLE || item instanceof LeatherFlask) {
 					return Crosshair.USABLE;
 				}
 			}

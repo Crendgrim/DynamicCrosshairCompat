@@ -19,10 +19,10 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.BlockTags;
 
 public class ApiImplConjuring implements DynamicCrosshairApi {
 	@Override
@@ -152,7 +152,7 @@ public class ApiImplConjuring implements DynamicCrosshairApi {
 		}
 
 		if (itemStack.isOf(ConjuringItems.CONJURATION_ESSENCE)) {
-			if (context.player.isSneaking() && context.isWithBlock() && context.getBlockState().getMaterial() == Material.STONE) {
+			if (context.player.isSneaking() && context.isWithBlock() && context.getBlockState().isIn(BlockTags.BASE_STONE_OVERWORLD)) {
 				return Crosshair.USABLE;
 			}
 		}

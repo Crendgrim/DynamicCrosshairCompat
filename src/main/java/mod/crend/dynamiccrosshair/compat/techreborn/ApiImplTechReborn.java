@@ -151,7 +151,7 @@ public class ApiImplTechReborn implements DynamicCrosshairApi {
 					return Crosshair.USABLE;
 				}
 			} else {
-				BlockState cover = PaintingToolItem.getCover(itemStack);
+				BlockState cover = PaintingToolItem.getCover(context.world, itemStack);
 				if (cover != null && blockState.getBlock() instanceof CableBlock && blockState.get(CableBlock.COVERED)) {
 					return Crosshair.USABLE;
 				}

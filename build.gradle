@@ -59,6 +59,8 @@ dependencies {
 	modImplementation("software.bernie.geckolib:geckolib-fabric-${project.gecko_version}")
 	modImplementation("io.wispforest:owo-lib:${project.owo_version}")
 	modImplementation("de.guntram.mcmod:GBfabrictools:${project.gbfabrictools_version}")
+	// Immersive Portals is split up weirdly, so we have to include it manually
+	modImplementation ("com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:${immersiveportals_version}")
 
 	/* Dependencies for DynamicCrosshair, so it runs in a dev environment */
 	if (project.hasProperty("dynamiccrosshair_use_local_jar")) {

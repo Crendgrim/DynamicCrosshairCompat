@@ -6,7 +6,7 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.mixin.meadow.WoodenBucketAccessor;
 import mod.crend.dynamiccrosshair.compat.mixin.meadow.WoodenFlowerPotBlockAccessor;
 import mod.crend.dynamiccrosshair.component.Crosshair;
-import mod.crend.dynamiccrosshair.mixin.IItemMixin;
+import mod.crend.dynamiccrosshair.mixin.ItemAccessor;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.CowEntity;
@@ -227,7 +227,7 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 		Item item = itemStack.getItem();
 
 		if (item instanceof WateringCanItem && context.isWithBlock() && !context.player.isSneaking()) {
-			BlockHitResult hitResult = IItemMixin.invokeRaycast(context.world, context.player, RaycastContext.FluidHandling.SOURCE_ONLY);
+			BlockHitResult hitResult = ItemAccessor.invokeRaycast(context.world, context.player, RaycastContext.FluidHandling.SOURCE_ONLY);
 			BlockPos blockPos;
 			if (hitResult.getType() == HitResult.Type.BLOCK) {
 				blockPos = hitResult.getBlockPos();
@@ -254,7 +254,7 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 
 		if (item instanceof WoodenBucket bucket) {
 			Fluid fluid = ((WoodenBucketAccessor) bucket).getFluid();
-			BlockHitResult blockHitResult = IItemMixin.invokeRaycast(
+			BlockHitResult blockHitResult = ItemAccessor.invokeRaycast(
 					context.world,
 					context.player,
 					fluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);

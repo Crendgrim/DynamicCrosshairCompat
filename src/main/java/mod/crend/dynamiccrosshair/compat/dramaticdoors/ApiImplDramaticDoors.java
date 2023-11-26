@@ -1,10 +1,15 @@
 package mod.crend.dynamiccrosshair.compat.dramaticdoors;
 
-import com.fizzware.dramaticdoors.DramaticDoors;
-import com.fizzware.dramaticdoors.blockentities.TallNetheriteDoorBlockEntity;
-import com.fizzware.dramaticdoors.blocks.*;
-import com.fizzware.dramaticdoors.tags.DDBlockTags;
-import com.fizzware.dramaticdoors.tags.DDItemTags;
+import com.fizzware.dramaticdoors.fabric.DramaticDoors;
+import com.fizzware.dramaticdoors.fabric.blockentities.TallNetheriteDoorBlockEntity;
+import com.fizzware.dramaticdoors.fabric.blocks.ShortDoorBlock;
+import com.fizzware.dramaticdoors.fabric.blocks.ShortNetheriteDoorBlock;
+import com.fizzware.dramaticdoors.fabric.blocks.TallDoorBlock;
+import com.fizzware.dramaticdoors.fabric.blocks.TallNetheriteDoorBlock;
+import com.fizzware.dramaticdoors.fabric.compat.Compats;
+import com.fizzware.dramaticdoors.fabric.compat.registries.SupplementariesCompat;
+import com.fizzware.dramaticdoors.fabric.tags.DDBlockTags;
+import com.fizzware.dramaticdoors.fabric.tags.DDItemTags;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
@@ -50,16 +55,28 @@ public class ApiImplDramaticDoors implements DynamicCrosshairApi {
 		}
 		if (block instanceof ShortDoorBlock door) {
 			if (door.type().canOpenByHand() || blockState.isIn(DDBlockTags.HAND_OPENABLE_SHORT_METAL_DOORS)) {
-				if (door != DDBlocks.SHORT_GOLD_DOOR || !(Boolean)blockState.get(TallDoorBlock.POWERED)) {
-					return Crosshair.INTERACTABLE;
+				if (Compats.SUPPLEMENTARIES_INSTALLED) {
+					if (block == SupplementariesCompat.SHORT_GOLD_DOOR && blockState.get(ShortDoorBlock.POWERED)) {
+						return null;
+					}
+					if (block == SupplementariesCompat.SHORT_SILVER_DOOR && !blockState.get(ShortDoorBlock.POWERED)) {
+						return null;
+					}
 				}
+				return Crosshair.INTERACTABLE;
 			}
 		}
 		if (block instanceof TallDoorBlock door) {
 			if (door.type().canOpenByHand() || blockState.isIn(DDBlockTags.HAND_OPENABLE_TALL_METAL_DOORS)) {
-				if (door != DDBlocks.TALL_GOLD_DOOR || !(Boolean)blockState.get(TallDoorBlock.POWERED)) {
-					return Crosshair.INTERACTABLE;
+				if (Compats.SUPPLEMENTARIES_INSTALLED) {
+					if (block == SupplementariesCompat.TALL_GOLD_DOOR && blockState.get(TallDoorBlock.POWERED)) {
+						return null;
+					}
+					if (block == SupplementariesCompat.TALL_SILVER_DOOR && !blockState.get(TallDoorBlock.POWERED)) {
+						return null;
+					}
 				}
+				return Crosshair.INTERACTABLE;
 			}
 		}
 

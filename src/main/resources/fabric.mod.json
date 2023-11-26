@@ -69,6 +69,7 @@
       "mod.crend.dynamiccrosshair.compat.galosphere.ApiImplGalosphere",
       "mod.crend.dynamiccrosshair.compat.graves.ApiImplUniversalGraves",
       "mod.crend.dynamiccrosshair.compat.guardvillagers.ApiImplGuardVillagers",
+      "mod.crend.dynamiccrosshair.compat.hwg.ApiImplHWG",
       "mod.crend.dynamiccrosshair.compat.immersiveportals.ApiImplImmersivePortals",
       "mod.crend.dynamiccrosshair.compat.indrev.ApiImplIndustrialRevolution",
       "mod.crend.dynamiccrosshair.compat.interactic.ApiImplInteractic",

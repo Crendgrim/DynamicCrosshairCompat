@@ -3,6 +3,7 @@ package mod.crend.dynamiccrosshair.compat.dramaticdoors;
 import com.fizzware.dramaticdoors.DramaticDoors;
 import com.fizzware.dramaticdoors.blockentities.TallNetheriteDoorBlockEntity;
 import com.fizzware.dramaticdoors.blocks.*;
+import com.fizzware.dramaticdoors.compat.Compats;
 import com.fizzware.dramaticdoors.tags.DDBlockTags;
 import com.fizzware.dramaticdoors.tags.DDItemTags;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
@@ -11,6 +12,7 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 
 public class ApiImplDramaticDoors implements DynamicCrosshairApi {
 	@Override
@@ -50,14 +52,16 @@ public class ApiImplDramaticDoors implements DynamicCrosshairApi {
 		}
 		if (block instanceof ShortDoorBlock door) {
 			if (door.type().canOpenByHand() || blockState.isIn(DDBlockTags.HAND_OPENABLE_SHORT_METAL_DOORS)) {
-				if (door != DDBlocks.SHORT_GOLD_DOOR || !(Boolean)blockState.get(TallDoorBlock.POWERED)) {
+				if ((!Compats.SUPPLEMENTARIES_INSTALLED || door != Registries.BLOCK.get(ShortDoorBlock.GOLD_DOOR_RES) || !blockState.get(ShortDoorBlock.POWERED))
+						&& (door != Registries.BLOCK.get(ShortDoorBlock.SILVER_DOOR_RES) || blockState.get(ShortDoorBlock.POWERED))) {
 					return Crosshair.INTERACTABLE;
 				}
 			}
 		}
 		if (block instanceof TallDoorBlock door) {
 			if (door.type().canOpenByHand() || blockState.isIn(DDBlockTags.HAND_OPENABLE_TALL_METAL_DOORS)) {
-				if (door != DDBlocks.TALL_GOLD_DOOR || !(Boolean)blockState.get(TallDoorBlock.POWERED)) {
+				if ((!Compats.SUPPLEMENTARIES_INSTALLED || door != Registries.BLOCK.get(TallDoorBlock.GOLD_DOOR_RES) || !blockState.get(TallDoorBlock.POWERED))
+						&& (door != Registries.BLOCK.get(TallDoorBlock.SILVER_DOOR_RES) || blockState.get(TallDoorBlock.POWERED))) {
 					return Crosshair.INTERACTABLE;
 				}
 			}

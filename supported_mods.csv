@@ -36,7 +36,7 @@ dehydration,modrinth,1.3.4+1.20
 disenchanter,curse,542473:4576396
 dismount-entity,modrinth,1.20.1-3.0-forge+fabric
 do-api,curse,864599:4695820
-dramatic-doors,curse,380617:4675138
+dramatic-doors,curse,380617:4766924
 emerald-geodes,curse,437712:4598688
 enderchests,curse,564584:4623860
 expanded-delight,curse,620770:4669746
@@ -54,6 +54,7 @@ macaws_bridges,curse,351725:4599790
 macaws_doors,curse,378646:4649888
 macaws_lights,curse,502372:4618169
 macaws_roofs,curse,352039:4590013
+macaws_windows,curse,363569:4781670
 mariums-soulslike-weaponry,curse,632066:4619687
 mcdar,curse,476788:4628115
 mcdw,curse,407311:4622975
@@ -63,8 +64,10 @@ merequester,curse,688367:4665974
 more-banner-features,curse,515000:4575797
 multibeds,curse,536608:4623865
 natures-compass,curse,252848:4591880
+no-strip,modrinth,1.2.3
 numismatic-overhaul,curse,568316:4576392
 omni-hopper,curse,610606:4601561
+paladins-furniture,curse,663141:4861535
 patchouli,modrinth,1.20.1-81-fabric
 platforms,curse,536610:4623871
 reborncore,curse,237903:4608597

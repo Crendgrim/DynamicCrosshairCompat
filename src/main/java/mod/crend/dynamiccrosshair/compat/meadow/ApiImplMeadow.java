@@ -241,7 +241,7 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 			if (itemStack.getDamage() < itemStack.getMaxDamage() || context.player.getAbilities().creativeMode) {
 				BlockState blockState = context.getBlockState();
 				blockPos = context.getBlockPos();
-				if (blockState instanceof Fertilizable fertilizable && fertilizable.isFertilizable(context.world, blockPos, blockState, true)) {
+				if (blockState instanceof Fertilizable fertilizable && fertilizable.isFertilizable(context.world, blockPos, blockState)) {
 					return Crosshair.USABLE;
 				} else {
 					if (blockState.isSideSolidFullSquare(context.world, blockPos, context.getBlockHitSide())

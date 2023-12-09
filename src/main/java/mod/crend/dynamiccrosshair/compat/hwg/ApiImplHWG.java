@@ -4,7 +4,7 @@ import mod.azure.hwg.HWGMod;
 import mod.azure.hwg.blocks.FuelTankBlock;
 import mod.azure.hwg.blocks.GunTableBlock;
 import mod.azure.hwg.item.ammo.*;
-import mod.azure.hwg.item.weapons.HWGGunBase;
+import mod.azure.hwg.item.weapons.AzureAnimatedGunItem;
 import mod.azure.hwg.item.weapons.HWGGunLoadedBase;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
@@ -35,7 +35,7 @@ public class ApiImplHWG implements DynamicCrosshairApi {
 			return ItemCategory.THROWABLE;
 		}
 
-		if (item instanceof HWGGunBase || item instanceof HWGGunLoadedBase) {
+		if (item instanceof AzureAnimatedGunItem || item instanceof HWGGunLoadedBase) {
 			return ItemCategory.RANGED_WEAPON;
 		}
 
@@ -56,7 +56,7 @@ public class ApiImplHWG implements DynamicCrosshairApi {
 			return Crosshair.THROWABLE;
 		}
 
-		if (item instanceof HWGGunBase) {
+		if (item instanceof AzureAnimatedGunItem) {
 			return Crosshair.RANGED_WEAPON;
 		}
 

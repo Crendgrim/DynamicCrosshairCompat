@@ -1,6 +1,5 @@
 package mod.crend.dynamiccrosshair.compat.magiccombatwands;
 
-import dlovin.smalls.magiccombatwands.MagicWand;
 import dlovin.smalls.magiccombatwands.core.items.WandItem;
 import mod.crend.dynamiccrosshair.DynamicCrosshair;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
@@ -13,7 +12,7 @@ import net.minecraft.item.ItemStack;
 public class ApiImplMagicCombatWands implements DynamicCrosshairApi {
 	@Override
 	public String getNamespace() {
-		return MagicWand.modid;
+		return "magiccombatwands";
 	}
 
 	@Override

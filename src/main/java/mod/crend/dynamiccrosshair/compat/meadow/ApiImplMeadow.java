@@ -1,6 +1,6 @@
 package mod.crend.dynamiccrosshair.compat.meadow;
 
-import juuxel.adorn.block.ChairBlock;
+import de.cristelknight.doapi.common.block.ChairBlock;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.mixin.meadow.WoodenBucketAccessor;

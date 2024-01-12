@@ -10,7 +10,6 @@
     "boatcontainer.BoatWithBlockEntityAccessor",
     "boatcontainer.FurnaceBoatEntityAccessor",
     "croptopia.ICroptopiaSaplingItemMixin",
-    "extended_drawers.IDrawerBlockMixin",
     "farmersdelight.ICuttingBoardBlockEntityMixin",
     "ironchest.UpgradeItemAccessor",
     "mcwroofs.GutterTallAccessor",

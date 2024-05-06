@@ -1,5 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.vinery;
 
+import de.cristelknight.doapi.Util;
+import de.cristelknight.doapi.common.block.ChairBlock;
 import de.cristelknight.doapi.common.block.StorageBlock;
 import de.cristelknight.doapi.common.block.entity.StorageBlockEntity;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
@@ -10,35 +12,41 @@ import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.SlabType;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ShearsItem;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Direction;
 import satisfyu.vinery.Vinery;
-import satisfyu.vinery.block.*;
-import satisfyu.vinery.block.entity.FlowerBoxBlockEntity;
-import satisfyu.vinery.block.entity.FlowerPotBlockEntity;
+import satisfyu.vinery.block.AppleLeaves;
+import satisfyu.vinery.block.ApplePressBlock;
+import satisfyu.vinery.block.BasketBlock;
+import satisfyu.vinery.block.CalendarBlock;
+import satisfyu.vinery.block.CherryLeaves;
+import satisfyu.vinery.block.FermentationBarrelBlock;
+import satisfyu.vinery.block.GrapeItem;
+import satisfyu.vinery.block.GrapevinePotBlock;
+import satisfyu.vinery.block.StackableLogBlock;
 import satisfyu.vinery.block.grape.GrapeBush;
 import satisfyu.vinery.block.grape.GrapeVineBlock;
-import satisfyu.vinery.block.stem.LatticeStemBlock;
+import satisfyu.vinery.block.stem.LatticeBlock;
 import satisfyu.vinery.block.stem.PaleStemBlock;
 import satisfyu.vinery.block.stem.StemBlock;
-import satisfyu.vinery.block.storage.FlowerBoxBlock;
 import satisfyu.vinery.block.storage.WineBottleBlock;
 import satisfyu.vinery.block.storage.WineBox;
 import satisfyu.vinery.item.GrapeBushSeedItem;
 import satisfyu.vinery.item.RottenCherryItem;
 import satisfyu.vinery.registry.ObjectRegistry;
-import satisfyu.vinery.util.VineryTags;
-import satisfyu.vinery.util.VineryUtils;
 
 import java.util.Optional;
 
 public class ApiImplVinery implements DynamicCrosshairApi {
 	@Override
 	public String getNamespace() {
-		return Vinery.MODID;
+		return Vinery.MOD_ID;
 	}
 
 	public Crosshair fromBush(BlockState blockState, ItemStack itemStack, IntProperty ageProperty, int maxAge) {
@@ -56,7 +64,7 @@ public class ApiImplVinery implements DynamicCrosshairApi {
 		Block block = blockState.getBlock();
 		return block instanceof FermentationBarrelBlock
 				|| block instanceof ApplePressBlock
-				|| block instanceof WineRackStorageBlock
+				|| block instanceof BasketBlock
 		;
 	}
 
@@ -71,14 +79,14 @@ public class ApiImplVinery implements DynamicCrosshairApi {
 	@Override
 	public boolean isInteractableBlock(BlockState blockState) {
 		Block block = blockState.getBlock();
-		return block instanceof GrapeBush
+		return block instanceof AppleLeaves
+				|| block instanceof CherryLeaves
+				|| block instanceof CalendarBlock
+				|| block instanceof GrapeBush
 				|| block instanceof GrapeVineBlock
 				|| block instanceof StemBlock
-				|| block instanceof BasketBlock
 				|| block instanceof ChairBlock
-				|| block instanceof FlowerPotBlock
 				|| block instanceof GrapevinePotBlock
-				|| block instanceof KitchenSinkBlock
 				|| block instanceof StackableLogBlock
 				|| block instanceof StorageBlock
 		;
@@ -89,6 +97,23 @@ public class ApiImplVinery implements DynamicCrosshairApi {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 		ItemStack itemStack = context.getItemStack();
+
+		if (block instanceof AppleLeaves) {
+			if (blockState.get(AppleLeaves.VARIANT) && blockState.get(AppleLeaves.HAS_APPLES)) {
+				return Crosshair.INTERACTABLE;
+			}
+		}
+		if (block instanceof CherryLeaves) {
+			if (blockState.get(CherryLeaves.VARIANT) && blockState.get(CherryLeaves.HAS_CHERRIES)) {
+				return Crosshair.INTERACTABLE;
+			}
+		}
+
+		if (block instanceof CalendarBlock) {
+			if (!context.player.isSneaky()) {
+				return Crosshair.INTERACTABLE;
+			}
+		}
 
 		if (block instanceof GrapeBush) {
 			return fromBush(blockState, itemStack, GrapeBush.AGE, 3);
@@ -106,26 +131,18 @@ public class ApiImplVinery implements DynamicCrosshairApi {
 			if (age > 0 && itemStack.isOf(Items.SHEARS)) {
 				return Crosshair.USABLE;
 			} else if (age == 0 && itemStack.getItem() instanceof GrapeBushSeedItem seed) {
-				if (block instanceof LatticeStemBlock) {
-					if (!seed.getType().isPaleType()) {
+				if (block instanceof LatticeBlock) {
+					if (!seed.getType().isLattice()) {
 						return Crosshair.USABLE;
 					}
 				} else if (block instanceof PaleStemBlock stem) {
-					if (stem.hasTrunk(context.world, context.getBlockPos()) && seed.getType().isPaleType()) {
+					if (stem.hasTrunk(context.world, context.getBlockPos()) && seed.getType().isLattice()) {
 						return Crosshair.USABLE;
 					}
 				}
 			}
 			if (age > 3) {
 				return Crosshair.INTERACTABLE;
-			}
-		}
-
-		if (block instanceof BasketBlock) {
-			if (context.player.isSneaking() && blockState.get(BasketBlock.STAGE) > 0) {
-				return Crosshair.INTERACTABLE;
-			} else if (itemStack.isOf(ObjectRegistry.RED_GRAPE.get().asItem()) && blockState.get(BasketBlock.STAGE) < 1) {
-				return Crosshair.USABLE;
 			}
 		}
 
@@ -141,52 +158,12 @@ public class ApiImplVinery implements DynamicCrosshairApi {
 			}
 		}
 
-		if (block instanceof FlowerBoxBlock
-				&& !context.player.isSneaking()
-				&& context.getBlockEntity() instanceof FlowerBoxBlockEntity flowerBox
-		) {
-			if (itemStack.isEmpty()) {
-				if (!flowerBox.isSlotEmpty(0) || !flowerBox.isSlotEmpty(1)) {
-					return Crosshair.INTERACTABLE;
-				}
-			} else if (itemStack.isIn(VineryTags.SMALL_FLOWER)) {
-				if (flowerBox.isSlotEmpty(0) || flowerBox.isSlotEmpty(1)) {
-					return Crosshair.USABLE;
-				}
-			}
-		}
-
-		if (block instanceof FlowerPotBlock flowerPotBlock
-				&& context.isMainHand()
-				&& !context.player.isSneaking()
-				&& context.getBlockEntity() instanceof FlowerPotBlockEntity flowerPotBlockEntity
-		) {
-			Item flower = flowerPotBlockEntity.getFlower();
-			if (itemStack.isEmpty()) {
-				if (flower != null) {
-					return Crosshair.INTERACTABLE;
-				}
-			} else if (flowerPotBlock.fitInPot(itemStack) && flower == null) {
-				return Crosshair.USABLE;
-			}
-		}
-
 		if (block instanceof GrapevinePotBlock potBlock) {
 			if (itemStack.getItem() instanceof GrapeItem) {
 				if (blockState.get(GrapevinePotBlockAccessor.getSTAGE()) <= 3 && blockState.get(GrapevinePotBlockAccessor.getSTORAGE()) < 9) {
 					return Crosshair.USABLE;
 				}
 			} else if (itemStack.isOf(ObjectRegistry.WINE_BOTTLE.get().asItem()) && ((GrapevinePotBlockAccessor) potBlock).invokeCanTakeWine(blockState, itemStack)) {
-				return Crosshair.USABLE;
-			}
-		}
-
-		if (block instanceof KitchenSinkBlock) {
-			if (itemStack.isEmpty() && !blockState.get(KitchenSinkBlock.FILLED)) {
-				return Crosshair.INTERACTABLE;
-			} else if ((itemStack.isOf(Items.WATER_BUCKET) || itemStack.isOf(Items.GLASS_BOTTLE)) && !blockState.get(KitchenSinkBlock.FILLED)) {
-				return Crosshair.USABLE;
-			} else if ((itemStack.isOf(Items.BUCKET) || itemStack.isOf(Items.GLASS_BOTTLE)) && blockState.get(KitchenSinkBlock.FILLED)) {
 				return Crosshair.USABLE;
 			}
 		}
@@ -209,7 +186,7 @@ public class ApiImplVinery implements DynamicCrosshairApi {
 				}
 			}
 
-			Optional<Pair<Float, Float>> optional = VineryUtils.getRelativeHitCoordinatesForBlockFace(context.getBlockHitResult(), blockState.get(StorageBlock.FACING), storageBlock.unAllowedDirections());
+			Optional<Pair<Float, Float>> optional = Util.getRelativeHitCoordinatesForBlockFace(context.getBlockHitResult(), blockState.get(StorageBlock.FACING), storageBlock.unAllowedDirections());
 			if (optional.isPresent()) {
 				Pair<Float, Float> ff = optional.get();
 				int i = storageBlock.getSection(ff.getLeft(), ff.getRight());

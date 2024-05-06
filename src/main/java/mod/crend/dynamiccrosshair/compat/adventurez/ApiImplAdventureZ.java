@@ -6,12 +6,18 @@ import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.api.ItemCategory;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.config.UsableCrosshairPolicy;
-import net.adventurez.block.StoneHolderBlock;
-import net.adventurez.block.entity.StoneHolderEntity;
+import net.adventurez.block.ChiseledPolishedBlackstoneHolder;
+import net.adventurez.block.entity.ChiseledPolishedBlackstoneHolderEntity;
 import net.adventurez.entity.EnderWhaleEntity;
 import net.adventurez.init.ConfigInit;
 import net.adventurez.init.TagInit;
-import net.adventurez.item.*;
+import net.adventurez.item.BlackstoneGolemArm;
+import net.adventurez.item.BlackstoneGolemHeart;
+import net.adventurez.item.EnderFlute;
+import net.adventurez.item.GildedBlackstoneShard;
+import net.adventurez.item.Handbook;
+import net.adventurez.item.PrimeEyeItem;
+import net.adventurez.item.SourceStone;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -27,7 +33,7 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 
 	@Override
 	public boolean isInteractableBlock(BlockState blockState) {
-		return blockState.getBlock() instanceof StoneHolderBlock;
+		return blockState.getBlock() instanceof ChiseledPolishedBlackstoneHolder;
 	}
 
 	@Override
@@ -35,8 +41,8 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 		BlockState blockState = context.getBlockState();
 		Block block = blockState.getBlock();
 
-		if (block instanceof StoneHolderBlock) {
-			if (context.getBlockEntity() instanceof StoneHolderEntity blockEntity) {
+		if (block instanceof ChiseledPolishedBlackstoneHolder) {
+			if (context.getBlockEntity() instanceof ChiseledPolishedBlackstoneHolderEntity blockEntity) {
 				ItemStack blockStack = blockEntity.getStack(0);
 				if (!blockStack.isEmpty()) {
 					return Crosshair.INTERACTABLE;
@@ -52,10 +58,13 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 	@Override
 	public ItemCategory getItemCategory(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		if (item instanceof GildedStoneItem || item instanceof PrimeEyeItem) {
+		if (item instanceof GildedBlackstoneShard && ConfigInit.CONFIG.allow_gilded_blackstone_shard_throw) {
 			return ItemCategory.THROWABLE;
 		}
-		if (item instanceof StoneGolemArm) {
+		if (item instanceof PrimeEyeItem) {
+			return ItemCategory.THROWABLE;
+		}
+		if (item instanceof BlackstoneGolemArm) {
 			return ItemCategory.RANGED_WEAPON;
 		}
 		return DynamicCrosshairApi.super.getItemCategory(itemStack);
@@ -64,15 +73,15 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 	@Override
 	public boolean isAlwaysUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return item instanceof EnderFluteItem
-				|| item instanceof HandbookItem
-				|| item instanceof SourceStoneItem;
+		return item instanceof EnderFlute
+				|| item instanceof Handbook
+				|| item instanceof SourceStone;
 	}
 
 	@Override
 	public boolean isUsableItem(ItemStack itemStack) {
 		Item item = itemStack.getItem();
-		return item instanceof StoneGolemHeartItem;
+		return item instanceof BlackstoneGolemHeart;
 	}
 
 	@Override
@@ -81,7 +90,7 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 		Item item = handItemStack.getItem();
 
 		if (context.includeUsableItem()) {
-			if (item instanceof StoneGolemHeartItem) {
+			if (item instanceof BlackstoneGolemHeart) {
 				if (context.player.isSneaking()) {
 					return Crosshair.USABLE;
 				}
@@ -89,7 +98,7 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 		}
 
 		if (context.includeThrowable()) {
-			if (item instanceof GildedStoneItem) {
+			if (item instanceof GildedBlackstoneShard && ConfigInit.CONFIG.allow_gilded_blackstone_shard_throw) {
 				if (!context.player.isSneaking()) {
 					return Crosshair.THROWABLE;
 				}
@@ -102,7 +111,7 @@ public class ApiImplAdventureZ implements DynamicCrosshairApi {
 		}
 
 		if (context.includeRangedWeapon()) {
-			if (item instanceof StoneGolemArm) {
+			if (item instanceof BlackstoneGolemArm) {
 				if (DynamicCrosshair.config.dynamicCrosshairHoldingRangedWeapon() == UsableCrosshairPolicy.Always) {
 					return Crosshair.RANGED_WEAPON;
 				}

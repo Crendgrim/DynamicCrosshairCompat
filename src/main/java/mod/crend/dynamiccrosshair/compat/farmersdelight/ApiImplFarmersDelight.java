@@ -1,15 +1,15 @@
 package mod.crend.dynamiccrosshair.compat.farmersdelight;
 
-import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import net.minecraft.block.BlockState;
+import vectorwing.farmersdelight.FarmersDelight;
 
 public class ApiImplFarmersDelight implements DynamicCrosshairApi {
 	@Override
 	public String getNamespace() {
-		return FarmersDelightMod.MOD_ID;
+		return FarmersDelight.MODID;
 	}
 
 	@Override

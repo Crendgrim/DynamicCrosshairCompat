@@ -4,7 +4,7 @@ addadd,modrinth,6.0.1
 adorn,modrinth,5.0.1-fabric
 advanced-reborn,modrinth,1.2.2-fabric
 advancement-frames,curse,556795:4608888
-adventurez,modrinth,1.4.18+1.20
+adventurez,modrinth,1.4.20+1.20.1
 alloy_forgery,curse,438718:4574505
 animal_feeding_trough,curse,445838:4606794
 applied-energistics-2,curse,223794:4680361
@@ -46,7 +46,7 @@ emerald-geodes,curse,437712:4598688
 enderchests,curse,564584:4623860
 expanded-delight,curse,620770:4669746
 extended-drawers,curse,616602:4946096
-farmers-delight,curse,482834:4640640
+farmers-delight-refabricated,modrinth,1.20.1-2.1.1
 friends-and-foes,curse,551364:4602747
 galosphere,curse,631098:4668863
 goblin-traders,curse,667389:4802504

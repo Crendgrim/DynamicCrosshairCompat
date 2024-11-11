@@ -9,8 +9,8 @@ import net.minecraft.entity.passive.GoatEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.satisfyu.meadow.Meadow;
-import net.satisfyu.meadow.item.WoodenBucket;
+import net.satisfy.meadow.Meadow;
+import net.satisfy.meadow.item.WoodenBucket;
 
 public class ApiImplMeadowForced implements DynamicCrosshairApi {
 	@Override

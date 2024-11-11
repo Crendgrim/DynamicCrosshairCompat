@@ -16,7 +16,6 @@
     "mcwroofs.GutterTallAccessor",
     "mcwroofs.RainGutterAccessor",
     "meadow.WoodenBucketAccessor",
-    "meadow.WoodenFlowerPotBlockAccessor",
     "vinery.GrapevinePotBlockAccessor"
   ],
   "plugin": "mod.crend.dynamiccrosshair.DynamicCrosshairMixinPlugin"

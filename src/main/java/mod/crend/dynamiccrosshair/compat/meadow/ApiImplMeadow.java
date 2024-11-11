@@ -1,19 +1,32 @@
 package mod.crend.dynamiccrosshair.compat.meadow;
 
+import de.cristelknight.doapi.Util;
+import de.cristelknight.doapi.common.block.BenchBlock;
 import de.cristelknight.doapi.common.block.ChairBlock;
+import de.cristelknight.doapi.common.block.FlowerBoxBlock;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.compat.mixin.meadow.WoodenBucketAccessor;
-import mod.crend.dynamiccrosshair.compat.mixin.meadow.WoodenFlowerPotBlockAccessor;
 import mod.crend.dynamiccrosshair.component.Crosshair;
 import mod.crend.dynamiccrosshair.mixin.ItemAccessor;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Fertilizable;
+import net.minecraft.block.FlowerPotBlock;
+import net.minecraft.block.FluidDrainable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
+import net.minecraft.item.BucketItem;
+import net.minecraft.item.FireChargeItem;
+import net.minecraft.item.FlintAndSteelItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.MilkBucketItem;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
@@ -21,18 +34,25 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.RaycastContext;
-import net.satisfyu.meadow.Meadow;
-import net.satisfyu.meadow.block.FlowerPotBlock;
-import net.satisfyu.meadow.block.*;
-import net.satisfyu.meadow.entity.blockentities.CheeseRackBlockEntity;
-import net.satisfyu.meadow.entity.blockentities.FlowerBoxBlockEntity;
-import net.satisfyu.meadow.entity.blockentities.FlowerPotBlockEntity;
-import net.satisfyu.meadow.entity.buffalo.WaterBuffalo;
-import net.satisfyu.meadow.item.WateringCanItem;
-import net.satisfyu.meadow.item.WoodenBucket;
-import net.satisfyu.meadow.registry.ObjectRegistry;
-import net.satisfyu.meadow.registry.TagRegistry;
-import net.satisfyu.meadow.util.GeneralUtil;
+import net.satisfy.meadow.Meadow;
+import net.satisfy.meadow.block.CameraBlock;
+import net.satisfy.meadow.block.CanBlock;
+import net.satisfy.meadow.block.CheeseBlock;
+import net.satisfy.meadow.block.CheeseFormBlock;
+import net.satisfy.meadow.block.CookingCauldronBlock;
+import net.satisfy.meadow.block.FireLog;
+import net.satisfy.meadow.block.FondueBlock;
+import net.satisfy.meadow.block.FrameBlock;
+import net.satisfy.meadow.block.ShutterBlock;
+import net.satisfy.meadow.block.StoveBlockWood;
+import net.satisfy.meadow.block.WoodcutterBlock;
+import net.satisfy.meadow.block.entity.CheeseRackBlockEntity;
+import net.satisfy.meadow.block.storage.CheeseRackBlock;
+import net.satisfy.meadow.entity.WaterBuffalo;
+import net.satisfy.meadow.item.WateringCanItem;
+import net.satisfy.meadow.item.WoodenBucket;
+import net.satisfy.meadow.registry.ObjectRegistry;
+import net.satisfy.meadow.registry.TagRegistry;
 
 import java.util.Optional;
 
@@ -58,7 +78,6 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 				|| block instanceof CameraBlock
 				|| block instanceof CheeseBlock
 				|| block instanceof FondueBlock
-				|| block instanceof ShelfBlock
 				|| block instanceof ShutterBlock
 				|| block instanceof WoodcutterBlock
 				;
@@ -75,8 +94,6 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 				|| block instanceof FlowerPotBlock
 				|| block instanceof FrameBlock
 				|| block instanceof StoveBlockWood
-				|| block instanceof TiledBench
-				|| block instanceof WoodenFlowerPotBlock
 				|| block instanceof FlowerBoxBlock
 				;
 	}
@@ -87,8 +104,8 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 		Block block = blockState.getBlock();
 		ItemStack itemStack = context.getItemStack();
 
-		if (block instanceof CheeseRackBlock && !context.player.isSneaking() && context.getBlockEntity() instanceof CheeseRackBlockEntity be) {
-			Optional<Pair<Float, Float>> optional = GeneralUtil.getRelativeHitCoordinatesForBlockFace(context.getBlockHitResult(), blockState.get(CheeseRackBlock.FACING), null);
+		if (block instanceof CheeseRackBlock cheeseRackBlock && !context.player.isSneaking() && context.getBlockEntity() instanceof CheeseRackBlockEntity be) {
+			Optional<Pair<Float, Float>> optional = Util.getRelativeHitCoordinatesForBlockFace(context.getBlockHitResult(), blockState.get(CheeseRackBlock.FACING), cheeseRackBlock.unAllowedDirections());
 			if (optional.isPresent()) {
 				int slot = optional.get().getRight() > 0.5 ? 1 : 0;
 
@@ -100,7 +117,7 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 			}
 		}
 
-		if (block instanceof BenchBlock || block instanceof ChairBlock || block instanceof TiledBench) {
+		if (block instanceof BenchBlock || block instanceof ChairBlock) {
 			if (!context.player.isSneaking() && context.getBlockHitSide() != Direction.DOWN) {
 				return Crosshair.INTERACTABLE;
 			}
@@ -152,44 +169,6 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 				if (itemStack.getItem() instanceof FlintAndSteelItem || itemStack.getItem() instanceof FireChargeItem) {
 					return Crosshair.USABLE;
 				}
-			}
-		}
-
-		if (block instanceof WoodenFlowerPotBlock flowerPot) {
-			if (itemStack.getItem() instanceof BlockItem blockItem && WoodenFlowerPotBlockAccessor.getWOODEN_CONTENT_TO_POTTED().containsKey(blockItem)) {
-				if (((WoodenFlowerPotBlockAccessor) flowerPot).invokeIsEmpty()) {
-					return Crosshair.USABLE;
-				}
-			} else {
-				if (!((WoodenFlowerPotBlockAccessor) flowerPot).invokeIsEmpty()) {
-					return Crosshair.INTERACTABLE;
-				}
-			}
-		}
-
-		if (block instanceof FlowerBoxBlock
-				&& !context.player.isSneaking()
-				&& context.getBlockEntity() instanceof FlowerBoxBlockEntity flowerBox
-		) {
-			if (itemStack.isEmpty()) {
-				if (!flowerBox.isSlotEmpty(0) || !flowerBox.isSlotEmpty(1)) {
-					return Crosshair.INTERACTABLE;
-				}
-			} else if (itemStack.isIn(TagRegistry.SMALL_FLOWER)) {
-				if (flowerBox.isSlotEmpty(0) || flowerBox.isSlotEmpty(1)) {
-					return Crosshair.USABLE;
-				}
-			}
-		}
-
-		if (block instanceof FlowerPotBlock flowerPot && context.getBlockEntity() instanceof FlowerPotBlockEntity flowerPotEntity) {
-			Item flower = flowerPotEntity.getFlower();
-			if (itemStack.isEmpty()) {
-				if (flower != null) {
-					return Crosshair.INTERACTABLE;
-				}
-			} else if (flowerPot.fitInPot(itemStack) && flower == null) {
-				return Crosshair.USABLE;
 			}
 		}
 
@@ -253,7 +232,7 @@ public class ApiImplMeadow implements DynamicCrosshairApi {
 		}
 
 		if (item instanceof WoodenBucket bucket) {
-			Fluid fluid = ((WoodenBucketAccessor) bucket).getFluid();
+			Fluid fluid = ((WoodenBucketAccessor) bucket).getContent();
 			BlockHitResult blockHitResult = ItemAccessor.invokeRaycast(
 					context.world,
 					context.player,

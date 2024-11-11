@@ -1,11 +1,11 @@
 package mod.crend.dynamiccrosshair.compat.villagersplus;
 
-import com.finallion.villagersplus.VillagersPlus;
-import com.finallion.villagersplus.blocks.AlchemistTableBlock;
-import com.finallion.villagersplus.blocks.HorticulturistTableBlock;
-import com.finallion.villagersplus.blocks.OccultistTableBlock;
-import com.finallion.villagersplus.blocks.OceanographerTableBlock;
-import com.finallion.villagersplus.init.ModTags;
+import com.lion.villagersplus.VillagersPlus;
+import com.lion.villagersplus.blocks.AlchemistTableBlock;
+import com.lion.villagersplus.blocks.HorticulturistTableBlock;
+import com.lion.villagersplus.blocks.OccultistTableBlock;
+import com.lion.villagersplus.blocks.OceanographerTableBlock;
+import com.lion.villagersplus.init.VPTags;
 import mod.crend.dynamiccrosshair.api.CrosshairContext;
 import mod.crend.dynamiccrosshair.api.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshair.component.Crosshair;
@@ -38,15 +38,15 @@ public class ApiImplVillagersPlus implements DynamicCrosshairApi {
 		Block block = blockState.getBlock();
 		ItemStack itemStack = context.getItemStack();
 		if (block instanceof HorticulturistTableBlock) {
-			if (itemStack.isIn(ModTags.TALL_PLANTABLE_BLOCKS) && blockState.get(HorticulturistTableBlock.FLOWERS) == 0) {
+			if (itemStack.isIn(VPTags.TALL_PLANTABLE_ITEMS) && blockState.get(HorticulturistTableBlock.FLOWERS) == 0) {
 				return Crosshair.USABLE;
 			}
-			if (itemStack.isIn(ModTags.SMALL_PLANTABLE_BLOCKS) && blockState.get(HorticulturistTableBlock.FLOWERS) < 4) {
+			if (itemStack.isIn(VPTags.SMALL_PLANTABLE_ITEMS) && blockState.get(HorticulturistTableBlock.FLOWERS) < 4) {
 				return Crosshair.USABLE;
 			}
 		}
 		if (block instanceof OceanographerTableBlock) {
-			if (itemStack.isIn(ModTags.AQUARIUM_PLANTABLE_BLOCKS) && blockState.get(OceanographerTableBlock.CORALS) < 4) {
+			if (itemStack.isIn(VPTags.AQUARIUM_PLANTABLE_ITEMS) && blockState.get(OceanographerTableBlock.CORALS) < 4) {
 				return Crosshair.USABLE;
 			}
 

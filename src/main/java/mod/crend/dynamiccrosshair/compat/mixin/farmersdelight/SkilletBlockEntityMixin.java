@@ -1,3 +1,4 @@
+//? if farmers-delight-refabricated {
 package mod.crend.dynamiccrosshair.compat.mixin.farmersdelight;
 
 import net.minecraft.inventory.Inventory;
@@ -13,3 +14,4 @@ public interface SkilletBlockEntityMixin {
 	@Invoker
 	Optional<CampfireCookingRecipe> invokeGetMatchingRecipe(Inventory recipeWrapper);
 }
+//?}

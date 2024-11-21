@@ -1,0 +1,8 @@
+{
+  "minVersion": "0.8",
+  "package": "mod.crend.dynamiccrosshair.compat.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+  ],
+  "plugin": "mod.crend.dynamiccrosshair.compat.DCCMixinPlugin"
+}

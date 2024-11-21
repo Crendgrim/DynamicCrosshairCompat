@@ -3,9 +3,11 @@
 gradle
 gradlew
 .gradle/
+.cache/
 build/
 out/
 classes/
+lib
 
 # eclipse
 

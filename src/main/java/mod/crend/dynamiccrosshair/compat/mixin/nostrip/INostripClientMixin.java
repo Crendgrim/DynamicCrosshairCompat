@@ -1,3 +1,4 @@
+//? if no-strip {
 package mod.crend.dynamiccrosshair.compat.mixin.nostrip;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,3 +10,4 @@ public interface INostripClientMixin {
 	@Accessor
 	boolean getDoStrip();
 }
+//?}

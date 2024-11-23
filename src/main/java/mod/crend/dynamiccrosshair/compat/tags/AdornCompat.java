@@ -15,9 +15,15 @@ public class AdornCompat extends DCCProvider {
 	public void blocksAlwaysInteractable(FabricTagProvider<Block>.FabricTagBuilder builder) {
 		//? if adorn {
 		builder
+				//? if <1.21.1 {
 				.addOptionalTag(AdornTags.INSTANCE.getTABLE_LAMPS().getBlock())
 				.addOptionalTag(AdornTags.INSTANCE.getKITCHEN_CUPBOARDS().getBlock())
 				.addOptionalTag(AdornTags.INSTANCE.getDRAWERS().getBlock())
+				//?} else {
+				/*.addOptionalTag(AdornTags.TABLE_LAMPS.block())
+				.addOptionalTag(AdornTags.KITCHEN_CUPBOARDS.block())
+				.addOptionalTag(AdornTags.DRAWERS.block())
+				*///?}
 		;
 		//?}
 	}

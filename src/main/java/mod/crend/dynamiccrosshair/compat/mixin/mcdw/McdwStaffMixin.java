@@ -1,4 +1,4 @@
-//? if mcdw {
+//? if mc-dungeons-weapons {
 package mod.crend.dynamiccrosshair.compat.mixin.mcdw;
 
 import chronosacaria.mcdw.bases.McdwStaff;

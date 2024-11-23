@@ -5,8 +5,8 @@ import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.block.BlockState;
+import net.satisfy.vinery.block.AppleLeaves;
 import org.spongepowered.asm.mixin.Mixin;
-import satisfyu.vinery.block.AppleLeaves;
 
 @Mixin(value = AppleLeaves.class, remap = false)
 public class AppleLeavesMixin implements DynamicCrosshairBlock {

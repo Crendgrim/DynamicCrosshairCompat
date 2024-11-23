@@ -1,4 +1,4 @@
-//? if toms-storage-fabric {
+//? if toms-storage {
 package mod.crend.dynamiccrosshair.compat.mixin.toms_storage;
 
 import com.tom.storagemod.block.BasicInventoryHopperBlock;

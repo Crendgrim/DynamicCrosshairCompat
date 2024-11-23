@@ -7,10 +7,10 @@ import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import safro.archon.item.ManaItem;
-import safro.archon.item.ManaWeapon;
+import safro.archon.item.earth.TerraneanAxeItem;
 import safro.archon.util.ArchonUtil;
 
-@Mixin(value = {ManaItem.class, ManaWeapon.class}, remap = false)
+@Mixin(value = {ManaItem.class, TerraneanAxeItem.class}, remap = false)
 public abstract class ManaItemMixin implements DynamicCrosshairItem {
 	@Shadow public abstract int getManaCost();
 

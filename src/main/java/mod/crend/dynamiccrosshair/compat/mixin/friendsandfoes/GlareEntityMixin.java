@@ -1,7 +1,7 @@
 //? if friends-and-foes {
 package mod.crend.dynamiccrosshair.compat.mixin.friendsandfoes;
 
-import com.faboslav.friendsandfoes.entity.GlareEntity;
+import com.faboslav.friendsandfoes.common.entity.GlareEntity;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairEntity;

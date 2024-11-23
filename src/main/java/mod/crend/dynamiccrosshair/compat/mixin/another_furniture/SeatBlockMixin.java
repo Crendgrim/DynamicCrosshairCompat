@@ -36,7 +36,13 @@ public abstract class SeatBlockMixin implements DynamicCrosshairBlock {
 				&& !context.getPlayer().hasVehicle()
 				&& !context.getPlayer().isInSneakingPose()
 				&& (above.getCollisionShape(context.getWorld(), pos).isEmpty() || above.isIn(AFBlockTags.ABOVE_BYPASSES_SEAT_CHECK))
-				&& context.getWorld().getNonSpectatingEntities(SeatEntity.class, new Box(pos, pos.add(1, 1, 1))).isEmpty()
+				&& context.getWorld().getNonSpectatingEntities(
+						SeatEntity.class,
+						//? if <1.21.1 {
+						new Box(pos, pos.add(1, 1, 1))
+						//?} else
+						/*new Box(pos)*/
+				).isEmpty()
 		) {
 			return InteractionType.MOUNT_BLOCK;
 		}

@@ -19,18 +19,20 @@ public class SkilletBlockMixin implements DynamicCrosshairBlock {
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
 		if (context.getBlockEntity() instanceof SkilletBlockEntity skilletEntity) {
 			ItemStack heldStack = context.getItemStack();
+			//? if <1.21 {
 			if (heldStack.isIn(ItemTags.SHOVELS) && skilletEntity.isCooking()) {
 				if ((float) skilletEntity.lastFlippedTime + 20.0F < (float) context.getWorld().getTime()) {
 					return InteractionType.USE_ITEM_ON_BLOCK;
 				}
 				return InteractionType.EMPTY;
 			}
+			//?}
 
 			if (heldStack.isEmpty()) {
 				return InteractionType.INTERACT_WITH_BLOCK;
 			}
 
-			Optional<CampfireCookingRecipe> recipe = ((SkilletBlockEntityMixin) skilletEntity).invokeGetMatchingRecipe(new SimpleInventory(heldStack));
+			var recipe = ((SkilletBlockEntityMixin) skilletEntity).invokeGetMatchingRecipe(/*? if <1.21 {*/new SimpleInventory(heldStack)/*?} else {*//*heldStack*//*?}*/);
 			if (recipe.isPresent()) {
 				return InteractionType.PLACE_ITEM_ON_BLOCK;
 			}

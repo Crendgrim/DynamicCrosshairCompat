@@ -4,13 +4,13 @@ package mod.crend.dynamiccrosshair.compat.mixin.vinery;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
+import net.satisfy.vinery.block.stem.StemBlock;
+import net.satisfy.vinery.item.GrapeBushSeedItem;
 import org.spongepowered.asm.mixin.Mixin;
 //? if =1.20.1 {
-import satisfyu.vinery.block.stem.LatticeBlock;
+import net.satisfy.vinery.block.stem.LatticeBlock;
 //?} else
 /*import satisfyu.vinery.block.stem.LatticeStemBlock;*/
-import satisfyu.vinery.block.stem.StemBlock;
-import satisfyu.vinery.item.GrapeBushSeedItem;
 
 @Mixin(value = /*? if =1.20.1 {*/LatticeBlock/*?} else {*//*LatticeStemBlock*//*?}*/.class, remap = false)
 public abstract class LatticeBlockMixin extends StemBlockMixin implements DynamicCrosshairBlock {

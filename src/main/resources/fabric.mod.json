@@ -47,8 +47,7 @@
       "mod.crend.dynamiccrosshair.compat.impl.ApiImplReplanter",
       "mod.crend.dynamiccrosshair.compat.impl.ApiImplRightClickHarvest",
       "mod.crend.dynamiccrosshair.compat.impl.ApiImplStorageMod",
-      "mod.crend.dynamiccrosshair.compat.impl.ApiImplVanillaTweaks",
-      "mod.crend.dynamiccrosshair.compat.impl.ApiImplWolvesWithArmor"
+      "mod.crend.dynamiccrosshair.compat.impl.ApiImplVanillaTweaks"
     ]
   },
   "mixins": [

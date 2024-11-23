@@ -35,10 +35,10 @@ val allSupportedMods = stonecutter.tree.nodes.map { node ->
 stonecutter parameters {
     val supportedMods = node!!.file("supported_mods.csv")
         .readLines()
-        .associate {
-            val fields = it.split(",")
-            fields[0] to fields[2]
-        }
+        .map { it.split(",") }
+        .filterNot { it[1] == "disabled" }
+        .associate { it[0] to it[3] }
+
     allSupportedMods
         .map {
             it to

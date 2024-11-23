@@ -6,15 +6,15 @@ import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ShearsItem;
+import net.satisfy.vinery.block.CherryLeavesBlock;
 import org.spongepowered.asm.mixin.Mixin;
-import satisfyu.vinery.block.CherryLeaves;
 
-@Mixin(value = CherryLeaves.class, remap = false)
+@Mixin(value = CherryLeavesBlock.class, remap = false)
 public class CherryLeavesMixin implements DynamicCrosshairBlock {
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
-		if (blockState.get(CherryLeaves.VARIANT) && blockState.get(CherryLeaves.HAS_CHERRIES)) {
+		if (blockState.get(CherryLeavesBlock.VARIANT) && blockState.get(CherryLeavesBlock.HAS_CHERRIES)) {
 			if (context.getItem() instanceof ShearsItem) {
 				return InteractionType.USE_ITEM_ON_BLOCK;
 			}

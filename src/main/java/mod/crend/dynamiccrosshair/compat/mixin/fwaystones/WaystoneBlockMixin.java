@@ -1,4 +1,4 @@
-//? if waystones {
+//? if wraith-waystones {
 package mod.crend.dynamiccrosshair.compat.mixin.fwaystones;
 
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;

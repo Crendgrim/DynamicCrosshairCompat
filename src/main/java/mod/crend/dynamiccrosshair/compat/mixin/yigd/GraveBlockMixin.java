@@ -12,10 +12,13 @@ import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import java.util.Optional;
 import java.util.UUID;
+//? if <1.20.6 {
+import net.minecraft.nbt.NbtCompound;
+//?} else
+/*import net.minecraft.component.DataComponentTypes;*/
 
 @Mixin(value = GraveBlock.class, remap = false)
 public class GraveBlockMixin implements DynamicCrosshairBlock {
@@ -35,8 +38,14 @@ public class GraveBlockMixin implements DynamicCrosshairBlock {
 					}
 					if (graveComponent == null) {
 						ItemStack stack = context.getItemStack();
+						boolean hasSkullOwner;
+						//? if <1.20.6 {
 						NbtCompound nbt = stack.getNbt();
-						if (!context.getPlayer().isSneaking() && stack.isOf(Items.PLAYER_HEAD) && nbt != null && nbt.get("SkullOwner") != null) {
+						hasSkullOwner = nbt != null && nbt.get("SkullOwner") != null;
+						//?} else {
+						/*hasSkullOwner = stack.contains(DataComponentTypes.PROFILE) && stack.get(DataComponentTypes.PROFILE) != null;
+						*///?}
+						if (!context.getPlayer().isSneaking() && stack.isOf(Items.PLAYER_HEAD) && hasSkullOwner) {
 							return InteractionType.USE_ITEM_ON_BLOCK;
 						}
 						return InteractionType.EMPTY;

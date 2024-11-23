@@ -6,8 +6,8 @@ import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.Items;
+import net.satisfy.vinery.block.grape.GrapeVineBlock;
 import org.spongepowered.asm.mixin.Mixin;
-import satisfyu.vinery.block.grape.GrapeVineBlock;
 
 @Mixin(value = GrapeVineBlock.class, remap = false)
 public class GrapeVineBlockMixin implements DynamicCrosshairBlock {

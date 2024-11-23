@@ -4,10 +4,10 @@ package mod.crend.dynamiccrosshair.compat.mixin.vinery;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
+import net.satisfy.vinery.block.stem.PaleStemBlock;
+import net.satisfy.vinery.block.stem.StemBlock;
+import net.satisfy.vinery.item.GrapeBushSeedItem;
 import org.spongepowered.asm.mixin.Mixin;
-import satisfyu.vinery.block.stem.PaleStemBlock;
-import satisfyu.vinery.block.stem.StemBlock;
-import satisfyu.vinery.item.GrapeBushSeedItem;
 
 @Mixin(value = PaleStemBlock.class, remap = false)
 public abstract class PaleStemBlockMixin extends StemBlockMixin implements DynamicCrosshairBlock {

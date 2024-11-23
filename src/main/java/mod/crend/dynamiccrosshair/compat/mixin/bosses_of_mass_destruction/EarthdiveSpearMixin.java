@@ -3,7 +3,6 @@ package mod.crend.dynamiccrosshair.compat.mixin.bosses_of_mass_destruction;
 
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
-import mod.crend.dynamiccrosshairapi.mixin.DynamicCrosshairBaseItem;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairRangedItem;
 import net.barribob.boss.item.EarthdiveSpear;
@@ -12,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = EarthdiveSpear.class, remap = false)
-public abstract class EarthdiveSpearMixin extends DynamicCrosshairBaseItem implements DynamicCrosshairItem, DynamicCrosshairRangedItem {
+public abstract class EarthdiveSpearMixin implements DynamicCrosshairItem, DynamicCrosshairRangedItem {
 	@Shadow protected abstract boolean isCharged(ItemStack stack, int remainingUseTicks);
 
 	@Override
@@ -21,6 +20,11 @@ public abstract class EarthdiveSpearMixin extends DynamicCrosshairBaseItem imple
 			return InteractionType.RANGED_WEAPON;
 		}
 		return InteractionType.MELEE_WEAPON;
+	}
+
+	@Override
+	public boolean dynamiccrosshair$isCharging(CrosshairContext context) {
+		return context.isActiveItem() && context.getPlayer().getItemUseTimeLeft() > 0;
 	}
 
 	@Override

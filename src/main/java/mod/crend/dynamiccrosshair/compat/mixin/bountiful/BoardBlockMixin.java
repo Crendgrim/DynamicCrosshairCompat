@@ -1,8 +1,8 @@
 //? if bountiful {
 package mod.crend.dynamiccrosshair.compat.mixin.bountiful;
 
-import io.ejekta.bountiful.content.BountyItem;
 import io.ejekta.bountiful.content.board.BoardBlock;
+import io.ejekta.bountiful.content/*? if >1.20.1 {*//*.item*//*?}*/.BountyItem;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;

@@ -1,17 +1,17 @@
-//? if emerald-geodes {
+//? if more-geodes {
 package mod.crend.dynamiccrosshair.compat.mixin.geodes;
 
-import com.github.thedeathlycow.moregeodes.blocks.EchoLocatorBlock;
+import com.github.thedeathlycow.moregeodes.item.CrystalLocatorItem;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
-import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
+import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(value = EchoLocatorBlock.class, remap = false)
-public class EchoLocatorBlockMixin implements DynamicCrosshairBlock {
+@Mixin(value = CrystalLocatorItem.class, remap = false)
+public class CrystalLocatorItemMixin implements DynamicCrosshairItem {
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext crosshairContext) {
-		return InteractionType.INTERACT_WITH_BLOCK;
+		return InteractionType.USE_ITEM;
 	}
 }
 //?}

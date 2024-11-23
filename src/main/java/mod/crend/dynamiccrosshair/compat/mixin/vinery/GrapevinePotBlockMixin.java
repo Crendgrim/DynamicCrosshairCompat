@@ -7,12 +7,12 @@ import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.IntProperty;
+import net.satisfy.vinery.block.GrapevinePotBlock;
+import net.satisfy.vinery.item.GrapeItem;
+import net.satisfy.vinery.registry.ObjectRegistry;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import satisfyu.vinery.block.GrapeItem;
-import satisfyu.vinery.block.GrapevinePotBlock;
-import satisfyu.vinery.registry.ObjectRegistry;
 
 @Mixin(value = GrapevinePotBlock.class, remap = false)
 public abstract class GrapevinePotBlockMixin implements DynamicCrosshairBlock {

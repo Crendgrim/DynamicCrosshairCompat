@@ -1,5 +1,5 @@
-//? if vinery {
-package mod.crend.dynamiccrosshair.compat.mixin.vinery;
+//? if do-api {
+package mod.crend.dynamiccrosshair.compat.mixin.doapi;
 
 import de.cristelknight.doapi.Util;
 import de.cristelknight.doapi.common.block.StorageBlock;

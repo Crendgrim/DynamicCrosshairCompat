@@ -1,9 +1,14 @@
 //? if adapaxels {
 package mod.crend.dynamiccrosshair.compat.mixin.adapaxels;
 
+import com.brand.adapaxels.content.paxels.base.PaxelItem;
+//? if <1.21 {
 import com.brand.adapaxels.mixin.AxeItemAccessor;
 import com.brand.adapaxels.mixin.ShovelItemAccessor;
-import com.brand.adapaxels.paxels.base.PaxelItem;
+//?} else {
+/*import net.fabricmc.fabric.mixin.content.registry.AxeItemAccessor;
+import net.fabricmc.fabric.mixin.content.registry.ShovelItemAccessor;
+*///?}
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;

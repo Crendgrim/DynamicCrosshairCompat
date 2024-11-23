@@ -6,11 +6,15 @@ import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
-import shetiphian.multibeds.common.block.BlockMultiBedBase;
 import shetiphian.multibeds.common.item.ItemBedCustomization;
 import shetiphian.multibeds.common.item.ItemBeddingPackage;
 
-@Mixin(value = BlockMultiBedBase.class, remap = false)
+//? if =1.20.1 {
+import shetiphian.multibeds.common.block.BlockMultiBedBase;
+//?} else
+/*import shetiphian.multibeds.common.block.BlockMultiBed;*/
+
+@Mixin(value = /*? if =1.20.1 {*/BlockMultiBedBase/*?} else {*//*BlockMultiBed*//*?}*/.class, remap = false)
 public class BlockMultiBedBaseMixin implements DynamicCrosshairBlock {
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {

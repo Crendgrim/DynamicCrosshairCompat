@@ -1,4 +1,4 @@
-//? if mcdar {
+//? if mc-dungeons-artifacts {
 package mod.crend.dynamiccrosshair.compat.mixin.mcdar;
 
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;

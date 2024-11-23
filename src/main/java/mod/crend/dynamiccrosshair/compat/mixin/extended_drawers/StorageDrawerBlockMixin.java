@@ -1,11 +1,7 @@
 //? if extended-drawers {
 package mod.crend.dynamiccrosshair.compat.mixin.extended_drawers;
 
-//? if =1.20.1 {
 import io.github.mattidragon.extendeddrawers.block.base.StorageDrawerBlock;
-//?} else
-/*import io.github.mattidragon.extendeddrawers.block.DrawerBlock;*/
-import io.github.mattidragon.extendeddrawers.block.entity.DrawerBlockEntity;
 import io.github.mattidragon.extendeddrawers.block.entity.StorageDrawerBlockEntity;
 import io.github.mattidragon.extendeddrawers.item.LimiterItem;
 import io.github.mattidragon.extendeddrawers.item.UpgradeItem;
@@ -25,18 +21,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value = /*? if =1.20.1 {*/StorageDrawerBlock/*?} else {*//*DrawerBlock*//*?}*/.class, remap = false)
-@SuppressWarnings("UnstableApiUsage")
+@Mixin(value = StorageDrawerBlock.class, remap = false)
 public abstract class StorageDrawerBlockMixin <T extends StorageDrawerBlockEntity> implements DynamicCrosshairBlock {
+
 	@Shadow public abstract boolean isFront(BlockState state, Direction direction);
-
-	//? if =1.20.1 {
 	@Shadow public abstract int getSlotIndex(T t, Vec2f vec2f);
-
 	@Shadow public abstract StorageView<ItemVariant> getSlot(T t, int i);
-	//?} else {
-	/*@Shadow protected abstract int getSlot(Vec2f par1);
-	*///?}
 
 	@Unique
 	private int dynamiccrosshair$getClickedSlot(CrosshairContext context) {
@@ -45,26 +35,17 @@ public abstract class StorageDrawerBlockMixin <T extends StorageDrawerBlockEntit
 				context.getBlockPos(),
 				context.getHitResult().getPos(),
 				context.getBlockHitSide(),
-				//? if =1.20.1 {
 				blockState.get(StorageDrawerBlock.FACING),
 				blockState.get(StorageDrawerBlock.FACE)
-				//?} else
-				/*blockState.get(DrawerBlock.FACING)*/
 		);
-		//? if =1.20.1 {
 		@SuppressWarnings("unchecked")
 		T drawer = (T) context.getBlockEntity();
 		return this.getSlotIndex(drawer, clickedPosition);
-		//?} else
-		/*return getSlot(clickedPosition);*/
 	}
 	@Unique
 	@SuppressWarnings("unchecked")
 	private StorageView<ItemVariant> dynamiccrosshair$getClickedSlotContents(CrosshairContext context) {
-		//? if =1.20.1 {
 		return getSlot((T) context.getBlockEntity(), dynamiccrosshair$getClickedSlot(context));
-		//?} else
-		/*return ((DrawerBlockEntity) context.getBlockEntity()).storages[dynamiccrosshair$getClickedSlot(context)];*/
 	}
 
 	@Override

@@ -63,15 +63,15 @@ dependencies {
 
     mapOf(
         "architectury" to "dev.architectury:architectury-fabric:{}",
-        "cca" to "dev.onyxstudios.cardinal-components-api:cardinal-components-base:{}",
+        "cca" to if (stonecutter.eval(mcVersion, ">=1.20.6")) "org.ladysnake.cardinal-components-api:cardinal-components-base:{}" else "dev.onyxstudios.cardinal-components-api:cardinal-components-base:{}",
         "fabric_language_kotlin" to "net.fabricmc:fabric-language-kotlin:{}",
         "geckolib" to "software.bernie.geckolib:geckolib-fabric-{}",
         //"omega_config" to "dev.draylar.omega-config:omega-config-base:{}",
         "owo" to "io.wispforest:owo-lib:{}",
         "lavender" to "io.wispforest:lavender:{}",
         "gbfabrictools" to "de.guntram.mcmod:GBfabrictools:{}",
-        // Immersive Portals is split up weirdly, so we have to include it manually
-        "immersiveportals" to "com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:{}",
+        // Immersive Portals is split up weirdly before 1.20.4
+        "immersiveportals" to if (stonecutter.eval(mcVersion, ">=1.20.4")) "com.github.iPortalTeam:ImmersivePortalsMod:{}" else "com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:{}",
     ).map { (modId, url) ->
         modId to url.replace("{}", deps[modId])
     }.forEach { (modId, url) ->
@@ -94,12 +94,12 @@ dependencies {
     modFile.forEachLine {
         val fields = it.split(",")
         val url = when (fields[1]) {
-            "curse" -> "curse.maven:${fields[0]}-${fields[2]}"
-            "modrinth" -> "maven.modrinth:${fields[0]}:${fields[2]}"
+            "curse" -> "curse.maven:${fields[0]}-${fields[2]}:${fields[3]}"
+            "modrinth" -> "maven.modrinth:${fields[2]}:${fields[4]}"
             else -> null
         }
         if (url != null) {
-            when (fields[3]) {
+            when (fields[5]) {
                 "true" -> modImplementation(url)
                 "false" -> modCompileOnly(url)
             }

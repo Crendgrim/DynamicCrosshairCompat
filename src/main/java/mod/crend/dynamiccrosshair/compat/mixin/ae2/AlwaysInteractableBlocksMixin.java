@@ -1,4 +1,4 @@
-//? if applied-energistics-2 {
+//? if ae2 {
 package mod.crend.dynamiccrosshair.compat.mixin.ae2;
 
 import appeng.block.misc.CrankBlock;

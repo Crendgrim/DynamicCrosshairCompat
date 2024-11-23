@@ -1,3 +1,32 @@
 {
-  "values": []
+  "values": [
+    {
+      "id": "#adorn:table_lamps",
+      "required": false
+    },
+    {
+      "id": "#adorn:kitchen_cupboards",
+      "required": false
+    },
+    {
+      "id": "#adorn:drawers",
+      "required": false
+    },
+    {
+      "id": "#another_furniture:curtains",
+      "required": false
+    },
+    {
+      "id": "#another_furniture:drawers",
+      "required": false
+    },
+    {
+      "id": "#another_furniture:shutters",
+      "required": false
+    },
+    {
+      "id": "hwg:gun_table",
+      "required": false
+    }
+  ]
 }

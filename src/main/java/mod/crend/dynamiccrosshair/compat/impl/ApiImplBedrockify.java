@@ -3,6 +3,7 @@ package mod.crend.dynamiccrosshair.compat.impl;
 //? if bedrockify {
 import me.juancarloscp52.bedrockify.Bedrockify;
 import me.juancarloscp52.bedrockify.client.BedrockifyClient;
+import net.minecraft.item.EnchantedBookItem;
 //?}
 import mod.crend.dynamiccrosshairapi.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshairapi.crosshair.Crosshair;
@@ -30,7 +31,6 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.vehicle.TntMinecartEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -57,13 +57,28 @@ public class ApiImplBedrockify implements DynamicCrosshairApi {
 		);
 	}
 
+	private boolean hasFireAspect(ItemStack itemStack) {
+		return itemStack != null
+			&& (itemStack.hasEnchantments() || itemStack.getItem() instanceof EnchantedBookItem)
+			//? if <1.20.6 {
+			&& EnchantmentHelper.get(itemStack).containsKey(Enchantments.FIRE_ASPECT)
+			//?} else {
+			/*&& EnchantmentHelper.getEnchantments(itemStack).getEnchantments().stream().anyMatch(
+					//? if <1.21.1 {
+					enchantment -> enchantment.value() == Enchantments.FIRE_ASPECT
+					//?} else
+					/^enchantment -> enchantment.matchesKey(Enchantments.FIRE_ASPECT)^/
+			)
+			*///?}
+		;
+	}
+
 	@Override
 	public Crosshair computeFromEntity(CrosshairContext context) {
 		Entity entity = context.getEntity();
 		if (entity instanceof TntMinecartEntity tntMinecart && !tntMinecart.isPrimed() && Bedrockify.getInstance().settings.fireAspectLight) {
 			ItemStack itemStack = context.getItemStack();
-			if ((itemStack.hasEnchantments() || itemStack.getItem() instanceof EnchantedBookItem)
-					&& EnchantmentHelper.get(itemStack).containsKey(Enchantments.FIRE_ASPECT)) {
+			if (hasFireAspect(itemStack)) {
 				return new Crosshair(InteractionType.USE_ITEM_ON_ENTITY);
 			}
 		}
@@ -74,8 +89,7 @@ public class ApiImplBedrockify implements DynamicCrosshairApi {
 	public Crosshair computeFromBlock(CrosshairContext context) {
 		if (Bedrockify.getInstance().settings.fireAspectLight) {
 			ItemStack itemStack = context.getItemStack();
-			if ((itemStack.hasEnchantments() || itemStack.getItem() instanceof EnchantedBookItem)
-					&& EnchantmentHelper.get(itemStack).containsKey(Enchantments.FIRE_ASPECT)) {
+			if (hasFireAspect(itemStack)) {
 				BlockState blockState = context.getBlockState();
 				Block block = context.getBlock();
 				if (block instanceof TntBlock) {
@@ -111,7 +125,9 @@ public class ApiImplBedrockify implements DynamicCrosshairApi {
 				&& BedrockifyClient.getInstance().settings.isReacharoundEnabled()
 				&& (MinecraftClient.getInstance().isInSingleplayer() || BedrockifyClient.getInstance().settings.isReacharoundMultiplayerEnabled())
 				&& (context.getPlayer().isSneaking() || !BedrockifyClient.getInstance().settings.isReacharoundSneakingEnabled())
-				&& context.getPlayer().getPitch() > (float)BedrockifyClient.getInstance().settings.getReacharoundPitchAngle()) {
+				//? if <1.20.6
+				&& context.getPlayer().getPitch() > (float)BedrockifyClient.getInstance().settings.getReacharoundPitchAngle()
+		) {
 			BlockPos belowPlayerPos = context.getPlayer().getBlockPos().down();
 			BlockState belowPlayerState = context.getWorld().getBlockState(belowPlayerPos);
 			if (!belowPlayerState.isAir() && !(belowPlayerState.getBlock() instanceof FluidBlock) || isNonFullBlock(context)) {
@@ -148,7 +164,7 @@ public class ApiImplBedrockify implements DynamicCrosshairApi {
 	}
 
 	private boolean checkRelativeBlockPosition(double pos, float direction) {
-		double distance = BedrockifyClient.getInstance().settings.getReacharoundBlockDistance();
+		double distance = /*? if <1.20.6 {*/BedrockifyClient.getInstance().settings.getReacharoundBlockDistance()/*?} else {*//*0.5*//*?}*/;
 		if (direction > 0.0F) {
 			return 1.0 - pos < distance;
 		} else if (direction < 0.0F) {

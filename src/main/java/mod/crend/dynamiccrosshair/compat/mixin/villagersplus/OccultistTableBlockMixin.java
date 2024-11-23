@@ -1,4 +1,4 @@
-//? if villagersplus-fabric {
+//? if villagersplus {
 package mod.crend.dynamiccrosshair.compat.mixin.villagersplus;
 
 //? if =1.20.1 {

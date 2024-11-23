@@ -1,3 +1,24 @@
 {
-  "values": []
+  "values": [
+    {
+      "id": "hwg:grenade_emp",
+      "required": false
+    },
+    {
+      "id": "hwg:grenade_frag",
+      "required": false
+    },
+    {
+      "id": "hwg:grenade_napalm",
+      "required": false
+    },
+    {
+      "id": "hwg:grenade_smoke",
+      "required": false
+    },
+    {
+      "id": "hwg:grenade_stun",
+      "required": false
+    }
+  ]
 }

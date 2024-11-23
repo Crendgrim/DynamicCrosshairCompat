@@ -1,6 +1,7 @@
 //? if farmers-delight-refabricated {
 package mod.crend.dynamiccrosshair.compat.mixin.farmersdelight;
 
+//? if <1.21
 import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
@@ -10,9 +11,7 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
-import vectorwing.farmersdelight.common.crafting.CuttingBoardRecipe;
 import vectorwing.farmersdelight.common.tag.ModTags;
-import java.util.Optional;
 
 @Mixin(value = CuttingBoardBlock.class, remap = false)
 public class CuttingBoardBlockMixin implements DynamicCrosshairBlock {
@@ -43,7 +42,8 @@ public class CuttingBoardBlockMixin implements DynamicCrosshairBlock {
 			} else {
 				if (!heldStack.isEmpty()) {
 					if (!cuttingBoardBlockEntity.isItemCarvingBoard()) {
-						Optional<CuttingBoardRecipe> matchingRecipe = ((CuttingBoardBlockEntityMixin) cuttingBoardBlockEntity).invokeGetMatchingRecipe(
+						var matchingRecipe = ((CuttingBoardBlockEntityMixin) cuttingBoardBlockEntity).invokeGetMatchingRecipe(
+								//? if <1.21
 								new RecipeWrapper(cuttingBoardBlockEntity.getInventory()),
 								heldStack,
 								context.getPlayer()

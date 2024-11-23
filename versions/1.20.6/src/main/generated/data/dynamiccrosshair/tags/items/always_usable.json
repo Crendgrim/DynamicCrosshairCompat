@@ -1,6 +1,22 @@
 {
   "values": [
     {
+      "id": "archon:experience_pouch",
+      "required": false
+    },
+    {
+      "id": "archon:super_experience_pouch",
+      "required": false
+    },
+    {
+      "id": "archon:grimoire",
+      "required": false
+    },
+    {
+      "id": "archon:lightning_bottle",
+      "required": false
+    },
+    {
       "id": "patchouli:guide_book",
       "required": false
     }

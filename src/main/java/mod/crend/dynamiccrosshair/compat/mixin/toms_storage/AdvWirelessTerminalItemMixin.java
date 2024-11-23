@@ -1,6 +1,7 @@
-//? if toms-storage-fabric {
+//? if toms-storage {
 package mod.crend.dynamiccrosshair.compat.mixin.toms_storage;
 
+import com.tom.storagemod.Content;
 import com.tom.storagemod.StorageTags;
 import com.tom.storagemod.item.AdvWirelessTerminalItem;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
@@ -18,7 +19,12 @@ public class AdvWirelessTerminalItemMixin implements DynamicCrosshairItem {
 			if (context.getBlockState().isIn(StorageTags.REMOTE_ACTIVATE)) {
 				return InteractionType.USE_ITEM_ON_BLOCK;
 			}
-		} else if (itemStack.hasNbt() && itemStack.getNbt().contains("BindX")) {
+		} else if (
+				//? if <1.20.6 {
+				itemStack.hasNbt() && itemStack.getNbt().contains("BindX")
+				//?} else
+				/*itemStack.getComponents().contains(Content.boundPosComponent.get())*/
+		) {
 			return InteractionType.USE_ITEM;
 		}
 		return InteractionType.EMPTY;

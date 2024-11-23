@@ -1,4 +1,4 @@
-//? if throwabletorch-fabric {
+//? if throwabletorch {
 package mod.crend.dynamiccrosshair.compat.mixin.throwabletorch;
 
 import com.daniking.throwabletorch.ThrowableTorchItem;

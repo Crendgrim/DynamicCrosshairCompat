@@ -12,12 +12,6 @@
     "additionaladditions.WrenchItemMixin",
     "adorn.KitchenSinkBlockMixin",
     "adorn.SeatBlockMixin",
-    "advanced_reborn.AdvancedBatteryMixin",
-    "advanced_reborn.CardboardBoxMixin",
-    "advanced_reborn.ConfigWrenchMixin",
-    "advanced_reborn.DynamiteMixin",
-    "advanced_reborn.FreqTransMixin",
-    "advanced_reborn.IndustrialTNTMixin",
     "advancementframes.AdvancementFrameBlockMixin",
     "adventurez.BlackstoneGolemArmMixin",
     "adventurez.BlackstoneGolemHeartMixin",
@@ -152,7 +146,7 @@
     "galosphere.SparkleMixin",
     "galosphere.SpectreMixin",
     "galosphere.WarpedAnchorBlockMixin",
-    "geodes.EchoLocatorBlockMixin",
+    "geodes.CrystalLocatorItemMixin",
     "goblintraders.AbstractGoblinEntityMixin",
     "hwg.AzureAnimatedGunItemMixin",
     "hwg.FuelTankBlockMixin",
@@ -195,7 +189,9 @@
     "mcdar.HarvesterItemMixin",
     "mcdar.SoulHealerItemMixin",
     "mcdw.McdwStaffMixin",
-    "mcwbridges.Bridge_BaseMixin",
+    "mcwbridges.Bridge_BlockMixin",
+    "mcwbridges.Bridge_StairsMixin",
+    "mcwbridges.Rail_BridgeMixin",
     "mcwdoors.GarageDoorMixin",
     "mcwlights.LightBaseShortMixin",
     "mcwlights.LightBaseTallMixin",
@@ -281,7 +277,7 @@
     "vinery.PaleStemBlockMixin",
     "vinery.StackableLogBlockMixin",
     "vinery.StemBlockMixin",
-    "vinery.StorageBlockMixin",
+    "doapi.StorageBlockMixin",
     "vinery.WineBottleBlockMixin",
     "vinery.WineBoxMixin",
     "voidz.PortalBlockMixin",
@@ -299,5 +295,7 @@
     "zenith.PotionCharmItemMixin",
     "zenith.TomeItemMixin"
   ],
-  "plugin": "mod.crend.dynamiccrosshair.compat.DCCMixinPlugin"
+  "plugin": "mod.crend.dynamiccrosshair.compat.DCCMixinPlugin",
+  "mixins": [
+  ]
 }

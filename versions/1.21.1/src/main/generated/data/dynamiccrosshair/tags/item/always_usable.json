@@ -1,7 +1,31 @@
 {
   "values": [
     {
+      "id": "adventurez:ender_flute",
+      "required": false
+    },
+    {
+      "id": "adventurez:handbook",
+      "required": false
+    },
+    {
+      "id": "adventurez:source_stone",
+      "required": false
+    },
+    {
       "id": "patchouli:guide_book",
+      "required": false
+    },
+    {
+      "id": "things:things_almanac",
+      "required": false
+    },
+    {
+      "id": "things:displacement_tome",
+      "required": false
+    },
+    {
+      "id": "things:item_magnet",
       "required": false
     }
   ]

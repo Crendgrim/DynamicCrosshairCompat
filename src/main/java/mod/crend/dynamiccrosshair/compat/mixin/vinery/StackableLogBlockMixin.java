@@ -9,8 +9,8 @@ import net.minecraft.block.enums.SlabType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
+import net.satisfy.vinery.block.StackableLogBlock;
 import org.spongepowered.asm.mixin.Mixin;
-import satisfyu.vinery.block.StackableLogBlock;
 
 @Mixin(value = StackableLogBlock.class, remap = false)
 public class StackableLogBlockMixin implements DynamicCrosshairBlock {

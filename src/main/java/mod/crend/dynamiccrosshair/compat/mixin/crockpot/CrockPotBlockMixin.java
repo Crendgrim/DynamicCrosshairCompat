@@ -15,8 +15,13 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.PotionItem;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
+//? if <1.20.6 {
+import net.minecraft.potion.PotionUtil;
+//?} else {
+/*import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.component.DataComponentTypes;
+ *///?}
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = CrockPotBlock.class, remap = false)
@@ -52,7 +57,12 @@ public class CrockPotBlockMixin implements DynamicCrosshairBlock {
 							return InteractionType.FILL_BLOCK_FROM_ITEM;
 						} else if (ConfigManager.canFillWithWaterBottle()
 								&& itemStack.getItem() instanceof PotionItem
-								&& PotionUtil.getPotion(itemStack) == Potions.WATER) {
+								//? if <1.20.6 {
+								&& PotionUtil.getPotion(itemStack) == Potions.WATER
+								//?} else {
+								/*&& ((RegistryEntry<?>) itemStack.getItem().getComponents().get(DataComponentTypes.POTION_CONTENTS).potion().get()).value() == Potions.WATER.value()
+								*///?}
+						) {
 							return InteractionType.FILL_BLOCK_FROM_ITEM;
 						}
 					}

@@ -12,8 +12,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 //? if meadow {
+//? if =1.20.1 {
 import net.satisfy.meadow.block.storage.CheeseRackBlock;
 import net.satisfy.meadow.item.WoodenBucket;
+//?} else {
+/*import net.satisfyu.meadow.block.CheeseRackBlock;
+import net.satisfyu.meadow.item.WoodenBucket;
+*///?}
 //?}
 
 public class ApiImplMeadow implements DynamicCrosshairApi {

@@ -1,6 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.impl;
 
 //? if no-strip
+
 import mod.crend.dynamiccrosshair.compat.mixin.nostrip.INostripClientMixin;
 import mod.crend.dynamiccrosshairapi.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshairapi.crosshair.Crosshair;
@@ -9,11 +10,7 @@ import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.ToolItem;
+
 //? if no-strip
 import us.potatoboy.nostrip.client.NostripClient;
 import java.util.List;
@@ -54,17 +51,10 @@ public class ApiImplNoStrip implements DynamicCrosshairApi {
 	}
 
 	@Override
-	public Crosshair computeFromItem(CrosshairContext context) {
-		if (!client.getDoStrip() && context.includeTool() && context.isWithBlock()) {
-			Item item = context.getItem();
-			BlockState blockState = context.getBlockState();
-			if (item instanceof ToolItem && AxeItem.STRIPPED_BLOCKS.containsKey(blockState.getBlock())
-					|| (item instanceof ShovelItem && ShovelItem.PATH_STATES.containsKey(blockState.getBlock()))
-			) {
-				return new Crosshair(InteractionType.TOOL);
-			}
+	public Crosshair overrideFromItem(CrosshairContext context, InteractionType interactionType) {
+		if (interactionType == InteractionType.USABLE_TOOL && !client.getDoStrip()) {
+			return new Crosshair(InteractionType.TOOL).combine(new Crosshair(context.checkToolWithBlock()));
 		}
-
 		return null;
 	}
 	//?}

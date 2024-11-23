@@ -1,6 +1,7 @@
 //? if addadd {
 package mod.crend.dynamiccrosshair.compat.mixin.additionaladditions;
 
+import dqu.additionaladditions.item.WateringCanItem;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
@@ -15,7 +16,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
-import net.satisfy.meadow.item.WateringCanItem;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = WateringCanItem.class, remap = false)

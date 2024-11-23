@@ -3,11 +3,15 @@ package mod.crend.dynamiccrosshair.compat.mixin.adventurez;
 
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairRangedItem;
+//? if =1.20.1 {
 import net.adventurez.item.BlackstoneGolemArm;
+//?} else {
+/*import net.adventurez.item.StoneGolemArm;
+*///?}
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(value = BlackstoneGolemArm.class, remap = false)
+@Mixin(value = /*? if =1.20.1 {*/BlackstoneGolemArm/*?} else {*//*StoneGolemArm*//*?}*/.class, remap = false)
 public abstract class BlackstoneGolemArmMixin extends Item implements DynamicCrosshairRangedItem {
 	public BlackstoneGolemArmMixin(Settings settings) {
 		super(settings);

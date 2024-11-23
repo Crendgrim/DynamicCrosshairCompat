@@ -1,9 +1,15 @@
 //? if dramatic-doors {
 package mod.crend.dynamiccrosshair.compat.mixin.dramaticdoors;
 
+//? if =1.20.1 {
 import com.fizzware.dramaticdoors.fabric.blockentities.TallNetheriteDoorBlockEntity;
 import com.fizzware.dramaticdoors.fabric.blocks.ShortNetheriteDoorBlock;
 import com.fizzware.dramaticdoors.fabric.tags.DDItemTags;
+//?} else {
+/*import com.fizzware.dramaticdoors.blockentities.TallNetheriteDoorBlockEntity;
+import com.fizzware.dramaticdoors.blocks.ShortNetheriteDoorBlock;
+import com.fizzware.dramaticdoors.tags.DDItemTags;
+*///?}
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;

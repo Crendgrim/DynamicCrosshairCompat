@@ -4,18 +4,23 @@ package mod.crend.dynamiccrosshair.compat.mixin.adventurez;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
+//? if =1.20.1 {
 import net.adventurez.block.ChiseledPolishedBlackstoneHolder;
 import net.adventurez.block.entity.ChiseledPolishedBlackstoneHolderEntity;
+//?} else {
+/*import net.adventurez.block.StoneHolderBlock;
+import net.adventurez.block.entity.StoneHolderEntity;
+*///?}
 import net.adventurez.init.ConfigInit;
 import net.adventurez.init.TagInit;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(value = ChiseledPolishedBlackstoneHolder.class, remap = false)
+@Mixin(value = /*? if =1.20.1 {*/ChiseledPolishedBlackstoneHolder/*?} else {*//*StoneHolderBlock*//*?}*/.class, remap = false)
 public class ChiseledPolishedBlackstoneHolderMixin implements DynamicCrosshairBlock {
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
-		if (context.getBlockEntity() instanceof ChiseledPolishedBlackstoneHolderEntity blockEntity) {
+		if (context.getBlockEntity() instanceof /*? if =1.20.1 {*/ChiseledPolishedBlackstoneHolderEntity/*?} else {*//*StoneHolderEntity*//*?}*/ blockEntity) {
 			ItemStack blockStack = blockEntity.getStack(0);
 			if (!blockStack.isEmpty()) {
 				return InteractionType.TAKE_ITEM_FROM_BLOCK;

@@ -7,9 +7,15 @@ import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.FireChargeItem;
 import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.ItemStack;
+//? if =1.20.1 {
 import net.satisfy.meadow.block.StoveBlock;
 import net.satisfy.meadow.block.StoveBlockWood;
 import net.satisfy.meadow.registry.TagRegistry;
+//?} else {
+/*import net.satisfyu.meadow.block.StoveBlock;
+import net.satisfyu.meadow.block.StoveBlockWood;
+import net.satisfyu.meadow.registry.TagRegistry;
+*///?}
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = StoveBlock.class, remap = false)

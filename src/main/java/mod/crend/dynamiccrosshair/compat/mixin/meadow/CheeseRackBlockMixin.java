@@ -8,17 +8,33 @@ import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
-import net.satisfy.meadow.block.entity.CheeseRackBlockEntity;
-import net.satisfy.meadow.block.storage.CheeseRackBlock;
-import net.satisfy.meadow.registry.TagRegistry;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.Optional;
 
+//? if =1.20.1 {
+import org.spongepowered.asm.mixin.Shadow;
+import net.satisfy.meadow.block.entity.CheeseRackBlockEntity;
+import net.satisfy.meadow.block.storage.CheeseRackBlock;
+import net.satisfy.meadow.registry.TagRegistry;
+
+//?} else {
+/*import net.satisfyu.meadow.block.CheeseRackBlock;
+import net.satisfyu.meadow.entity.blockentities.CheeseRackBlockEntity;
+import net.satisfyu.meadow.registry.TagRegistry;
+import org.spongepowered.asm.mixin.Unique;
+*///?}
+
 @Mixin(value = CheeseRackBlock.class, remap = false)
 public abstract class CheeseRackBlockMixin implements DynamicCrosshairBlock {
+	//? if =1.20.1 {
 	@Shadow public abstract Direction[] unAllowedDirections();
+	//?} else {
+	/*@Unique
+	public Direction[] unAllowedDirections() {
+		return new Direction[] { Direction.DOWN, Direction.UP };
+	}
+	*///?}
 
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {

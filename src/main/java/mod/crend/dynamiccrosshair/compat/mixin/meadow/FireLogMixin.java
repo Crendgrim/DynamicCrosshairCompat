@@ -7,7 +7,10 @@ import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+//? =1.20.1 {
 import net.satisfy.meadow.block.FireLog;
+//?} else
+/*import net.satisfyu.meadow.block.FireLog;*/
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = FireLog.class, remap = false)

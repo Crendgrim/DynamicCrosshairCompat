@@ -11,6 +11,10 @@ stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chisele
     group = "project"
     ofTask("buildAndCollect")
 }
+stonecutter registerChiseled tasks.register("chiseledRunDatagen", stonecutter.chiseled) {
+    group = "project"
+    ofTask("runDatagen")
+}
 
 /*
 // Publishes every version

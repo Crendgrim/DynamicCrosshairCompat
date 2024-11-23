@@ -68,11 +68,11 @@ public class DCCTagGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup arg) {
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsable = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE);
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnBlock = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_BLOCK);
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnEntity = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_ENTITY);
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnMiss = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_MISS);
-			FabricTagProvider<Item>.FabricTagBuilder builderThrowable = getOrCreateTagBuilder(DynamicCrosshairItemTags.THROWABLES);
+			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsable = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE).setReplace(false);
+			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnBlock = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_BLOCK).setReplace(false);
+			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnEntity = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_ENTITY).setReplace(false);
+			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnMiss = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_MISS).setReplace(false);
+			FabricTagProvider<Item>.FabricTagBuilder builderThrowable = getOrCreateTagBuilder(DynamicCrosshairItemTags.THROWABLES).setReplace(false);
 			for (DCCProvider provider : PROVIDERS) {
 				provider.itemsAlwaysUsable(builderAlwaysUsable);
 				provider.itemsAlwaysUsableOnBlock(builderAlwaysUsableOnBlock);
@@ -90,8 +90,8 @@ public class DCCTagGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup arg) {
-			FabricTagProvider<Block>.FabricTagBuilder builderAlwaysInteractable = getOrCreateTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE);
-			FabricTagProvider<Block>.FabricTagBuilder builderAlwaysInteractableInCreativeMode = getOrCreateTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE_IN_CREATIVE_MODE);
+			FabricTagProvider<Block>.FabricTagBuilder builderAlwaysInteractable = getOrCreateTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE).setReplace(false);
+			FabricTagProvider<Block>.FabricTagBuilder builderAlwaysInteractableInCreativeMode = getOrCreateTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE_IN_CREATIVE_MODE).setReplace(false);
 			for (DCCProvider provider : PROVIDERS) {
 				provider.blocksAlwaysInteractable(builderAlwaysInteractable);
 				provider.blocksAlwaysInteractableInCreativeMode(builderAlwaysInteractableInCreativeMode);
@@ -106,7 +106,7 @@ public class DCCTagGenerator implements DataGeneratorEntrypoint {
 
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup arg) {
-			FabricTagProvider<EntityType<?>>.FabricTagBuilder builderAlwaysInteractable = getOrCreateTagBuilder(DynamicCrosshairEntityTags.ALWAYS_INTERACTABLE);
+			FabricTagProvider<EntityType<?>>.FabricTagBuilder builderAlwaysInteractable = getOrCreateTagBuilder(DynamicCrosshairEntityTags.ALWAYS_INTERACTABLE).setReplace(false);
 			for (DCCProvider provider : PROVIDERS) {
 				provider.entitiesAlwaysInteractable(builderAlwaysInteractable);
 			}

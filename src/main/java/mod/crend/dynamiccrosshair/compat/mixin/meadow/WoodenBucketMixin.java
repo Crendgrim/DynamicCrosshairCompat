@@ -15,32 +15,40 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.RaycastContext;
+//? if =1.20.1 {
 import net.satisfy.meadow.item.WoodenBucket;
+//?} else
+/*import net.satisfyu.meadow.item.WoodenBucket;*/
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = WoodenBucket.class, remap = false)
 public class WoodenBucketMixin implements DynamicCrosshairItem {
+	//? if =1.20.1 {
 	@Shadow @Final private Fluid content;
+	//?} else
+	/*@Shadow @Final private Fluid fluid;*/
 
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
-		BlockHitResult blockHitResult = context.raycastWithFluid(content == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
+		//? if =1.20.1
+		Fluid fluid = this.content;
+		BlockHitResult blockHitResult = context.raycastWithFluid(fluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
 		if (blockHitResult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockPos = blockHitResult.getBlockPos();
 			Direction direction = blockHitResult.getSide();
 			BlockPos blockPos2 = blockPos.offset(direction);
 			if (context.getWorld().canPlayerModifyAt(context.getPlayer(), blockPos) && context.getPlayer().canPlaceOn(blockPos2, direction, context.getItemStack())) {
 				BlockState blockState = context.getWorld().getBlockState(blockPos);
-				if (content == Fluids.EMPTY) {
+				if (fluid == Fluids.EMPTY) {
 					if (blockState.getBlock() instanceof FluidDrainable) {
 						if (!blockState.getBlock().equals(Blocks.LAVA)) {
 							return InteractionType.FILL_ITEM_FROM_BLOCK;
 						}
 					}
 				} else {
-					if (content instanceof FlowableFluid) {
+					if (fluid instanceof FlowableFluid) {
 						return InteractionType.FILL_ITEM_FROM_BLOCK;
 					}
 				}

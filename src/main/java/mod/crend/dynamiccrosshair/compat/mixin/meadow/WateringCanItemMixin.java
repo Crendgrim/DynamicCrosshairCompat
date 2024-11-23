@@ -13,7 +13,10 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
+//? if =1.20.1 {
 import net.satisfy.meadow.item.WateringCanItem;
+//?} else
+/*import net.satisfyu.meadow.item.WateringCanItem;*/
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = WateringCanItem.class, remap = false)
@@ -35,7 +38,7 @@ public class WateringCanItemMixin implements DynamicCrosshairItem {
 		if (itemStack.getDamage() < itemStack.getMaxDamage() || context.getPlayer().getAbilities().creativeMode) {
 			BlockState blockState = context.getBlockState();
 			blockPos = context.getBlockPos();
-			if (blockState instanceof Fertilizable fertilizable && fertilizable.isFertilizable(context.getWorld(), blockPos, blockState, true)) {
+			if (blockState instanceof Fertilizable fertilizable && fertilizable.isFertilizable(context.getWorld(), blockPos, blockState/*? if =1.20.1 {*/, true/*?}*/)) {
 				return InteractionType.USE_ITEM_ON_BLOCK;
 			} else {
 				if (blockState.isSideSolidFullSquare(context.getWorld(), blockPos, context.getBlockHitSide())

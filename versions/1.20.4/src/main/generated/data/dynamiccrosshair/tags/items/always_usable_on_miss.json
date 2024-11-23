@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "indrev:servo_retriever",
+      "required": false
+    },
+    {
+      "id": "indrev:servo_output",
+      "required": false
+    }
+  ]
+}

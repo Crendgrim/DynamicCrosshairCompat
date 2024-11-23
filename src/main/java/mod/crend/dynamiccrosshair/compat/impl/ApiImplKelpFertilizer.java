@@ -33,7 +33,7 @@ public class ApiImplKelpFertilizer implements DynamicCrosshairApi {
 
 			if (context.getItemStack().isOf(Items.KELP)
 					&& blockState.getBlock() instanceof Fertilizable fertilizable
-					&& fertilizable.isFertilizable(context.getWorld(), context.getBlockPos(), blockState/*? if <1.20.4 {*/, true/*?}*/)
+					&& fertilizable.isFertilizable(context.getWorld(), context.getBlockPos(), blockState/*? if <1.20.2 {*/, true/*?}*/)
 			) {
 				return new Crosshair(InteractionType.USE_ITEM_ON_BLOCK);
 			}

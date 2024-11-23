@@ -14,6 +14,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
+//? if >1.20.1
+/*import net.minecraft.recipe.RecipeEntry;*/
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = AthameItem.class, remap = false)
@@ -25,6 +27,8 @@ public class AthameItemMixin implements DynamicCrosshairItem {
 			AthameStrippingRecipe entry = context.getWorld().getRecipeManager()
 					.listAllOfType(BWRecipeTypes.ATHAME_STRIPPING_RECIPE_TYPE)
 					.stream()
+					//? if >1.20.1
+					/*.map(RecipeEntry::value)*/
 					.filter((recipe) -> recipe.log == blockState.getBlock())
 					.findFirst()
 					.orElse(null);

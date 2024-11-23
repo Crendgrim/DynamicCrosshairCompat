@@ -28,6 +28,7 @@ base { archivesName.set(mod.id) }
 
 
 repositories {
+    mavenLocal()
     fun strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
         forRepository { maven(url) { name = alias } }
         filter { groups.forEach(::includeGroup) }
@@ -48,9 +49,6 @@ repositories {
     maven("https://jitpack.io") {
         name = "Jitpack"
     }
-    flatDir {
-        dirs("${rootProject.projectDir}/lib")
-    }
 }
 
 dependencies {
@@ -59,7 +57,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${deps["fabric_loader"]}")
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${deps["fabric_api"]}")
-    modImplementation("mod.crend.dynamiccrosshair:dynamiccrosshair:${deps["dynamiccrosshair"]}-fabric-api")
+    modImplementation("mod.crend:dynamiccrosshair:${deps["dynamiccrosshair"]}-fabric-api")
     //modLocalRuntime("mod.crend.dynamiccrosshair:dynamiccrosshair:${deps["dynamiccrosshair"]}-fabric")
     //modRuntimeOnly(name="libbamboo", group="mod.crend.libbamboo", version="fabric-${deps["libbamboo"]}")
 

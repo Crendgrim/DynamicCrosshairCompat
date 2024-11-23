@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "galosphere:glow_flare",
+      "required": false
+    },
+    {
+      "id": "galosphere:spectre_bottle",
+      "required": false
+    },
+    {
+      "id": "indrev:energy_reader",
+      "required": false
+    }
+  ]
+}

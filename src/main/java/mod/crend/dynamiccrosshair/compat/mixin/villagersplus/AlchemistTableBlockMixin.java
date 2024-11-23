@@ -1,7 +1,10 @@
 //? if villagersplus-fabric {
 package mod.crend.dynamiccrosshair.compat.mixin.villagersplus;
 
+//? if =1.20.1 {
 import com.lion.villagersplus.blocks.AlchemistTableBlock;
+//?} else
+/*import com.finallion.villagersplus.blocks.AlchemistTableBlock;*/
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;

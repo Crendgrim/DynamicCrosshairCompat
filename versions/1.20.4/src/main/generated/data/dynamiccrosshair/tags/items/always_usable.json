@@ -1,0 +1,177 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "adventurez:ender_flute",
+      "required": false
+    },
+    {
+      "id": "adventurez:handbook",
+      "required": false
+    },
+    {
+      "id": "adventurez:source_stone",
+      "required": false
+    },
+    {
+      "id": "archon:experience_pouch",
+      "required": false
+    },
+    {
+      "id": "archon:super_experience_pouch",
+      "required": false
+    },
+    {
+      "id": "archon:grimoire",
+      "required": false
+    },
+    {
+      "id": "archon:lightning_bottle",
+      "required": false
+    },
+    {
+      "id": "bewitchment:book_of_shadows",
+      "required": false
+    },
+    {
+      "id": "bewitchment:waystone",
+      "required": false
+    },
+    {
+      "id": "enderchests:ender_bag",
+      "required": false
+    },
+    {
+      "id": "enderchests:ender_pouch",
+      "required": false
+    },
+    {
+      "id": "galosphere:silver_bomb",
+      "required": false
+    },
+    {
+      "id": "indrev:guide_book",
+      "required": false
+    },
+    {
+      "id": "kibe:entangled_bag",
+      "required": false
+    },
+    {
+      "id": "kibe:white_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:orange_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:magenta_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:light_blue_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:yellow_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:lime_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:pink_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:gray_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:light_gray_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:cyan_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:blue_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:purple_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:green_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:brown_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:red_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:black_glider",
+      "required": false
+    },
+    {
+      "id": "kibe:pocket_crafting_table",
+      "required": false
+    },
+    {
+      "id": "kibe:pocket_trash_can",
+      "required": false
+    },
+    {
+      "id": "multibeds:bed_kit",
+      "required": false
+    },
+    {
+      "id": "multibeds:ladder_tools",
+      "required": false
+    },
+    {
+      "id": "multibeds:embroidery_thread",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:bronze_coin",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:gold_coin",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:silver_coin",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:money_bag",
+      "required": false
+    },
+    {
+      "id": "patchouli:guide_book",
+      "required": false
+    },
+    {
+      "id": "things:things_almanac",
+      "required": false
+    },
+    {
+      "id": "things:displacement_tome",
+      "required": false
+    },
+    {
+      "id": "things:item_magnet",
+      "required": false
+    }
+  ]
+}

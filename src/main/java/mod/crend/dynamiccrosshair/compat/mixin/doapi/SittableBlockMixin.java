@@ -1,6 +1,7 @@
 //? if do-api {
 package mod.crend.dynamiccrosshair.compat.mixin.doapi;
 
+//? if =1.20.1
 import de.cristelknight.doapi.common.block.BenchBlock;
 import de.cristelknight.doapi.common.block.ChairBlock;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
@@ -10,6 +11,7 @@ import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = {
+		//? if =1.20.1
 		BenchBlock.class,
 		ChairBlock.class
 }, remap = false

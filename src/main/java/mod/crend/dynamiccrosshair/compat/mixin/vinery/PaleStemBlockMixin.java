@@ -16,7 +16,7 @@ public abstract class PaleStemBlockMixin extends StemBlockMixin implements Dynam
 		if (context.isMainHand()) {
 			int age = context.getBlockState().get(StemBlock.AGE);
 			if (age == 0 && context.getItemStack().getItem() instanceof GrapeBushSeedItem seed) {
-				if (this.hasTrunk(context.getWorld(), context.getBlockPos()) && seed.getType().isLattice()) {
+				if (this.hasTrunk(context.getWorld(), context.getBlockPos()) && seed.getType()./*? if =1.20.1 {*/isLattice/*?} else {*//*isPaleType*//*?}*/()) {
 					return InteractionType.PLACE_ITEM_ON_BLOCK;
 				}
 			}

@@ -1,10 +1,17 @@
 //? if dramatic-doors {
 package mod.crend.dynamiccrosshair.compat.mixin.dramaticdoors;
 
+//? if =1.20.1 {
 import com.fizzware.dramaticdoors.fabric.blocks.ShortDoorBlock;
 import com.fizzware.dramaticdoors.fabric.compat.Compats;
 import com.fizzware.dramaticdoors.fabric.compat.registries.SupplementariesCompat;
 import com.fizzware.dramaticdoors.fabric.tags.DDBlockTags;
+//?} else {
+/*import com.fizzware.dramaticdoors.blocks.ShortDoorBlock;
+import com.fizzware.dramaticdoors.compat.Compats;
+import com.fizzware.dramaticdoors.compat.registries.SupplementariesCompat;
+import com.fizzware.dramaticdoors.tags.DDBlockTags;
+*///?}
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
@@ -26,9 +33,9 @@ public class ShortDoorBlockMixin implements DynamicCrosshairBlock {
 				if (blockState.getBlock() == SupplementariesCompat.SHORT_GOLD_DOOR && blockState.get(ShortDoorBlock.POWERED)) {
 					return InteractionType.EMPTY;
 				}
-				if (blockState.getBlock() == SupplementariesCompat.SHORT_SILVER_DOOR && !blockState.get(ShortDoorBlock.POWERED)) {
-					return InteractionType.EMPTY;
-				}
+			}
+			if (blockState.getBlock() == SupplementariesCompat.SHORT_SILVER_DOOR && !blockState.get(ShortDoorBlock.POWERED)) {
+				return InteractionType.EMPTY;
 			}
 			return InteractionType.INTERACT_WITH_BLOCK;
 		}

@@ -1,0 +1,233 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#adorn:table_lamps",
+      "required": false
+    },
+    {
+      "id": "#adorn:kitchen_cupboards",
+      "required": false
+    },
+    {
+      "id": "#adorn:drawers",
+      "required": false
+    },
+    {
+      "id": "archon:scripture_table",
+      "required": false
+    },
+    {
+      "id": "bewitchment:golden_glyph",
+      "required": false
+    },
+    {
+      "id": "bewitchment:crystal_ball",
+      "required": false
+    },
+    {
+      "id": "enderchests:ender_chest",
+      "required": false
+    },
+    {
+      "id": "galosphere:combustion_table",
+      "required": false
+    },
+    {
+      "id": "indrev:cabinet",
+      "required": false
+    },
+    {
+      "id": "indrev:drill_top",
+      "required": false
+    },
+    {
+      "id": "indrev:drill_middle",
+      "required": false
+    },
+    {
+      "id": "indrev:drill_bottom",
+      "required": false
+    },
+    {
+      "id": "kibe:big_torch",
+      "required": false
+    },
+    {
+      "id": "kibe:breaker",
+      "required": false
+    },
+    {
+      "id": "kibe:cooler",
+      "required": false
+    },
+    {
+      "id": "kibe:drawbridge",
+      "required": false
+    },
+    {
+      "id": "kibe:cobblestone_generator_mk1",
+      "required": false
+    },
+    {
+      "id": "kibe:cobblestone_generator_mk2",
+      "required": false
+    },
+    {
+      "id": "kibe:cobblestone_generator_mk3",
+      "required": false
+    },
+    {
+      "id": "kibe:cobblestone_generator_mk4",
+      "required": false
+    },
+    {
+      "id": "kibe:cobblestone_generator_mk5",
+      "required": false
+    },
+    {
+      "id": "kibe:basalt_generator_mk1",
+      "required": false
+    },
+    {
+      "id": "kibe:basalt_generator_mk2",
+      "required": false
+    },
+    {
+      "id": "kibe:basalt_generator_mk3",
+      "required": false
+    },
+    {
+      "id": "kibe:basalt_generator_mk4",
+      "required": false
+    },
+    {
+      "id": "kibe:basalt_generator_mk5",
+      "required": false
+    },
+    {
+      "id": "kibe:fluid_hopper",
+      "required": false
+    },
+    {
+      "id": "kibe:redstone_timer",
+      "required": false
+    },
+    {
+      "id": "kibe:placer",
+      "required": false
+    },
+    {
+      "id": "kibe:tank",
+      "required": false
+    },
+    {
+      "id": "kibe:trash_can",
+      "required": false
+    },
+    {
+      "id": "kibe:vacuum_hopper",
+      "required": false
+    },
+    {
+      "id": "kibe:wither_builder",
+      "required": false
+    },
+    {
+      "id": "meadow:cheese_form",
+      "required": false
+    },
+    {
+      "id": "meadow:cooking_cauldron",
+      "required": false
+    },
+    {
+      "id": "meadow:camera",
+      "required": false
+    },
+    {
+      "id": "meadow:cheesecake",
+      "required": false
+    },
+    {
+      "id": "meadow:cheese_tart",
+      "required": false
+    },
+    {
+      "id": "meadow:cheese_block",
+      "required": false
+    },
+    {
+      "id": "meadow:amethyst_cheese_block",
+      "required": false
+    },
+    {
+      "id": "meadow:buffalo_cheese_block",
+      "required": false
+    },
+    {
+      "id": "meadow:warped_cheese_block",
+      "required": false
+    },
+    {
+      "id": "meadow:grain_cheese_block",
+      "required": false
+    },
+    {
+      "id": "meadow:sheep_cheese_block",
+      "required": false
+    },
+    {
+      "id": "meadow:goat_cheese_block",
+      "required": false
+    },
+    {
+      "id": "meadow:fondue",
+      "required": false
+    },
+    {
+      "id": "meadow:shutter_block",
+      "required": false
+    },
+    {
+      "id": "meadow:shutter_block_poppy",
+      "required": false
+    },
+    {
+      "id": "meadow:shutter_block_fir",
+      "required": false
+    },
+    {
+      "id": "meadow:shutter_block_berry",
+      "required": false
+    },
+    {
+      "id": "meadow:woodcutter",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:inexhaustible_shop",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:piggy_bank",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:shop",
+      "required": false
+    },
+    {
+      "id": "vinery:fermentation_barrel",
+      "required": false
+    },
+    {
+      "id": "vinery:apple_press",
+      "required": false
+    },
+    {
+      "id": "vinery:basket",
+      "required": false
+    }
+  ]
+}

@@ -2,13 +2,14 @@ plugins {
     `maven-publish`
     id("fabric-loom")
     //id("dev.kikugie.j52j")
-    //id("me.modmuss50.mod-publish-plugin")
+    id("me.modmuss50.mod-publish-plugin")
 }
 
 class ModData {
     val id = property("mod.id").toString()
     val name = property("mod.name").toString()
     val version = property("mod.version").toString()
+    val changelog = property("mod.changelog").toString()
     val group = property("mod.group").toString()
 }
 
@@ -168,58 +169,36 @@ tasks.register<Copy>("buildAndCollect") {
     dependsOn("build")
 }
 
-/*
 publishMods {
+    displayName = "[Fabric ${property("mod.mc_title")}] ${mod.name} ${mod.version}"
+
+    val modrinthToken = providers.gradleProperty("MODRINTH_TOKEN").orNull
+    val curseforgeToken = providers.gradleProperty("CURSEFORGE_TOKEN").orNull
+    dryRun = modrinthToken == null || curseforgeToken == null
+
     file = tasks.remapJar.get().archiveFile
-    additionalFiles.from(tasks.remapSourcesJar.get().archiveFile)
-    displayName = "${mod.name} ${mod.version} for $mcVersion"
-    version = mod.version
-    changelog = rootProject.file("CHANGELOG.md").readText()
+    version = "${mod.version}+$mcVersion"
+    changelog = mod.changelog
     type = STABLE
     modLoaders.add("fabric")
 
-    dryRun = providers.environmentVariable("MODRINTH_TOKEN")
-        .getOrNull() == null || providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null
+    val supportedVersions = property("mod.mc_targets").toString().split(" ")
 
     modrinth {
         projectId = property("publish.modrinth").toString()
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        minecraftVersions.add(mcVersion)
-        requires {
-            slug = "fabric-api"
-        }
-    }
+        accessToken = modrinthToken
+        minecraftVersions.addAll(supportedVersions)
 
+        requires("dynamiccrosshair")
+    }
     curseforge {
         projectId = property("publish.curseforge").toString()
-        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-        minecraftVersions.add(mcVersion)
-        requires {
-            slug = "fabric-api"
-        }
+        projectSlug = property("publish.curseforge_slug").toString()
+        accessToken = curseforgeToken
+        minecraftVersions.addAll(supportedVersions)
+        clientRequired = true
+        serverRequired = false
+
+        requires("dynamic-crosshair")
     }
 }
-*/
-/*
-publishing {
-    repositories {
-        maven("...") {
-            name = "..."
-            credentials(PasswordCredentials::class.java)
-            authentication {
-                create<BasicAuthentication>("basic")
-            }
-        }
-    }
-
-    publications {
-        create<MavenPublication>("mavenJava") {
-            groupId = "${property("mod.group")}.${mod.id}"
-            artifactId = mod.version
-            version = mcVersion
-
-            from(components["java"])
-        }
-    }
-}
-*/

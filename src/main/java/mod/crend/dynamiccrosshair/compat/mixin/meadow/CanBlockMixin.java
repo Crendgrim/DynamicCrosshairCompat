@@ -9,13 +9,8 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.MilkBucketItem;
-//? if =1.20.1 {
-import net.satisfy.meadow.block.CanBlock;
-import net.satisfy.meadow.registry.ObjectRegistry;
-//?} else {
-/*import net.satisfyu.meadow.block.CanBlock;
-import net.satisfyu.meadow.registry.ObjectRegistry;
-*///?}
+import net.satisfy.meadow.core.block.CanBlock;
+import net.satisfy.meadow.core.registry.ObjectRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = CanBlock.class, remap = false)

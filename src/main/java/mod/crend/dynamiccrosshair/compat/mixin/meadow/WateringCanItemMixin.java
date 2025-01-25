@@ -13,10 +13,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.RaycastContext;
-//? if =1.20.1 {
-import net.satisfy.meadow.item.WateringCanItem;
-//?} else
-/*import net.satisfyu.meadow.item.WateringCanItem;*/
+import net.satisfy.meadow.core.item.WateringCanItem;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = WateringCanItem.class, remap = false)

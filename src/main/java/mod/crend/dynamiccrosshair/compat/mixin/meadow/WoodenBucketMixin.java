@@ -15,10 +15,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.RaycastContext;
-//? if =1.20.1 {
-import net.satisfy.meadow.item.WoodenBucket;
-//?} else
-/*import net.satisfyu.meadow.item.WoodenBucket;*/
+import net.satisfy.meadow.core.item.WoodenBucket;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

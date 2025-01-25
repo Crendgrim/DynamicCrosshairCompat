@@ -4,13 +4,8 @@ package mod.crend.dynamiccrosshair.compat.mixin.meadow;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
-//? if =1.20.1 {
-import net.satisfy.meadow.block.FrameBlock;
-import net.satisfy.meadow.registry.ObjectRegistry;
-//?} else {
-/*import net.satisfyu.meadow.block.FrameBlock;
-import net.satisfyu.meadow.registry.ObjectRegistry;
-*///?}
+import net.satisfy.meadow.core.block.FrameBlock;
+import net.satisfy.meadow.core.registry.ObjectRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = FrameBlock.class, remap = false)

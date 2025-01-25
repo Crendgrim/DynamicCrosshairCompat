@@ -14,9 +14,9 @@ import java.util.Optional;
 
 //? if =1.20.1 {
 import org.spongepowered.asm.mixin.Shadow;
-import net.satisfy.meadow.block.entity.CheeseRackBlockEntity;
-import net.satisfy.meadow.block.storage.CheeseRackBlock;
-import net.satisfy.meadow.registry.TagRegistry;
+import net.satisfy.meadow.core.block.CheeseRackBlock;
+import net.satisfy.meadow.core.block.entity.CheeseRackBlockEntity;
+import net.satisfy.meadow.core.registry.TagRegistry;
 
 //?} else {
 /*import net.satisfyu.meadow.block.CheeseRackBlock;

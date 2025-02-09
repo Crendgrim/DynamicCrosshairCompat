@@ -125,7 +125,7 @@ fun main(args: Array<String>) {
                 for (i in 0..(content?.size ?: 0)) {
                     if (content?.get(i)?.startsWith("${update.modId},") == true) {
                         if (content[i]?.startsWith("${update.modId},disabled,") != true) {
-                            content[i] = "${modEntry},${update.versionSlug}"
+                            content[i] = "${modEntry},${update.previousVersion.includeAtRuntime}"
                             break
                         }
                     }

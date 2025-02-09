@@ -25,6 +25,10 @@
       "required": false
     },
     {
+      "id": "enderchests:ender_chest",
+      "required": false
+    },
+    {
       "id": "hwg:gun_table",
       "required": false
     }

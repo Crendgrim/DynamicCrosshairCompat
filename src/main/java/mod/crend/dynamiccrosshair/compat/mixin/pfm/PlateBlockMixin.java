@@ -8,6 +8,8 @@ import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.block.Block;
+//? if >=1.20.5
+/*import net.minecraft.component.DataComponentTypes;*/
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +26,7 @@ public class PlateBlockMixin implements DynamicCrosshairBlock {
 			}
 		}
 		if (context.getBlockEntity() instanceof PlateBlockEntity plateBlockEntity) {
-			if (itemStack.isFood()) {
+			if (/*? if <1.20.5 {*/itemStack.isFood()/*?} else {*//*itemStack.contains(DataComponentTypes.FOOD)*//*?}*/) {
 				if (plateBlockEntity.getItemInPlate().isEmpty()) {
 					return InteractionType.PLACE_ITEM_ON_BLOCK;
 				}

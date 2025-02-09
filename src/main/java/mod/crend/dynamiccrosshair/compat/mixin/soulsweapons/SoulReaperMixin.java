@@ -5,7 +5,10 @@ import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
 import net.minecraft.item.ItemStack;
-import net.soulsweaponry.items.SoulReaper;
+//? if =1.20.4 {
+/*import net.soulsweaponry.items.SoulReaper;*/
+//?} else
+import net.soulsweaponry.items.scythe.SoulReaper;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = SoulReaper.class, remap = false)

@@ -13,6 +13,26 @@
       "required": false
     },
     {
+      "id": "enderchests:ender_bag",
+      "required": false
+    },
+    {
+      "id": "enderchests:ender_pouch",
+      "required": false
+    },
+    {
+      "id": "multibeds:bed_kit",
+      "required": false
+    },
+    {
+      "id": "multibeds:ladder_tools",
+      "required": false
+    },
+    {
+      "id": "multibeds:embroidery_thread",
+      "required": false
+    },
+    {
       "id": "patchouli:guide_book",
       "required": false
     },

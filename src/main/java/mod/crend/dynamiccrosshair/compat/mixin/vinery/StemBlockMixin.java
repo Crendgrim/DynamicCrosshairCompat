@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.satisfy.vinery.core.block.StemBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import net.satisfy.vinery.block.stem.StemBlock;
 
 @Mixin(value = StemBlock.class, remap = false)
 public abstract class StemBlockMixin implements DynamicCrosshairBlock {

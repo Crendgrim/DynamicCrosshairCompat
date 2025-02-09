@@ -9,7 +9,7 @@ import net.minecraft.block.enums.SlabType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
-import net.satisfy.vinery.block.StackableLogBlock;
+import net.satisfy.vinery.core.block.StackableLogBlock;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = StackableLogBlock.class, remap = false)

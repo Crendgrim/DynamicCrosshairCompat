@@ -1,11 +1,10 @@
 //? if vinery {
 package mod.crend.dynamiccrosshair.compat.mixin.vinery;
 
-import mod.crend.dynamiccrosshair.compat.mixin.doapi.StorageBlockMixin;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
-import net.satisfy.vinery.block.storage.WineBoxBlock;
+import net.satisfy.vinery.core.block.WineBoxBlock;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = WineBoxBlock.class, remap = false)

@@ -3,6 +3,7 @@ package mod.crend.dynamiccrosshair.compat.impl;
 //? if bedrockify {
 import me.juancarloscp52.bedrockify.Bedrockify;
 import me.juancarloscp52.bedrockify.client.BedrockifyClient;
+//? if <1.21.5
 import net.minecraft.item.EnchantedBookItem;
 //?}
 import mod.crend.dynamiccrosshairapi.DynamicCrosshairApi;
@@ -59,7 +60,10 @@ public class ApiImplBedrockify implements DynamicCrosshairApi {
 
 	private boolean hasFireAspect(ItemStack itemStack) {
 		return itemStack != null
-			&& (itemStack.hasEnchantments() || itemStack.getItem() instanceof EnchantedBookItem)
+			&& (itemStack.hasEnchantments()
+				//? if <1.21.5
+				|| itemStack.getItem() instanceof EnchantedBookItem
+			)
 			//? if <1.20.6 {
 			&& EnchantmentHelper.get(itemStack).containsKey(Enchantments.FIRE_ASPECT)
 			//?} else {

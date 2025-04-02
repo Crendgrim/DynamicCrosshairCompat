@@ -10,8 +10,8 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 //? if >=1.21.3 {
-/*import net.minecraft.recipe.RecipePropertySet;*/
-//?} else if >1.21 {
+/*import net.minecraft.recipe.RecipePropertySet;
+*///?} else if >1.21 {
 /*import net.minecraft.recipe.input.SingleStackRecipeInput;*/
 //?}
 import org.spongepowered.asm.mixin.Mixin;

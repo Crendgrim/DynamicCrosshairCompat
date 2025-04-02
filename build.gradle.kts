@@ -150,6 +150,7 @@ tasks.processResources {
     inputs.property("version", mod.version)
     inputs.property("mcdep", mcDep)
     inputs.property("dcdep", dcDep)
+    inputs.file("supported_mods.csv")
 
     val map = mapOf(
         "id" to mod.id,
@@ -160,6 +161,36 @@ tasks.processResources {
     )
 
     filesMatching("fabric.mod.json") { expand(map) }
+    filesMatching("dynamiccrosshaircompat.mixins.json") {
+        var first = true
+        filter {
+            var result: String? = it
+            if (it.startsWith("    \"")) {
+                val clazz = it
+                    .replace("    \"", "")
+                    .replace("\"", "")
+                    .replace(",", "")
+                    .replace(".", "/")
+                if (file("./build/classes/java/main/mod/crend/dynamiccrosshair/compat/mixin/${clazz}.class").exists()) {
+                    // Since we can only to line-by-line filtering, removing lines from the end of the array will cause
+                    // the resulting JSON to be malformed. JSON is a bad format. The workaround is to prepend a comma to
+                    // every (not-first) line instead. It will get pretty-printed later, so we can ignore formatting.
+                    result = it.replace(",", "")
+                    if (first) {
+                        first = false
+                    } else {
+                        result = ", $result"
+                    }
+                }
+                else
+                    result = null
+            }
+            // gradle is stupid and says this is an unexpected type, but filter expects "null" return to remove lines...
+            // This is also why we store the result in a temporary variable, so that not the entire filter above gets
+            // highlighted as wrong in IDEA.
+            result
+        }
+    }
 }
 
 tasks.register<Copy>("buildAndCollect") {

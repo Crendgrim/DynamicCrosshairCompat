@@ -1,7 +1,10 @@
 //? if travelers_backpack {
 package mod.crend.dynamiccrosshair.compat.mixin.travelersbackpack;
 
+//? if <1.21 {
 import com.tiviacz.travelersbackpack.items.TravelersBackpackItem;
+//?} else
+//import com.tiviacz.travelersbackpack.item.TravelersBackpackItem;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;

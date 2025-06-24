@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.tags;
 
 import mod.crend.dynamiccrosshair.compat.DCCProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import mod.crend.dynamiccrosshair.compat.version.VersionedTagBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -11,7 +11,7 @@ public class HWGCompat extends DCCProvider {
 	}
 
 	@Override
-	public void itemsThrowable(FabricTagProvider<Item>.FabricTagBuilder builder) {
+	public void itemsThrowable(VersionedTagBuilder<Item> builder) {
 		//? if happiness-is-a-warm-gun {
 		builder
 				.addOptional(of("grenade_emp"))
@@ -24,7 +24,7 @@ public class HWGCompat extends DCCProvider {
 	}
 
 	@Override
-	public void blocksAlwaysInteractable(FabricTagProvider<Block>.FabricTagBuilder builder) {
+	public void blocksAlwaysInteractable(VersionedTagBuilder<Block> builder) {
 		//? if happiness-is-a-warm-gun {
 		builder
 				.addOptional(of("gun_table"))

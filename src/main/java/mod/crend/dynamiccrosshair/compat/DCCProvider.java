@@ -1,8 +1,7 @@
 package mod.crend.dynamiccrosshair.compat;
 
-
+import mod.crend.dynamiccrosshair.compat.version.VersionedTagBuilder;
 import mod.crend.dynamiccrosshairapi.VersionUtils;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -15,16 +14,16 @@ public abstract class DCCProvider {
 		this.namespace = namespace;
 	}
 
-	public void blocksAlwaysInteractable(FabricTagProvider<Block>.FabricTagBuilder builder) { }
-	public void blocksAlwaysInteractableInCreativeMode(FabricTagProvider<Block>.FabricTagBuilder builder) { }
+	public void blocksAlwaysInteractable(VersionedTagBuilder<Block> builder) { }
+	public void blocksAlwaysInteractableInCreativeMode(VersionedTagBuilder<Block> builder) { }
 
-	public void entitiesAlwaysInteractable(FabricTagProvider<EntityType<?>>.FabricTagBuilder builder) { }
+	public void entitiesAlwaysInteractable(VersionedTagBuilder<EntityType<?>> builder) { }
 
-	public void itemsAlwaysUsable(FabricTagProvider<Item>.FabricTagBuilder builder) { }
-	public void itemsAlwaysUsableOnBlock(FabricTagProvider<Item>.FabricTagBuilder builder) { }
-	public void itemsAlwaysUsableOnEntity(FabricTagProvider<Item>.FabricTagBuilder builder) { }
-	public void itemsAlwaysUsableOnMiss(FabricTagProvider<Item>.FabricTagBuilder builder) { }
-	public void itemsThrowable(FabricTagProvider<Item>.FabricTagBuilder builder) { }
+	public void itemsAlwaysUsable(VersionedTagBuilder<Item> builder) { }
+	public void itemsAlwaysUsableOnBlock(VersionedTagBuilder<Item> builder) { }
+	public void itemsAlwaysUsableOnEntity(VersionedTagBuilder<Item> builder) { }
+	public void itemsAlwaysUsableOnMiss(VersionedTagBuilder<Item> builder) { }
+	public void itemsThrowable(VersionedTagBuilder<Item> builder) { }
 
 	public Identifier of(String path) {
 		return of(namespace, path);

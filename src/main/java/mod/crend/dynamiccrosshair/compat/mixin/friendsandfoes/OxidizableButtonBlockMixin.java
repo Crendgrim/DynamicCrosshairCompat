@@ -27,7 +27,7 @@ public abstract class OxidizableButtonBlockMixin implements DynamicCrosshairBloc
 		if (item instanceof HoneycombItem) {
 			return InteractionType.USE_ITEM_ON_BLOCK;
 		}
-		if (item instanceof AxeItem && /*? <1.21.1 {*/getDegradationLevel/*?} else{*//*getAge*//*?}*/() != Oxidizable.OxidationLevel.UNAFFECTED) {
+		if (item instanceof AxeItem && /*? <1.21.1 {*/getDegradationLevel/*?} else {*//*getAge*//*?}*/() != Oxidizable.OxidationLevel.UNAFFECTED) {
 			return InteractionType.USE_ITEM_ON_BLOCK;
 		}
 		return InteractionType.EMPTY;

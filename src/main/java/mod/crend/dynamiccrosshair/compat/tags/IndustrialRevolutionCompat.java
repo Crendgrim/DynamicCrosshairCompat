@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.tags;
 
 import mod.crend.dynamiccrosshair.compat.DCCProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import mod.crend.dynamiccrosshair.compat.version.VersionedTagBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -11,7 +11,7 @@ public class IndustrialRevolutionCompat extends DCCProvider {
 	}
 
 	@Override
-	public void blocksAlwaysInteractable(FabricTagProvider<Block>.FabricTagBuilder builder) {
+	public void blocksAlwaysInteractable(VersionedTagBuilder<Block> builder) {
 		//? if industrial-revolution {
 		builder
 				.addOptional(of("cabinet"))
@@ -23,7 +23,7 @@ public class IndustrialRevolutionCompat extends DCCProvider {
 	}
 
 	@Override
-	public void itemsAlwaysUsable(FabricTagProvider<Item>.FabricTagBuilder builder) {
+	public void itemsAlwaysUsable(VersionedTagBuilder<Item> builder) {
 		//? if industrial-revolution {
 		builder
 				.addOptional(of("guide_book"))
@@ -32,7 +32,7 @@ public class IndustrialRevolutionCompat extends DCCProvider {
 	}
 
 	@Override
-	public void itemsAlwaysUsableOnBlock(FabricTagProvider<Item>.FabricTagBuilder builder) {
+	public void itemsAlwaysUsableOnBlock(VersionedTagBuilder<Item> builder) {
 		super.itemsAlwaysUsableOnBlock(builder);
 		//? if industrial-revolution {
 		builder
@@ -42,7 +42,7 @@ public class IndustrialRevolutionCompat extends DCCProvider {
 	}
 
 	@Override
-	public void itemsAlwaysUsableOnMiss(FabricTagProvider<Item>.FabricTagBuilder builder) {
+	public void itemsAlwaysUsableOnMiss(VersionedTagBuilder<Item> builder) {
 		super.itemsAlwaysUsableOnMiss(builder);
 		//? if industrial-revolution {
 		builder

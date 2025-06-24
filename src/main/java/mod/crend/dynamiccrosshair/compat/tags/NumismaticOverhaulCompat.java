@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.tags;
 
 import mod.crend.dynamiccrosshair.compat.DCCProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import mod.crend.dynamiccrosshair.compat.version.VersionedTagBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -11,7 +11,7 @@ public class NumismaticOverhaulCompat extends DCCProvider {
 	}
 
 	@Override
-	public void itemsAlwaysUsable(FabricTagProvider<Item>.FabricTagBuilder builder) {
+	public void itemsAlwaysUsable(VersionedTagBuilder<Item> builder) {
 		//? if numismatic-overhaul {
 		builder
 				.addOptional(of("bronze_coin"))
@@ -23,7 +23,7 @@ public class NumismaticOverhaulCompat extends DCCProvider {
 	}
 
 	@Override
-	public void blocksAlwaysInteractable(FabricTagProvider<Block>.FabricTagBuilder builder) {
+	public void blocksAlwaysInteractable(VersionedTagBuilder<Block> builder) {
 		//? if numismatic-overhaul {
 		builder
 				.addOptional(of("inexhaustible_shop"))

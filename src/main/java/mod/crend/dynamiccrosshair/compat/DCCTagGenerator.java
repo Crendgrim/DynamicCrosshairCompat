@@ -16,17 +16,15 @@ import mod.crend.dynamiccrosshair.compat.tags.NumismaticOverhaulCompat;
 import mod.crend.dynamiccrosshair.compat.tags.PatchouliCompat;
 import mod.crend.dynamiccrosshair.compat.tags.ThingsCompat;
 import mod.crend.dynamiccrosshair.compat.tags.VineryCompat;
+import mod.crend.dynamiccrosshair.compat.version.VersionedTagProvider;
 import mod.crend.dynamiccrosshairapi.registry.DynamicCrosshairBlockTags;
 import mod.crend.dynamiccrosshairapi.registry.DynamicCrosshairEntityTags;
 import mod.crend.dynamiccrosshairapi.registry.DynamicCrosshairItemTags;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -61,18 +59,18 @@ public class DCCTagGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(EntityTypeTagGenerator::new);
 	}
 
-	public static class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
+	public static class ItemTagGenerator extends VersionedTagProvider.ItemTagProvider {
 		public ItemTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
 			super(output, completableFuture);
 		}
 
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup arg) {
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsable = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE).setReplace(false);
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnBlock = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_BLOCK).setReplace(false);
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnEntity = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_ENTITY).setReplace(false);
-			FabricTagProvider<Item>.FabricTagBuilder builderAlwaysUsableOnMiss = getOrCreateTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_MISS).setReplace(false);
-			FabricTagProvider<Item>.FabricTagBuilder builderThrowable = getOrCreateTagBuilder(DynamicCrosshairItemTags.THROWABLES).setReplace(false);
+			var builderAlwaysUsable = versionedTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE).setReplace(false);
+			var builderAlwaysUsableOnBlock = versionedTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_BLOCK).setReplace(false);
+			var builderAlwaysUsableOnEntity = versionedTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_ENTITY).setReplace(false);
+			var builderAlwaysUsableOnMiss = versionedTagBuilder(DynamicCrosshairItemTags.ALWAYS_USABLE_ON_MISS).setReplace(false);
+			var builderThrowable = versionedTagBuilder(DynamicCrosshairItemTags.THROWABLES).setReplace(false);
 			for (DCCProvider provider : PROVIDERS) {
 				provider.itemsAlwaysUsable(builderAlwaysUsable);
 				provider.itemsAlwaysUsableOnBlock(builderAlwaysUsableOnBlock);
@@ -83,15 +81,15 @@ public class DCCTagGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 
-	public static class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
+	public static class BlockTagGenerator extends VersionedTagProvider.BlockTagProvider {
 		public BlockTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
 			super(output, completableFuture);
 		}
 
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup arg) {
-			FabricTagProvider<Block>.FabricTagBuilder builderAlwaysInteractable = getOrCreateTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE).setReplace(false);
-			FabricTagProvider<Block>.FabricTagBuilder builderAlwaysInteractableInCreativeMode = getOrCreateTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE_IN_CREATIVE_MODE).setReplace(false);
+			var builderAlwaysInteractable = versionedTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE).setReplace(false);
+			var builderAlwaysInteractableInCreativeMode = versionedTagBuilder(DynamicCrosshairBlockTags.ALWAYS_INTERACTABLE_IN_CREATIVE_MODE).setReplace(false);
 			for (DCCProvider provider : PROVIDERS) {
 				provider.blocksAlwaysInteractable(builderAlwaysInteractable);
 				provider.blocksAlwaysInteractableInCreativeMode(builderAlwaysInteractableInCreativeMode);
@@ -99,14 +97,14 @@ public class DCCTagGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 
-	public static class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvider {
+	public static class EntityTypeTagGenerator extends VersionedTagProvider.EntityTypeTagProvider {
 		public EntityTypeTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
 			super(output, completableFuture);
 		}
 
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup arg) {
-			FabricTagProvider<EntityType<?>>.FabricTagBuilder builderAlwaysInteractable = getOrCreateTagBuilder(DynamicCrosshairEntityTags.ALWAYS_INTERACTABLE).setReplace(false);
+			var builderAlwaysInteractable = versionedTagBuilder(DynamicCrosshairEntityTags.ALWAYS_INTERACTABLE).setReplace(false);
 			for (DCCProvider provider : PROVIDERS) {
 				provider.entitiesAlwaysInteractable(builderAlwaysInteractable);
 			}

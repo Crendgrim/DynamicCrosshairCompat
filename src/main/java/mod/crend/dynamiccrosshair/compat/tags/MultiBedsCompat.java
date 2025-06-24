@@ -1,7 +1,7 @@
 package mod.crend.dynamiccrosshair.compat.tags;
 
 import mod.crend.dynamiccrosshair.compat.DCCProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import mod.crend.dynamiccrosshair.compat.version.VersionedTagBuilder;
 import net.minecraft.item.Item;
 
 public class MultiBedsCompat extends DCCProvider {
@@ -10,7 +10,7 @@ public class MultiBedsCompat extends DCCProvider {
 	}
 
 	@Override
-	public void itemsAlwaysUsable(FabricTagProvider<Item>.FabricTagBuilder builder) {
+	public void itemsAlwaysUsable(VersionedTagBuilder<Item> builder) {
 		//? if multibeds {
 		builder
 				.addOptional(of("bed_kit"))

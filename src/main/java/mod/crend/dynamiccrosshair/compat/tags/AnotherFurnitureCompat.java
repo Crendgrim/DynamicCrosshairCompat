@@ -3,7 +3,7 @@ package mod.crend.dynamiccrosshair.compat.tags;
 //? if another-furniture
 import com.starfish_studios.another_furniture.registry.AFBlockTags;
 import mod.crend.dynamiccrosshair.compat.DCCProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import mod.crend.dynamiccrosshair.compat.version.VersionedTagBuilder;
 import net.minecraft.block.Block;
 
 public class AnotherFurnitureCompat extends DCCProvider {
@@ -12,7 +12,7 @@ public class AnotherFurnitureCompat extends DCCProvider {
 	}
 
 	@Override
-	public void blocksAlwaysInteractable(FabricTagProvider<Block>.FabricTagBuilder builder) {
+	public void blocksAlwaysInteractable(VersionedTagBuilder<Block> builder) {
 		//? if another-furniture {
 		builder
 				.addOptionalTag(AFBlockTags.CURTAINS)

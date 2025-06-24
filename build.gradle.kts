@@ -254,9 +254,7 @@ if (mod.publish("current")) {
             accessToken = modrinthToken
             minecraftVersions.addAll(supportedVersions)
 
-            requires("fabric-api")
-            optional("yacl")
-            optional("modmenu")
+            requires("dynamiccrosshair")
         }
         curseforge {
             projectId = property("publish.curseforge").toString()
@@ -266,9 +264,7 @@ if (mod.publish("current")) {
             clientRequired = true
             serverRequired = false
 
-            requires("fabric-api")
-            optional("yacl")
-            optional("modmenu")
+            requires("dynamic-crosshair")
         }
     }
 }

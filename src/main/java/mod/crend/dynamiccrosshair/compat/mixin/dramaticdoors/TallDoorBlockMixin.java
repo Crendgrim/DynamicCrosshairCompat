@@ -27,11 +27,6 @@ public class TallDoorBlockMixin implements DynamicCrosshairBlock {
 					return InteractionType.EMPTY;
 				}
 			}
-			//? if <1.20.6 {
-			if (blockState.getBlock() == SupplementariesCompat.TALL_SILVER_DOOR && !blockState.get(TallDoorBlock.POWERED)) {
-				return InteractionType.EMPTY;
-			}
-			//?}
 			return InteractionType.INTERACT_WITH_BLOCK;
 		}
 		return InteractionType.EMPTY;

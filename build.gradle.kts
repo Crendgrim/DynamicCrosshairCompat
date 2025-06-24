@@ -164,7 +164,14 @@ dependencies {
     }
 }
 
+if (loader.isFabric()) {
+    fabricApi {
+        configureDataGeneration()
+    }
+}
+
 loom {
+
     if (loader.isForge()) {
         forge.mixinConfigs(
             "dynamiccrosshaircompat.mixins.json"

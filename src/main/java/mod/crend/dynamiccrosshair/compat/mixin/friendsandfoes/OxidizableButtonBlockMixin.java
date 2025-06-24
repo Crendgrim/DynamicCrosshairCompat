@@ -15,7 +15,11 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(value = OxidizableButtonBlock.class, remap = false)
 public abstract class OxidizableButtonBlockMixin implements DynamicCrosshairBlock {
 
+	//? if <1.21.1 {
 	@Shadow public abstract net.minecraft.block.Oxidizable.OxidationLevel getDegradationLevel();
+	//?} else {
+	/*@Shadow public abstract net.minecraft.block.Oxidizable.OxidationLevel getAge();
+	*///?}
 
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
@@ -23,7 +27,7 @@ public abstract class OxidizableButtonBlockMixin implements DynamicCrosshairBloc
 		if (item instanceof HoneycombItem) {
 			return InteractionType.USE_ITEM_ON_BLOCK;
 		}
-		if (item instanceof AxeItem && getDegradationLevel() != Oxidizable.OxidationLevel.UNAFFECTED) {
+		if (item instanceof AxeItem && /*? <1.21.1 {*/getDegradationLevel/*?} else{*//*getAge*//*?}*/() != Oxidizable.OxidationLevel.UNAFFECTED) {
 			return InteractionType.USE_ITEM_ON_BLOCK;
 		}
 		return InteractionType.EMPTY;

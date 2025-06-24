@@ -33,6 +33,22 @@
       "required": false
     },
     {
+      "id": "numismatic-overhaul:bronze_coin",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:gold_coin",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:silver_coin",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:money_bag",
+      "required": false
+    },
+    {
       "id": "patchouli:guide_book",
       "required": false
     },

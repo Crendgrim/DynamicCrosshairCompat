@@ -31,6 +31,18 @@
     {
       "id": "hwg:gun_table",
       "required": false
+    },
+    {
+      "id": "numismatic-overhaul:inexhaustible_shop",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:piggy_bank",
+      "required": false
+    },
+    {
+      "id": "numismatic-overhaul:shop",
+      "required": false
     }
   ]
 }

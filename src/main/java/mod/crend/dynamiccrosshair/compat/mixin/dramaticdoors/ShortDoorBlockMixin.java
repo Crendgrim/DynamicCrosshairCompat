@@ -27,11 +27,6 @@ public class ShortDoorBlockMixin implements DynamicCrosshairBlock {
 					return InteractionType.EMPTY;
 				}
 			}
-			//? if <1.20.6 {
-			if (blockState.getBlock() == SupplementariesCompat.SHORT_SILVER_DOOR && !blockState.get(ShortDoorBlock.POWERED)) {
-				return InteractionType.EMPTY;
-			}
-			//?}
 			return InteractionType.INTERACT_WITH_BLOCK;
 		}
 		return InteractionType.EMPTY;

@@ -4,7 +4,7 @@ package mod.crend.dynamiccrosshair.compat.mixin.ae2;
 import appeng.block.storage.SkyStoneTankBlock;
 import appeng.blockentity.storage.SkyStoneTankBlockEntity;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
-import mod.crend.dynamiccrosshairapi.fabric.CrosshairFluidContext;
+import mod.crend.dynamiccrosshairapi.crosshair.CrosshairFluidContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import org.spongepowered.asm.mixin.Mixin;

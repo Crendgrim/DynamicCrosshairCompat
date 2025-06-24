@@ -57,7 +57,7 @@ fun main(args: Array<String>) {
     val modSlugFromId = HashMap<String, String>()
     for (versionArg : String in args) {
         val versionFile = Path(versionArg)
-        val versionName = versionFile.parent.name
+        val versionName = versionFile.parent.name.substringBefore("-")
         versions[versionName] = versionFile
         modsPerVersion[versionName] = LinkedHashMap()
         versionFile.readLines().map {

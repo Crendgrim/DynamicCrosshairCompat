@@ -16,11 +16,13 @@ public class PaintingToolItemMixin implements DynamicCrosshairItem {
 		if (context.isWithBlock()) {
 			BlockState blockState = context.getBlockState();
 			if (context.getPlayer().isSneaking()) {
-				if (blockState.isOpaqueFullCube(context.getWorld(), context.getBlockPos()) && blockState.getBlock().getDefaultState().isOpaqueFullCube(context.getWorld(), context.getBlockPos())) {
+				if (blockState.isOpaqueFullCube(/*? if <1.21.3 {*/context.getWorld(), context.getBlockPos()/*?}*/)
+						&& blockState.getBlock().getDefaultState().isOpaqueFullCube(/*? if <1.21.3 {*/context.getWorld(), context.getBlockPos()/*?}*/)
+				) {
 					return InteractionType.USE_ITEM_ON_BLOCK;
 				}
 			} else {
-				BlockState cover = PaintingToolItem.getCover(context.getWorld(), context.getItemStack());
+				BlockState cover = PaintingToolItem.getCover(/*? if <1.21 {*/context.getWorld(), /*?}*/context.getItemStack());
 				if (cover != null && blockState.getBlock() instanceof CableBlock && blockState.get(CableBlock.COVERED)) {
 					return InteractionType.USE_ITEM_ON_BLOCK;
 				}

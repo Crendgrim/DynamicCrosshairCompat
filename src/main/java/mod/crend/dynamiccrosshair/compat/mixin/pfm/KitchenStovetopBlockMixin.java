@@ -12,8 +12,8 @@ import net.minecraft.recipe.RecipeType;
 //? if >=1.21.3 {
 /*import net.minecraft.recipe.RecipePropertySet;
 *///?} else if >1.21 {
-/*import net.minecraft.recipe.input.SingleStackRecipeInput;*/
-//?}
+/*import net.minecraft.recipe.input.SingleStackRecipeInput;
+*///?}
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(value = KitchenStovetopBlock.class, remap = false)
@@ -31,8 +31,8 @@ public class KitchenStovetopBlockMixin implements DynamicCrosshairBlock {
 						//? if <=1.20.6 {
 						.getFirstMatch(RecipeType.CAMPFIRE_COOKING, new SimpleInventory(stack), context.getWorld()).isEmpty()
 						//?} else if <=1.21.1 {
-						/*.getFirstMatch(RecipeType.CAMPFIRE_COOKING, new SingleStackRecipeInput(stack), context.getWorld()).isEmpty()*/
-						//?} else
+						/*.getFirstMatch(RecipeType.CAMPFIRE_COOKING, new SingleStackRecipeInput(stack), context.getWorld()).isEmpty()
+						*///?} else
 						/*.getPropertySet(RecipePropertySet.CAMPFIRE_INPUT).canUse(stack)*/
 				) {
 					return InteractionType.TAKE_ITEM_FROM_BLOCK;

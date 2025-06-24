@@ -1,48 +1,90 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
-    `maven-publish`
-    id("fabric-loom")
-    //id("dev.kikugie.j52j")
+    id("dev.kikugie.stonecutter")
+    id("dev.architectury.loom")
+    id("com.github.johnrengelman.shadow")
     id("me.modmuss50.mod-publish-plugin")
 }
 
-class ModData {
-    val id = property("mod.id").toString()
-    val name = property("mod.name").toString()
-    val version = property("mod.version").toString()
-    val changelog = property("mod.changelog").toString()
-    val group = property("mod.group").toString()
-}
-
+val minecraft = stonecutter.current.version
+val loader = Loader.of(stonecutter.current.project)
 class ModDependencies {
     operator fun get(name: String) = property("deps.$name").toString()
 }
-
-val mod = ModData()
 val deps = ModDependencies()
-val mcVersion = stonecutter.current.version
-val mcDep = property("mod.mc_dep").toString()
-val dcDep = property("mod.dc_dep").toString()
+enum class DependencyLevel {
+    Include,
+    Implementation,
+    Api,
+    CompileOnly
+}
+fun modDependency(modId: String, url: String, level: DependencyLevel) {
+    val isPresent = !deps[modId].startsWith("[")
+    stonecutter {
+        constants {
+            put(modId, isPresent)
+        }
+    }
 
-version = "${mod.version}+$mcVersion"
-group = mod.group
-base { archivesName.set(mod.id) }
+    if (isPresent) {
+        val resolvedUrl = url.replace("{}", deps[modId])
+        dependencies {
+            when (level) {
+                DependencyLevel.Include -> {
+                    modImplementation(resolvedUrl)
+                    include(resolvedUrl)
+                }
 
+                DependencyLevel.Implementation -> modImplementation(resolvedUrl)
+                DependencyLevel.Api -> modApi(resolvedUrl)
+                DependencyLevel.CompileOnly -> modCompileOnly(resolvedUrl)
+            }
+        }
+    }
+}
+
+version = "${mod.version}+$minecraft"
+group = "${mod.group}.$loader"
+base {
+    archivesName.set(mod.id)
+}
+
+val shadowBundle: Configuration by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+}
 
 repositories {
     mavenLocal()
-    fun strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
-        forRepository { maven(url) { name = alias } }
-        filter { groups.forEach(::includeGroup) }
-    }
-    strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
+    maven("https://repo.spongepowered.org/maven")
+
     strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
+    strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
+
+    when (loader) {
+        Loader.Forge -> {
+            maven("https://maven.minecraftforge.net")
+            maven("https://thedarkcolour.github.io/KotlinForForge/")
+        }
+
+        Loader.NeoForge -> {
+            maven("https://maven.neoforged.net/releases/")
+            maven("https://thedarkcolour.github.io/KotlinForForge/")
+        }
+
+        Loader.Fabric -> {
+        }
+    }
+    // load this after KotlinForForge
+    maven("https://maven.isxander.dev/releases")
+
     maven("https://maven.shedaniel.me/")
     maven("https://maven.terraformersmc.com/")
     maven("https://maven.ladysnake.org/releases") {
         name = "Ladysnake Mods"
     }
     maven("https://minecraft.guntram.de/maven/")
-    maven("https://maven.wispforest.io")
     maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
     maven("https://mvn.devos.one/releases/") /* Porting Lib */
     maven("https://maven.wispforest.io") /* Lavender */
@@ -53,41 +95,55 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:$mcVersion")
-    mappings("net.fabricmc:yarn:$mcVersion+build.${deps["yarn_build"]}:v2")
-    modImplementation("net.fabricmc:fabric-loader:${deps["fabric_loader"]}")
+    minecraft("com.mojang:minecraft:$minecraft")
+    mappings(loom.layered {
+        mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+        mod.dep("neoforge_patch").takeUnless { it.startsWith('[') }?.let {
+            mappings("dev.architectury:yarn-mappings-patch-neoforge:$it")
+        }
+    })
 
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${deps["fabric_api"]}")
-    modImplementation("mod.crend:dynamiccrosshair:${deps["dynamiccrosshair"]}-fabric-api")
-    //modLocalRuntime("mod.crend.dynamiccrosshair:dynamiccrosshair:${deps["dynamiccrosshair"]}-fabric")
-    //modRuntimeOnly(name="libbamboo", group="mod.crend.libbamboo", version="fabric-${deps["libbamboo"]}")
-
-    mapOf(
-        "architectury" to "dev.architectury:architectury-fabric:{}",
-        "cca" to if (stonecutter.eval(mcVersion, ">=1.20.6")) "org.ladysnake.cardinal-components-api:cardinal-components-base:{}" else "dev.onyxstudios.cardinal-components-api:cardinal-components-base:{}",
-        "fabric_language_kotlin" to "net.fabricmc:fabric-language-kotlin:{}",
-        "geckolib" to "software.bernie.geckolib:geckolib-fabric-{}",
-        //"omega_config" to "dev.draylar.omega-config:omega-config-base:{}",
-        "owo" to "io.wispforest:owo-lib:{}",
-        "lavender" to "io.wispforest:lavender:{}",
-        "gbfabrictools" to "de.guntram.mcmod:GBfabrictools:{}",
-        // Immersive Portals is split up weirdly before 1.20.4
-        "immersiveportals" to if (stonecutter.eval(mcVersion, ">=1.20.4")) "com.github.iPortalTeam:ImmersivePortalsMod:{}" else "com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:{}",
-    ).map { (modId, url) ->
-        modId to url.replace("{}", deps[modId])
-    }.forEach { (modId, url) ->
-        val present = !deps[modId].startsWith("[")
-        stonecutter.const(modId, present)
-        if (present) {
-            modImplementation(url)
+    when (loader) {
+        Loader.Fabric -> {
+            modImplementation("net.fabricmc:fabric-loader:${mod.dep("fabric_loader")}")
+        }
+        Loader.Forge -> {
+            "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
+            "io.github.llamalad7:mixinextras-common:${mod.dep("mixin_extras")}".let {
+                annotationProcessor(it)
+                compileOnly(it)
+            }
+            "io.github.llamalad7:mixinextras-forge:${mod.dep("mixin_extras")}".let {
+                implementation(it)
+                include(it)
+            }
+            if (stonecutter.eval(minecraft, ">=1.21.6")) {
+                annotationProcessor("net.minecraftforge:eventbus-validator:7.0-beta.7")
+            }
+        }
+        Loader.NeoForge -> {
+            "neoForge"("net.neoforged:neoforge:${mod.dep("neoforge_loader")}")
         }
     }
+
+    modDependency("fabric_api", "net.fabricmc.fabric-api:fabric-api:{}", DependencyLevel.Implementation)
+    modDependency("dynamiccrosshair", "mod.crend:dynamiccrosshair:{}-fabric-api", DependencyLevel.Implementation)
+    modDependency("architectury", "dev.architectury:architectury-fabric:{}", DependencyLevel.Implementation)
+    modDependency("cca", if (stonecutter.eval(minecraft, ">=1.20.6")) "org.ladysnake.cardinal-components-api:cardinal-components-base:{}" else "dev.onyxstudios.cardinal-components-api:cardinal-components-base:{}", DependencyLevel.Implementation)
+    modDependency("fabric_language_kotlin", "net.fabricmc:fabric-language-kotlin:{}", DependencyLevel.Implementation)
+    modDependency("geckolib", "software.bernie.geckolib:geckolib-fabric-{}", DependencyLevel.Implementation)
+    //modDependency("omega_config", "dev.draylar.omega-config:omega-config-base:{}", DependencyLevel.Implementation)
+    modDependency("owo", "io.wispforest:owo-lib:{}", DependencyLevel.Implementation)
+    modDependency("lavender", "io.wispforest:lavender:{}", DependencyLevel.Implementation)
+    modDependency("gbfabrictools", "de.guntram.mcmod:GBfabrictools:{}", DependencyLevel.Implementation)
+    // Immersive Portals is split up weirdly before 1.20.4
+    modDependency("immersiveportals", if (stonecutter.eval(minecraft, ">=1.20.4")) "com.github.iPortalTeam:ImmersivePortalsMod:{}" else "com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:{}", DependencyLevel.Implementation)
+    modDependency("teamreborn_energy", "teamreborn:energy:{}", DependencyLevel.Implementation)
+    modDependency("cloth_config", "me.shedaniel.cloth:cloth-config-fabric:{}", DependencyLevel.Api)
+
     if (!deps["porting_lib"].startsWith("[")) {
         modCompileOnly("io.github.fabricators_of_create.Porting-Lib:tool_actions:${deps["porting_lib"]}")
         modCompileOnly("io.github.fabricators_of_create.Porting-Lib:transfer:${deps["porting_lib"]}")
-    }
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${deps["cloth_config"]}") {
-        exclude(group = "net.fabricmc.fabric-api")
     }
 
     /* Supported Mods */
@@ -109,127 +165,103 @@ dependencies {
 }
 
 loom {
+    if (loader.isForge()) {
+        forge.mixinConfigs(
+            "dynamiccrosshaircompat.mixins.json"
+        )
+    }
+
     decompilers {
         get("vineflower").apply { // Adds names to lambdas - useful for mixins
             options.put("mark-corresponding-synthetics", "1")
         }
     }
-
-    runConfigs.all {
-        ideConfigGenerated(true)
-        vmArgs("-Dmixin.debug.export=false")
-        runDir = "../../run"
-    }
-
-    sourceSets {
-        main {
-            resources {
-                srcDir(project.file("src/main/generated"))
-            }
-        }
-    }
-}
-
-fabricApi {
-    configureDataGeneration {
-        createRunConfiguration = true
-        modId = "dynamiccrosshaircompat"
-    }
 }
 
 java {
     withSourcesJar()
-    val java = if (stonecutter.eval(mcVersion, ">=1.20.6")) JavaVersion.VERSION_21 else JavaVersion.VERSION_17
+    val java = if (stonecutter.eval(minecraft, ">=1.20.5"))
+        JavaVersion.VERSION_21 else JavaVersion.VERSION_17
     targetCompatibility = java
     sourceCompatibility = java
 }
 
+tasks.remapJar {
+    injectAccessWidener = true
+    inputFile = tasks.shadowJar.get().archiveFile
+    archiveClassifier = loader.toString()
+    dependsOn(tasks.shadowJar)
+}
+
+tasks.shadowJar {
+    configurations = listOf(shadowBundle)
+    archiveClassifier = "dev-shadow"
+    when (loader) {
+        Loader.Fabric -> exclude("META-INF", "pack.mcmeta", "architectury.common.json")
+        Loader.Forge -> exclude("fabric.mod.json", "META-INF/neoforge.mods.toml", "architectury.common.json")
+        Loader.NeoForge -> exclude( "fabric.mod.json", "META-INF/mods.toml", "architectury.common.json")
+    }
+}
+
 tasks.processResources {
-    inputs.property("id", mod.id)
-    inputs.property("name", mod.name)
-    inputs.property("version", mod.version)
-    inputs.property("mcdep", mcDep)
-    inputs.property("dcdep", dcDep)
     inputs.file("supported_mods.csv")
 
-    val map = mapOf(
+    properties(
+        listOf("fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "pack.mcmeta"),
         "id" to mod.id,
         "name" to mod.name,
         "version" to mod.version,
-        "mcdep" to mcDep,
-        "dcdep" to dcDep
+        "minecraft" to mod.prop("mc_dep"),
+        "dc_dep" to mod.prop("dc_dep")
     )
 
-    filesMatching("fabric.mod.json") { expand(map) }
-    filesMatching("dynamiccrosshaircompat.mixins.json") {
-        var first = true
-        filter {
-            var result: String? = it
-            if (it.startsWith("    \"")) {
-                val clazz = it
-                    .replace("    \"", "")
-                    .replace("\"", "")
-                    .replace(",", "")
-                    .replace(".", "/")
-                if (file("./build/classes/java/main/mod/crend/dynamiccrosshair/compat/mixin/${clazz}.class").exists()) {
-                    // Since we can only to line-by-line filtering, removing lines from the end of the array will cause
-                    // the resulting JSON to be malformed. JSON is a bad format. The workaround is to prepend a comma to
-                    // every (not-first) line instead. It will get pretty-printed later, so we can ignore formatting.
-                    result = it.replace(",", "")
-                    if (first) {
-                        first = false
-                    } else {
-                        result = ", $result"
-                    }
-                }
-                else
-                    result = null
-            }
-            // gradle is stupid and says this is an unexpected type, but filter expects "null" return to remove lines...
-            // This is also why we store the result in a temporary variable, so that not the entire filter above gets
-            // highlighted as wrong in IDEA.
-            result
-        }
-    }
+    filterVersionedMixins(layout.buildDirectory.get())
 }
 
 tasks.register<Copy>("buildAndCollect") {
     group = "build"
-    from(tasks.remapJar.get().archiveFile)
-    into(rootProject.layout.buildDirectory.file("libs/${mod.version}"))
+    description = "Builds all versions and copies them to build/libs/<version>"
+    from(tasks.remapJar.get().archiveFile, tasks.remapSourcesJar.get().archiveFile)
+    into(rootProject.layout.buildDirectory.file("libs/${mod.version}/$loader"))
     dependsOn("build")
 }
 
-publishMods {
-    displayName = "[Fabric ${property("mod.mc_title")}] ${mod.name} ${mod.version}"
+if (mod.publish("current")) {
+    publishMods {
+        displayName = "[${loader.name} ${mod.prop("mc_title")}] ${mod.name} ${mod.version}"
 
-    val modrinthToken = providers.gradleProperty("MODRINTH_TOKEN").orNull
-    val curseforgeToken = providers.gradleProperty("CURSEFORGE_TOKEN").orNull
-    dryRun = modrinthToken == null || curseforgeToken == null
+        val modrinthToken = providers.gradleProperty("MODRINTH_TOKEN").orNull
+        val curseforgeToken = providers.gradleProperty("CURSEFORGE_TOKEN").orNull
+        dryRun = mod.publish("dryrun") || modrinthToken == null || curseforgeToken == null
 
-    file = tasks.remapJar.get().archiveFile
-    version = "${mod.version}+$mcVersion"
-    changelog = mod.changelog
-    type = STABLE
-    modLoaders.add("fabric")
+        file = tasks.remapJar.get().archiveFile
+        version = "${mod.version}+$minecraft-$loader"
+        changelog = mod.prop("changelog")
+        type = STABLE
+        modLoaders.add(loader.toString())
 
-    val supportedVersions = property("mod.mc_targets").toString().split(" ")
+        val supportedVersions = mod.prop("mc_targets").split(" ")
 
-    modrinth {
-        projectId = property("publish.modrinth").toString()
-        accessToken = modrinthToken
-        minecraftVersions.addAll(supportedVersions)
+        modrinth {
+            projectId = property("publish.modrinth").toString()
+            accessToken = modrinthToken
+            minecraftVersions.addAll(supportedVersions)
 
-        requires("dynamiccrosshair")
-    }
-    curseforge {
-        projectId = property("publish.curseforge").toString()
-        projectSlug = property("publish.curseforge_slug").toString()
-        accessToken = curseforgeToken
-        minecraftVersions.addAll(supportedVersions)
-        clientRequired = true
-        serverRequired = false
+            requires("fabric-api")
+            optional("yacl")
+            optional("modmenu")
+        }
+        curseforge {
+            projectId = property("publish.curseforge").toString()
+            projectSlug = property("publish.curseforge_slug").toString()
+            accessToken = curseforgeToken
+            minecraftVersions.addAll(supportedVersions)
+            clientRequired = true
+            serverRequired = false
 
-        requires("dynamic-crosshair")
+            requires("fabric-api")
+            optional("yacl")
+            optional("modmenu")
+        }
     }
 }

@@ -6,7 +6,7 @@ import me.steven.indrev.blockentities.MachineBlockEntity;
 import me.steven.indrev.blocks.machine.MachineBlock;
 import me.steven.indrev.items.misc.IRMachineUpgradeItem;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
-import mod.crend.dynamiccrosshairapi.fabric.CrosshairFluidContext;
+import mod.crend.dynamiccrosshairapi.crosshair.CrosshairFluidContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.ItemStack;

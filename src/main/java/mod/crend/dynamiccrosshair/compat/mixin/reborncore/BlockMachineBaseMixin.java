@@ -2,7 +2,7 @@
 package mod.crend.dynamiccrosshair.compat.mixin.reborncore;
 
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
-import mod.crend.dynamiccrosshairapi.fabric.CrosshairFluidContext;
+import mod.crend.dynamiccrosshairapi.crosshair.CrosshairFluidContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.ItemStack;

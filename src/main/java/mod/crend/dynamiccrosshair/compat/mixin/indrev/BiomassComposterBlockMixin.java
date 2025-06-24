@@ -5,7 +5,7 @@ import me.steven.indrev.blockentities.farms.BiomassComposterBlockEntity;
 import me.steven.indrev.blocks.misc.BiomassComposterBlock;
 import me.steven.indrev.registry.IRBlockRegistry;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
-import mod.crend.dynamiccrosshairapi.fabric.CrosshairFluidContext;
+import mod.crend.dynamiccrosshairapi.crosshair.CrosshairFluidContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.block.ComposterBlock;

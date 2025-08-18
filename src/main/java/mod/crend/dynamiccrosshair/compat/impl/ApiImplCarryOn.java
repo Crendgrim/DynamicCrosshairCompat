@@ -76,7 +76,7 @@ public class ApiImplCarryOn implements DynamicCrosshairApi {
 					}
 
 					boolean canPlace = state.canPlaceAt(context.getWorld(), pos)
-							&& context.getWorld().canPlayerModifyAt(context.getPlayer(), pos)
+							&& context.getWorld()./*? if <1.21.5 {*/canPlayerModifyAt/*?} else {*//*canEntityModifyAt*//*?}*/(context.getPlayer(), pos)
 							&& context.getWorld().getBlockState(pos).canReplace(placementContext)
 							&& context.getWorld().canPlace(state, pos, ShapeContext.of(context.getPlayer()));
 					if (canPlace) {
@@ -112,9 +112,9 @@ public class ApiImplCarryOn implements DynamicCrosshairApi {
 				&& entity.timeUntilRegen == 0
 		) {
 			if (entity instanceof TameableEntity tame) {
-				UUID owner = tame.getOwnerUuid();
+				var owner = tame./*? <1.21.5 {*/getOwnerUuid()/*?} else {*//*getOwnerReference()*//*?}*/;
 				UUID playerID = context.getPlayer().getGameProfile().getId();
-				if (owner != null && !owner.equals(playerID)) {
+				if (owner != null && !owner/*? >=1.21.5 {*//*.getUuid()*//*?}*/.equals(playerID)) {
 					return null;
 				}
 			}

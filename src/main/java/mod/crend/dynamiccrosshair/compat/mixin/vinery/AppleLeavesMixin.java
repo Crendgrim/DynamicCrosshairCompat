@@ -13,7 +13,7 @@ public class AppleLeavesMixin implements DynamicCrosshairBlock {
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
 		BlockState blockState = context.getBlockState();
-		if (blockState.get(AppleLeavesBlock.VARIANT) && blockState.get(AppleLeavesBlock.HAS_APPLES)) {
+		if (blockState.get(AppleLeavesBlock.HAS_APPLES) && blockState.get(AppleLeavesBlock.AGE) == 3) {
 			return InteractionType.TAKE_ITEM_FROM_BLOCK;
 		}
 		return InteractionType.EMPTY;

@@ -1,9 +1,11 @@
 package mod.crend.dynamiccrosshair.compat.impl;
 
-//? if more-banner-features {
+//? if more-banner-features && <1.21.6 {
 import de.kxmischesdomi.morebannerfeatures.core.accessor.Bannerable;
 import de.kxmischesdomi.morebannerfeatures.core.accessor.InventoryBannerable;
-//?}
+//?} else if more-banner-features {
+/*import dev.svrt.domiirl.mbf.accessor.Bannerable;
+*///?}
 import mod.crend.dynamiccrosshairapi.DynamicCrosshairApi;
 import mod.crend.dynamiccrosshairapi.crosshair.Crosshair;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
@@ -32,8 +34,14 @@ public class ApiImplMoreBannerFeatures implements DynamicCrosshairApi {
 		Item item = context.getItem();
 		Entity entity = context.getEntity();
 
-		if (entity instanceof Bannerable bannerable && !(entity instanceof InventoryBannerable || entity instanceof PlayerEntity)) {
-			if (bannerable.getBannerItem().isEmpty()) {
+		if (entity instanceof Bannerable bannerable
+				/*? if <1.21.6 {*/
+				&& !(entity instanceof InventoryBannerable || entity instanceof PlayerEntity)
+				/*?} else {*/
+				/*&& bannerable.mbf$isEnabled()
+				*//*?}*/
+		) {
+			if (bannerable./*? if <1.21.6 {*/getBannerItem()/*?} else {*//*mbf$getBannerItem()*//*?}*/.isEmpty()) {
 				if (item instanceof BannerItem) {
 					return new Crosshair(InteractionType.USE_ITEM_ON_ENTITY);
 				}

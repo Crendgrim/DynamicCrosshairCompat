@@ -1,8 +1,6 @@
 //? if farmers-delight-refabricated {
 package mod.crend.dynamiccrosshair.compat.mixin.farmersdelight;
 
-//? if <1.21
-import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
@@ -12,6 +10,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import vectorwing.farmersdelight.common.block.CuttingBoardBlock;
 import vectorwing.farmersdelight.common.block.entity.CuttingBoardBlockEntity;
 import vectorwing.farmersdelight.common.tag.ModTags;
+
+//? if <1.21
+import io.github.fabricators_of_create.porting_lib.transfer.item.RecipeWrapper;
+//? if >=1.21.6
+/*import vectorwing.farmersdelight.refabricated.inventory.RecipeWrapper;*/
 
 @Mixin(value = CuttingBoardBlock.class, remap = false)
 public class CuttingBoardBlockMixin implements DynamicCrosshairBlock {
@@ -42,6 +45,7 @@ public class CuttingBoardBlockMixin implements DynamicCrosshairBlock {
 			} else {
 				if (!heldStack.isEmpty()) {
 					if (!cuttingBoardBlockEntity.isItemCarvingBoard()) {
+						//? if <1.21.6 {
 						var matchingRecipe = ((CuttingBoardBlockEntityMixin) cuttingBoardBlockEntity).invokeGetMatchingRecipe(
 								//? if <1.21
 								new RecipeWrapper(cuttingBoardBlockEntity.getInventory()),
@@ -51,6 +55,9 @@ public class CuttingBoardBlockMixin implements DynamicCrosshairBlock {
 						if (matchingRecipe.isPresent()) {
 							return InteractionType.PLACE_ITEM_ON_BLOCK;
 						}
+						//?} else {
+							/*return InteractionType.PLACE_ITEM_ON_BLOCK;
+						*///?}
 					}
 				} else if (context.isMainHand()) {
 					return InteractionType.TAKE_ITEM_FROM_BLOCK;

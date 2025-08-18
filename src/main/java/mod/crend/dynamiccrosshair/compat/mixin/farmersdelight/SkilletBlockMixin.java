@@ -32,10 +32,14 @@ public class SkilletBlockMixin implements DynamicCrosshairBlock {
 				return InteractionType.INTERACT_WITH_BLOCK;
 			}
 
+			//? if <1.21.6 {
 			var recipe = ((SkilletBlockEntityMixin) skilletEntity).invokeGetMatchingRecipe(/*? if <1.21 {*/new SimpleInventory(heldStack)/*?} else {*//*heldStack*//*?}*/);
 			if (recipe.isPresent()) {
 				return InteractionType.PLACE_ITEM_ON_BLOCK;
 			}
+			//?} else {
+			/*return InteractionType.PLACE_ITEM_ON_BLOCK;
+			*///?}
 		}
 		return InteractionType.EMPTY;
 	}

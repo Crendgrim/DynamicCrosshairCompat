@@ -19,7 +19,7 @@ public interface SkilletBlockEntityMixin {
 	//? if <1.21 {
 	@Invoker
 	Optional<CampfireCookingRecipe> invokeGetMatchingRecipe(Inventory recipeWrapper);
-	//?} else {
+	//?} else if <1.21.6 {
 	/*@Invoker
 	Optional<RecipeEntry<CampfireCookingRecipe>> invokeGetMatchingRecipe(ItemStack stack);
 	*///?}

@@ -21,7 +21,7 @@ public interface CuttingBoardBlockEntityMixin {
 	//? if <1.21 {
 	@Invoker
 	Optional<CuttingBoardRecipe> invokeGetMatchingRecipe(RecipeWrapper recipeWrapper, ItemStack toolStack, @Nullable PlayerEntity player);
-	//?} else {
+	//?} else if <1.21.6 {
 	/*@Invoker
 	Optional<RecipeEntry<CuttingBoardRecipe>> invokeGetMatchingRecipe(ItemStack toolStack, @Nullable PlayerEntity player);
 	*///?}

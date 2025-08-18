@@ -122,7 +122,7 @@ fun main(args: Array<String>) {
             if (update.previousVersion == null) {
                 content?.add("${modEntry},false")
             } else {
-                for (i in 0..(content?.size ?: 0)) {
+                for (i in 0..(content?.size ?: 1) - 1) {
                     if (content?.get(i)?.startsWith("${update.modId},") == true) {
                         if (content[i]?.startsWith("${update.modId},disabled,") != true) {
                             content[i] = "${modEntry},${update.previousVersion.includeAtRuntime}"

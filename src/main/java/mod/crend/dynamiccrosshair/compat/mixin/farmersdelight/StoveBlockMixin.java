@@ -68,10 +68,14 @@ public class StoveBlockMixin implements DynamicCrosshairBlock {
 				return InteractionType.EMPTY;
 			}
 
+			//? if <1.21.6 {
 			var recipe = stoveEntity.getMatchingRecipe(/*? if <1.21 {*/new SimpleInventory(heldStack), stoveSlot/*?} else {*//*heldStack*//*?}*/);
 			if (recipe.isPresent()) {
 				return InteractionType.PLACE_ITEM_ON_BLOCK;
 			}
+			//?} else {
+			/*return InteractionType.PLACE_ITEM_ON_BLOCK;
+			*///?}
 		}
 
 		return InteractionType.EMPTY;

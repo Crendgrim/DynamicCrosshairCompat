@@ -1,7 +1,6 @@
 //? if vinery {
 package mod.crend.dynamiccrosshair.compat.mixin.vinery;
 
-import de.cristelknight.doapi.common.block.entity.StorageBlockEntity;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
@@ -10,6 +9,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.satisfy.vinery.core.block.WineBottleBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+
+import net.satisfy.vinery.core.block.entity.StorageBlockEntity;
 
 @Mixin(value = WineBottleBlock.class, remap = false)
 public abstract class WineBottleBlockMixin implements DynamicCrosshairBlock {

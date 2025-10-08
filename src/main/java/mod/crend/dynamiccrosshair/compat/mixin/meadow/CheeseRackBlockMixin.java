@@ -1,45 +1,30 @@
 //? if meadow {
 package mod.crend.dynamiccrosshair.compat.mixin.meadow;
 
-import de.cristelknight.doapi.Util;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
+import net.satisfy.meadow.core.util.GeneralUtil;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Optional;
 
-//? if =1.20.1 {
 import org.spongepowered.asm.mixin.Shadow;
 import net.satisfy.meadow.core.block.CheeseRackBlock;
 import net.satisfy.meadow.core.block.entity.CheeseRackBlockEntity;
 import net.satisfy.meadow.core.registry.TagRegistry;
 
-//?} else {
-/*import net.satisfyu.meadow.block.CheeseRackBlock;
-import net.satisfyu.meadow.entity.blockentities.CheeseRackBlockEntity;
-import net.satisfyu.meadow.registry.TagRegistry;
-import org.spongepowered.asm.mixin.Unique;
-*///?}
-
 @Mixin(value = CheeseRackBlock.class, remap = false)
 public abstract class CheeseRackBlockMixin implements DynamicCrosshairBlock {
-	//? if =1.20.1 {
 	@Shadow public abstract Direction[] unAllowedDirections();
-	//?} else {
-	/*@Unique
-	public Direction[] unAllowedDirections() {
-		return new Direction[] { Direction.DOWN, Direction.UP };
-	}
-	*///?}
 
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
 		if (!context.getPlayer().isSneaking() && context.getBlockEntity() instanceof CheeseRackBlockEntity be) {
-			Optional<Pair<Float, Float>> optional = Util.getRelativeHitCoordinatesForBlockFace(context.getBlockHitResult(), context.getBlockState().get(CheeseRackBlock.FACING), this.unAllowedDirections());
+			Optional<Pair<Float, Float>> optional = GeneralUtil.getRelativeHitCoordinatesForBlockFace(context.getBlockHitResult(), context.getBlockState().get(CheeseRackBlock.FACING), this.unAllowedDirections());
 			if (optional.isPresent()) {
 				int slot = optional.get().getRight() > 0.5 ? 1 : 0;
 

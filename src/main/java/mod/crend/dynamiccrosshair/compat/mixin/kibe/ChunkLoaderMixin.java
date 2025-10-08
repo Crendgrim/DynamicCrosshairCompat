@@ -1,12 +1,16 @@
 //? if kibe {
 package mod.crend.dynamiccrosshair.compat.mixin.kibe;
 
-import io.github.lucaargolo.kibe.blocks.chunkloader.ChunkLoader;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import net.minecraft.state.property.Properties;
 import org.spongepowered.asm.mixin.Mixin;
+
+//? if <1.21 {
+import io.github.lucaargolo.kibe.blocks.chunkloader.ChunkLoader;
+//?} else
+/*import io.github.lucaargolo.kibe.block.ChunkLoader;*/
 
 @Mixin(value = ChunkLoader.class, remap = false)
 public class ChunkLoaderMixin implements DynamicCrosshairBlock {

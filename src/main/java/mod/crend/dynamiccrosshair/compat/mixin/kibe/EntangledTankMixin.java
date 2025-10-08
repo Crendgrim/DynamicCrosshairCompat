@@ -1,9 +1,6 @@
 //? if kibe {
 package mod.crend.dynamiccrosshair.compat.mixin.kibe;
 
-import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTank;
-import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTankEntity;
-import io.github.lucaargolo.kibe.items.miscellaneous.Rune;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairFluidContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
@@ -12,13 +9,23 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 
+//? if <1.21 {
+import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTank;
+import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTankEntity;
+import io.github.lucaargolo.kibe.items.miscellaneous.Rune;
+//?} else {
+/*import io.github.lucaargolo.kibe.block.EntangledTank;
+import io.github.lucaargolo.kibe.blockentity.EntangledTankEntity;
+import net.minecraft.item.DyeItem;
+*///?}
+
 @Mixin(value = EntangledTank.class, remap = false)
 public class EntangledTankMixin implements DynamicCrosshairBlock {
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
 		if (context.getHitResult().getPos().getY() - context.getBlockPos().getY() > 0.9375) {
 			Item item = context.getItem();
-			if (item instanceof Rune || item == Items.DIAMOND || item == Items.GOLD_INGOT) {
+			if (item instanceof /*? if <1.21 {*/Rune/*?} else {*/ /*DyeItem*//*?}*/ || item == Items.DIAMOND || item == Items.GOLD_INGOT) {
 				return InteractionType.USE_ITEM_ON_BLOCK;
 			}
 		}

@@ -1,11 +1,15 @@
 //? if kibe {
 package mod.crend.dynamiccrosshair.compat.mixin.kibe;
 
-import io.github.lucaargolo.kibe.blocks.miscellaneous.CursedDirt;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairBlock;
 import org.spongepowered.asm.mixin.Mixin;
+
+//? if <1.21 {
+import io.github.lucaargolo.kibe.blocks.miscellaneous.CursedDirt;
+//?} else
+/*import io.github.lucaargolo.kibe.block.CursedDirt;*/
 
 @Mixin(value = CursedDirt.class, remap = false)
 public class CursedDirtMixin implements DynamicCrosshairBlock {

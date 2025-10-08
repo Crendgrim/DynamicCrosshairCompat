@@ -60,9 +60,7 @@
   "depends": {
     "fabricloader": "*",
     "minecraft": "${minecraft}",
-    "java": "*"
-  },
-  "suggests": {
+    "java": "*",
     "dynamiccrosshair": "${dc_dep}"
   }
 }

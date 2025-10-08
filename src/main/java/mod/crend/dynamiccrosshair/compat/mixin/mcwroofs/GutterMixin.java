@@ -13,10 +13,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(value = {
-		RainGutter.class,
-		GutterTall.class
-}, remap = false)
+@Mixin(value = RainGutter.class, remap = false)
 public class GutterMixin implements DynamicCrosshairBlock {
 	@Shadow @Final private static BooleanProperty WATER;
 

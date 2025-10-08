@@ -1,4 +1,4 @@
-//? if meadow {
+//? if meadow && <1.21 {
 package mod.crend.dynamiccrosshair.compat.mixin.meadow;
 
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;

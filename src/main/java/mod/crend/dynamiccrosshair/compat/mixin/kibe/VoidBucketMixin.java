@@ -1,7 +1,6 @@
 //? if kibe {
 package mod.crend.dynamiccrosshair.compat.mixin.kibe;
 
-import io.github.lucaargolo.kibe.items.miscellaneous.VoidBucket;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
@@ -11,6 +10,11 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.RaycastContext;
 import org.spongepowered.asm.mixin.Mixin;
+
+//? if <1.21 {
+import io.github.lucaargolo.kibe.items.miscellaneous.VoidBucket;
+//?} else
+/*import io.github.lucaargolo.kibe.item.VoidBucket;*/
 
 @Mixin(value = VoidBucket.class, remap = false)
 public class VoidBucketMixin implements DynamicCrosshairItem {

@@ -1,7 +1,6 @@
 //? if kibe {
 package mod.crend.dynamiccrosshair.compat.mixin.kibe;
 
-import io.github.lucaargolo.kibe.items.miscellaneous.WoodenBucket;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
@@ -16,6 +15,11 @@ import net.minecraft.world.RaycastContext;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+
+//? if <1.21 {
+import io.github.lucaargolo.kibe.items.miscellaneous.WoodenBucket;
+//?} else
+/*import io.github.lucaargolo.kibe.item.WoodenBucket;*/
 
 @Mixin(value = WoodenBucket.class, remap = false)
 public class WoodenBucketMixin implements DynamicCrosshairItem {

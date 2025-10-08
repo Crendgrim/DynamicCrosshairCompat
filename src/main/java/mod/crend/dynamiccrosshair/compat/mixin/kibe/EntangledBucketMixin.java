@@ -1,8 +1,6 @@
 //? if kibe {
 package mod.crend.dynamiccrosshair.compat.mixin.kibe;
 
-import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTank;
-import io.github.lucaargolo.kibe.items.entangledbucket.EntangledBucket;
 import mod.crend.dynamiccrosshairapi.crosshair.CrosshairContext;
 import mod.crend.dynamiccrosshairapi.interaction.InteractionType;
 import mod.crend.dynamiccrosshairapi.type.DynamicCrosshairItem;
@@ -24,6 +22,14 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.RaycastContext;
 import org.spongepowered.asm.mixin.Mixin;
 
+//? if <1.21 {
+import io.github.lucaargolo.kibe.blocks.entangledtank.EntangledTank;
+import io.github.lucaargolo.kibe.items.entangledbucket.EntangledBucket;
+//?} else {
+/*import io.github.lucaargolo.kibe.block.EntangledTank;
+import io.github.lucaargolo.kibe.item.EntangledBucket;
+*///?}
+
 @Mixin(value = EntangledBucket.class, remap = false)
 public class EntangledBucketMixin implements DynamicCrosshairItem {
 	@Override
@@ -32,6 +38,7 @@ public class EntangledBucketMixin implements DynamicCrosshairItem {
 			return InteractionType.USE_ITEM_ON_BLOCK;
 		}
 
+		//? if <1.21 {
 		NbtCompound tag = EntangledBucket.Companion.getTag(context.getItemStack());
 		StringBuilder colorCode = new StringBuilder();
 		for (int i = 1; i <= 8; i++) {
@@ -74,6 +81,7 @@ public class EntangledBucketMixin implements DynamicCrosshairItem {
 				}
 			}
 		}
+		//?}
 		return InteractionType.EMPTY;
 	}
 }

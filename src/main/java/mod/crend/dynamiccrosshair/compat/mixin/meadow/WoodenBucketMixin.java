@@ -22,14 +22,10 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(value = WoodenBucket.class, remap = false)
 public class WoodenBucketMixin implements DynamicCrosshairItem {
-	//? if =1.20.1 {
 	@Shadow @Final private Fluid content;
-	//?} else
-	/*@Shadow @Final private Fluid fluid;*/
 
 	@Override
 	public InteractionType dynamiccrosshair$compute(CrosshairContext context) {
-		//? if =1.20.1
 		Fluid fluid = this.content;
 		BlockHitResult blockHitResult = context.raycastWithFluid(fluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
 		if (blockHitResult.getType() == HitResult.Type.BLOCK) {

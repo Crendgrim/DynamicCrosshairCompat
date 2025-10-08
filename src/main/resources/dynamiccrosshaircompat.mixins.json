@@ -269,6 +269,7 @@
     "villagersplus.OccultistTableBlockMixin",
     "villagersplus.OceanographerTableBlockMixin",
     "vinery.AppleLeavesMixin",
+    "vinery.CabinetBlockMixin",
     "vinery.CherryLeavesMixin",
     "vinery.GrapeBushMixin",
     "vinery.GrapeVineBlockMixin",

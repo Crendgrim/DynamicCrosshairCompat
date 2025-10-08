@@ -61,6 +61,6 @@
     "fabricloader": "*",
     "minecraft": "${minecraft}",
     "java": "*",
-    "dynamiccrosshair": "${dc_dep}"
+    "${dc_name}": "*"
   }
 }

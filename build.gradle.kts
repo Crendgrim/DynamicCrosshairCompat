@@ -219,6 +219,10 @@ tasks.processResources {
         "name" to mod.name,
         "version" to mod.version,
         "minecraft" to mod.prop("mc_dep"),
+        // Hack because somehow loom does not add dynamiccrosshairapi to the run path when we explicitly add
+        // dynamiccrosshair as a modRuntimeOnly. Setting mod.run_datagen to true makes it so we can still run
+        // datagen and depend on dynamiccrosshair in production.
+        "dc_name" to if (mod.prop("run_datagen") == "true") "minecraft" else "dynamiccrosshair",
         "dc_dep" to mod.prop("dc_dep")
     )
 
